@@ -112,7 +112,7 @@ window.addEventListener('load', function () {
 				this.context.textAlign = 'center';
 				this.context.textBaseline = 'middle';
 				this.context.letterSpacing = '3px';
-				this.context.font = `${this.fontSize}px Tahoma`;
+				this.context.font = `${this.fontSize}px 'Roboto', sans-serif`;
 
 				// break text into lines
 				let linesArray = [];
