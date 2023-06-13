@@ -73,7 +73,7 @@ window.addEventListener('load', function () {
 				this.textX = this.canvasWidth / 2;
 				this.textY = this.canvasHeight / 2;
 				this.fontSize = 80;
-				this.lineHeight = this.fontSize * 0.85;
+				this.lineHeight = this.fontSize * 0.85 + 10;
 				this.maxTextWidth = canvas.width * 0.85;
 
 				this.particles = [];
