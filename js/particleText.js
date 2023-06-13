@@ -111,7 +111,8 @@ window.addEventListener('load', function () {
 				this.context.fillStyle = 'white'; // apply gradient here
 				this.context.textAlign = 'center';
 				this.context.textBaseline = 'middle';
-				this.context.font = `${this.fontSize}px \'Fira Code\', monospace`;
+				this.context.letterSpacing = '3px';
+				this.context.font = `${this.fontSize}px Tahoma`;
 
 				// break text into lines
 				let linesArray = [];
