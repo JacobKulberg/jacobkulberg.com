@@ -3,3 +3,198 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+
+body {
+	font-family: Calibri, sans-serif;
+	line-height: 1.6;
+}
+
+header {
+	background: no-repeat center;
+	background-size: cover;
+	background-image: url('../images/helping.jpg');
+	color: #fff;
+	text-align: center;
+	padding: 16px 0;
+}
+
+header h1 {
+	font-size: 54px;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 20px;
+	margin-bottom: 10px;
+}
+
+header div,
+header nav {
+	width: 50%;
+	margin: 0 auto;
+}
+
+h1 span {
+	display: inline-block;
+}
+
+nav ul {
+	list-style: none;
+}
+
+nav ul li {
+	display: inline-block;
+	margin: 3px 10px;
+}
+
+nav ul li a {
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 26px;
+	white-space: nowrap;
+	background-color: rgba(0, 0, 0, calc(1 / 3));
+	border-radius: 10px;
+	padding: 5px;
+	transition: background-color linear 0.5s;
+}
+
+nav ul li a:hover {
+	background-color: rgba(0, 0, 0, 0.75);
+}
+
+section h2 {
+	font-size: 28px;
+}
+
+section p {
+	font-size: 20px;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+#my-mission p:not(:last-child),
+#about-me p:not(:last-child) {
+	margin-bottom: 15px;
+}
+
+#about-me-divider {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#about-me-divider div {
+	margin: 0 50px;
+}
+
+#about-me-divider div p {
+	max-width: 500px;
+}
+
+#about-me-divider div img {
+	width: 350px;
+}
+
+#hidden-jacob-image {
+	width: 350px;
+	display: none;
+}
+
+section div ul li {
+	font-size: 20px;
+}
+
+.selectedAnchor {
+	background-color: #ffffaa !important;
+}
+
+section {
+	padding: 20px;
+	text-align: center;
+	transition: background-color linear 0.5s;
+}
+
+#services,
+#contact-me {
+	background: #f4f4f4;
+}
+
+#services li {
+	text-align: left;
+}
+
+#services-list {
+	max-width: 525px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+footer {
+	text-align: center;
+	padding: 1em 0;
+	background: #333;
+	color: #ffffff;
+}
+
+#go-to-top {
+	display: none;
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	z-index: 100;
+	border: none;
+	outline: none;
+	background-color: rgba(140, 140, 140, 0.7);
+	color: white;
+	cursor: pointer;
+	padding: 15px;
+	border-radius: 10px;
+	font-size: 18px;
+	font-weight: bold;
+	transition: background-color linear 0.5s;
+}
+
+#go-to-top:hover {
+	background-color: #333;
+}
+
+@media (max-width: 1000px) {
+	#about-me-divider div {
+		margin: 0;
+	}
+
+	#hidden-jacob-image {
+		display: block;
+		margin: 5px auto 15px;
+		width: 250px;
+	}
+
+	#jacob-image-container {
+		display: none;
+	}
+}
+
+@media (max-width: 966px) {
+	header div,
+	header nav {
+		width: 70%;
+	}
+}
+
+@media (max-width: 841px) {
+	header h1 {
+		font-size: 40px;
+	}
+
+	nav ul li a {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 695px) {
+	header h1 {
+		font-size: 30px;
+	}
+
+	nav ul li a {
+		font-size: 15px;
+	}
+}

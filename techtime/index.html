@@ -9,6 +9,75 @@
 	</head>
 
 	<body>
-		<h1>Tech Time</h1>
+		<button onclick="goToTop()" id="go-to-top">Back to top</button>
+		<div>
+			<header>
+				<div>
+					<h1><span>Tech Time</span> <span>with Jacob</span></h1>
+				</div>
+				<nav>
+					<ul>
+						<li><a href="#my-mission">My Mission</a></li>
+						<li><a href="#services">Services</a></li>
+						<li><a href="#about-me">About Me</a></li>
+						<li><a href="#contact-me">Contact Me</a></li>
+					</ul>
+				</nav>
+			</header>
+
+			<section id="my-mission">
+				<h2>My Mission</h2>
+				<p>Tech Time with Jacob is a nonprofit initiative aimed at empowering residents in 55 and over communities throughout South Florida with the knowledge and support they need to tackle technology-related challenges.</p>
+				<p>As we know, technology plays a significant role in enhancing the quality of life for seniors. However, the learning curve can sometimes be steep. Through my initiative, I provide personalized assistance for software issues on phones, tablets, and laptops. This includes troubleshooting, application setup, internet and email support, and guidance on security best practices.</p>
+			</section>
+
+			<section id="services">
+				<h2>Services</h2>
+				<div id="services-list">
+					<ul>
+						<li>Software troubleshooting on phones, tablets, and laptops</li>
+						<li>Assistance with setting up new devices</li>
+						<li>Help with installing and updating applications</li>
+						<li>Guidance on how to use different features and settings</li>
+						<li>Internet and email setup and support</li>
+						<li>Protection against viruses and malware</li>
+					</ul>
+				</div>
+			</section>
+
+			<section id="about-me">
+				<h2>About Me</h2>
+				<img id="hidden-jacob-image" src="images/jacob.png" alt="Jacob Kulberg" />
+				<div id="about-me-divider">
+					<div>
+						<p>Hi there, my name is Jacob! I'm a high school student from South Florida, currently in my senior year at American Heritage School in Boca Delray. My journey with computers started at a very young age, and since then, my curiosity and passion for technology have only grown.</p>
+						<p>I am deeply invested in computer science and plan to major in it during my college years. My ultimate goal is to become a software engineer. Through my education and personal projects, I have developed a skill set that I am eager to share with others, especially those who might find the ever-evolving world of technology a bit daunting.</p>
+						<p>Running Tech Time with Jacob is not just a project for me, but a way to give back to my community. By helping the residents in 55 and over communities, I aim to make a difference by sharing the knowledge that has been a significant part of my life.</p>
+					</div>
+					<div id="jacob-image-container">
+						<img src="images/jacob.png" alt="Jacob Kulberg" />
+					</div>
+				</div>
+			</section>
+
+			<section id="contact-me">
+				<h2>Contact Me</h2>
+				<p>For inquiries and assistance, please contact:</p>
+				<p>Email: <a href="mailto:jacobkulberg@gmail.com">jacobkulberg@gmail.com</a></p>
+				<p>Text: (561) 324-2188</p>
+			</section>
+
+			<footer>
+				<p>
+					©
+					<script>
+						document.write(new Date().getFullYear());
+					</script>
+					Tech Time with Jacob. All rights reserved.
+				</p>
+			</footer>
+
+			<script src="js/script.js"></script>
+		</div>
 	</body>
 </html>
