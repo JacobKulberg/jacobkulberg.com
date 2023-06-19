@@ -56,8 +56,10 @@ nav ul li a {
 	transition: background-color linear 0.5s;
 }
 
-nav ul li a:hover {
-	background-color: rgba(0, 0, 0, 0.75);
+@media (hover: hover) {
+	nav ul li a:hover {
+		background-color: rgba(0, 0, 0, 0.75);
+	}
 }
 
 section h2 {
@@ -152,8 +154,10 @@ footer {
 	transition: background-color linear 0.5s;
 }
 
-#go-to-top:hover {
-	background-color: #333;
+@media (hover: hover) {
+	#go-to-top:hover {
+		background-color: #333;
+	}
 }
 
 @media (max-width: 1000px) {
