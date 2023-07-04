@@ -1,0 +1,43 @@
+.typed-text-container {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	pointer-events: none;
+	background-color: var(--main-bg-color);
+	transition: background-color 800ms ease-in-out;
+}
+
+.typed-text {
+	color: #fff;
+	font-family: 'Impact', sans-serif;
+	font-size: 12vw;
+	font-weight: 300;
+	text-align: center;
+	white-space: nowrap;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: top 800ms ease-in-out, transform 800ms ease-in-out;
+}
+
+.typed-text-cursor {
+	width: 1vw;
+	height: 14vw;
+	background-color: #fff;
+	transition: height 250ms cubic-bezier(0.4, 0, 0.2, 1);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.header-spacer {
+	width: 100%;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
+}

@@ -1,0 +1,50 @@
+:root {
+	--main-bg-color: #1c1c1c;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	background-color: var(--main-bg-color);
+}
+
+nav {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto 8px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+	font-family: 'Impact', sans-serif;
+	font-weight: 300;
+	font-size: 4.5vmin;
+	margin: 0 2vmax;
+	padding-bottom: 2px;
+
+	background-image: linear-gradient(white, white);
+	background-size: 0 0.5vmin;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	transition: background-size 0.2s ease-out;
+}
+
+nav a:hover {
+	background-size: 100% 0.5vmin;
+}
+
+header hr {
+	transform: scaleX(0);
+	transition: transform 300ms ease-in;
+}
