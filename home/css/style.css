@@ -37,7 +37,7 @@ nav a {
 	background-size: 0 0.5vmin;
 	background-repeat: no-repeat;
 	background-position: center bottom;
-	transition: background-size 0.2s ease-out;
+	transition: background-size 200ms ease-out;
 }
 
 nav a:hover {

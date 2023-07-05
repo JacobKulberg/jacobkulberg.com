@@ -32,6 +32,14 @@
 	transform: translate(-50%, -50%);
 }
 
+.unfinished {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	pointer-events: auto;
+}
+
 .header-spacer {
 	width: 100%;
 }
