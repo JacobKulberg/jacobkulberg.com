@@ -15,7 +15,7 @@ window.addEventListener('load', function () {
 		mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 			cursor.style.height = '';
 			mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-				cursor.style.animation = `blink ${spedUp ? 120 : 600}ms step-end infinite`;
+				cursor.style.animation = `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`;
 
 				mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 					cursor.style.animation = 'none';
@@ -34,7 +34,7 @@ window.addEventListener('load', function () {
 								cursor.style.left = `calc(51% + ${text.offsetWidth / 2}px)`;
 							}));
 
-							cursor.style.animation = `blink ${spedUp ? 120 : 600}ms step-end infinite`;
+							cursor.style.animation = `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`;
 							mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 								cursor.style.height = '0px';
 								cursor.style.animation = 'none';
@@ -95,9 +95,8 @@ window.addEventListener('load', function () {
 		function accelerateTimeouts() {
 			spedUp = true;
 
-			typedText.style.transition = 'transition: background-color 160ms ease-in-out';
-			text.style.transition = 'top 160ms ease-in-out, transform 160ms ease-in-out';
-			cursor.style.transition = 'height 50ms cubic-bezier(0.4, 0, 0.2, 1)';
+			typedText.style.transition = `transition: background-color ${800 / 7}ms ease-in-out`;
+			text.style.transition = `top 160ms ease-in-out, transform ${800 / 7}ms ease-in-out`;
 
 			window.setTimeout = function (callback, delay, ...args) {
 				return originalSetTimeout(callback, delay / 7, ...args);
