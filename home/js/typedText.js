@@ -100,7 +100,7 @@ window.addEventListener('load', function () {
 			cursor.style.transition = 'height 50ms cubic-bezier(0.4, 0, 0.2, 1)';
 
 			window.setTimeout = function (callback, delay, ...args) {
-				return originalSetTimeout(callback, delay / 5, ...args);
+				return originalSetTimeout(callback, delay / 7, ...args);
 			};
 
 			clearTimeout(mostRecentTimeoutId);
