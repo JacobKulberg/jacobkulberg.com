@@ -96,7 +96,7 @@ window.addEventListener('load', function () {
 			spedUp = true;
 
 			typedText.style.transition = `transition: background-color ${800 / 7}ms ease-in-out`;
-			text.style.transition = `top 160ms ease-in-out, transform ${800 / 7}ms ease-in-out`;
+			text.style.transition = `top ${800 / 7}ms ease-in-out, transform ${800 / 7}ms ease-in-out`;
 
 			window.setTimeout = function (callback, delay, ...args) {
 				return originalSetTimeout(callback, delay / 7, ...args);
