@@ -12,102 +12,75 @@ window.addEventListener('load', function () {
 
 		let spedUp = false;
 
-		mostRecentTimeoutId = setTimeout(
-			(mostRecentTimeout = () => {
-				cursor.style.height = '';
-				mostRecentTimeoutId = setTimeout(
-					(mostRecentTimeout = () => {
-						cursor.style.animation = `blink ${spedUp ? 120 : 600}ms step-end infinite`;
+		mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+			cursor.style.height = '';
+			mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+				cursor.style.animation = `blink ${spedUp ? 120 : 600}ms step-end infinite`;
 
-						mostRecentTimeoutId = setTimeout(
-							(mostRecentTimeout = () => {
+				mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+					cursor.style.animation = 'none';
+
+					let value = text.getAttribute('text-value');
+					let index = 0;
+
+					function typeLetter() {
+						if (index < value.length) {
+							text.innerHTML += value[index];
+							cursor.style.left = `calc(51% + ${text.offsetWidth / 2}px)`;
+							index++;
+							mostRecentTimeoutId = setTimeout(mostRecentTimeout = typeLetter, 100);
+						} else {
+							window.addEventListener('resize', (cursorResize = () => {
+								cursor.style.left = `calc(51% + ${text.offsetWidth / 2}px)`;
+							}));
+
+							cursor.style.animation = `blink ${spedUp ? 120 : 600}ms step-end infinite`;
+							mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+								cursor.style.height = '0px';
 								cursor.style.animation = 'none';
+								mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+									window.removeEventListener('resize', cursorResize);
+									cursor.parentNode.removeChild(cursor);
 
-								let value = text.getAttribute('text-value');
-								let index = 0;
+									let scale = window.innerWidth > window.innerHeight ? 0.45 : 0.75;
+									text.style.transformOrigin = 'top center';
+									text.style.transform = `translateX(-50%) scale(${scale})`;
+									text.style.top = `0px`;
 
-								function typeLetter() {
-									if (index < value.length) {
-										text.innerHTML += value[index];
-										cursor.style.left = `calc(51% + ${text.offsetWidth / 2}px)`;
-										index++;
-										mostRecentTimeoutId = setTimeout((mostRecentTimeout = typeLetter), 100);
-									} else {
-										window.addEventListener(
-											'resize',
-											(cursorResize = () => {
-												cursor.style.left = `calc(51% + ${text.offsetWidth / 2}px)`;
-											})
-										);
+									mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+										typedText.style.backgroundColor = 'transparent';
+										text.style.transition = 'unset';
 
-										cursor.style.animation = `blink ${spedUp ? 120 : 600}ms step-end infinite`;
-										mostRecentTimeoutId = setTimeout(
-											(mostRecentTimeout = () => {
-												cursor.style.height = '0px';
-												cursor.style.animation = 'none';
-												mostRecentTimeoutId = setTimeout(
-													(mostRecentTimeout = () => {
-														window.removeEventListener('resize', cursorResize);
-														cursor.parentNode.removeChild(cursor);
+										let textBounds = text.getBoundingClientRect();
+										spacer.style.height = `${textBounds.y + textBounds.height}px`;
 
-														let scale = window.innerWidth > window.innerHeight ? 0.45 : 0.75;
-														text.style.transformOrigin = 'top center';
-														text.style.transform = `translateX(-50%) scale(${scale})`;
-														text.style.top = `0px`;
+										mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+											document.querySelector('header hr').style.transform = 'scaleX(1)';
 
-														mostRecentTimeoutId = setTimeout(
-															(mostRecentTimeout = () => {
-																typedText.style.backgroundColor = 'transparent';
-																text.style.transition = 'unset';
+											mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+												if (unfinished.parentNode) unfinished.parentNode.removeChild(unfinished);
 
-																let textBounds = text.getBoundingClientRect();
-																spacer.style.height = `${textBounds.y + textBounds.height}px`;
+												decelerateTimeouts();
+											}, 300);
+										}, 200);
+									}, 800);
 
-																mostRecentTimeoutId = setTimeout(
-																	(mostRecentTimeout = () => {
-																		document.querySelector('header hr').style.transform = 'scaleX(1)';
+									window.addEventListener('resize', () => {
+										let scale = window.innerWidth > window.innerHeight ? 0.45 : 0.75;
+										text.style.transform = `translateX(-50%) scale(${scale})`;
 
-																		mostRecentTimeoutId = setTimeout(
-																			(mostRecentTimeout = () => {
-																				if (unfinished.parentNode) unfinished.parentNode.removeChild(unfinished);
+										let textBounds = text.getBoundingClientRect();
+										spacer.style.height = `${textBounds.y + textBounds.height}px`;
+									});
+								}, 600);
+							}, 800);
+						}
+					}
 
-																				decelerateTimeouts();
-																			}),
-																			300
-																		);
-																	}),
-																	200
-																);
-															}),
-															800
-														);
-
-														window.addEventListener('resize', () => {
-															let scale = window.innerWidth > window.innerHeight ? 0.45 : 0.75;
-															text.style.transform = `translateX(-50%) scale(${scale})`;
-
-															let textBounds = text.getBoundingClientRect();
-															spacer.style.height = `${textBounds.y + textBounds.height}px`;
-														});
-													}),
-													600
-												);
-											}),
-											800
-										);
-									}
-								}
-
-								typeLetter();
-							}),
-							1400
-						);
-					}),
-					400
-				);
-			}),
-			1000
-		);
+					typeLetter();
+				}, 1400);
+			}, 400);
+		}, 1000);
 
 		unfinished.addEventListener('click', () => {
 			unfinished.parentNode.removeChild(unfinished);
