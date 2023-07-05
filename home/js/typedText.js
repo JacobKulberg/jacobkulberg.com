@@ -17,7 +17,7 @@ window.addEventListener('load', function () {
 				cursor.style.height = '';
 				mostRecentTimeoutId = setTimeout(
 					(mostRecentTimeout = () => {
-						cursor.style.animation = `blink ${spedUp ? 60 : 600}ms step-end infinite`;
+						cursor.style.animation = `blink ${spedUp ? 120 : 600}ms step-end infinite`;
 
 						mostRecentTimeoutId = setTimeout(
 							(mostRecentTimeout = () => {
@@ -40,7 +40,7 @@ window.addEventListener('load', function () {
 											})
 										);
 
-										cursor.style.animation = `blink ${spedUp ? 60 : 600}ms step-end infinite`;
+										cursor.style.animation = `blink ${spedUp ? 120 : 600}ms step-end infinite`;
 										mostRecentTimeoutId = setTimeout(
 											(mostRecentTimeout = () => {
 												cursor.style.height = '0px';
@@ -122,12 +122,12 @@ window.addEventListener('load', function () {
 		function accelerateTimeouts() {
 			spedUp = true;
 
-			typedText.style.transition = 'transition: background-color 80ms ease-in-out';
-			text.style.transition = 'top 80ms ease-in-out, transform 80ms ease-in-out';
-			cursor.style.transition = 'height 25ms cubic-bezier(0.4, 0, 0.2, 1)';
+			typedText.style.transition = 'transition: background-color 160ms ease-in-out';
+			text.style.transition = 'top 160ms ease-in-out, transform 160ms ease-in-out';
+			cursor.style.transition = 'height 50ms cubic-bezier(0.4, 0, 0.2, 1)';
 
 			window.setTimeout = function (callback, delay, ...args) {
-				return originalSetTimeout(callback, delay / 10, ...args);
+				return originalSetTimeout(callback, delay / 5, ...args);
 			};
 
 			clearTimeout(mostRecentTimeoutId);
