@@ -30,8 +30,8 @@ nav a {
 	text-decoration: none;
 	font-family: 'Impact', sans-serif;
 	font-weight: 300;
-	font-size: 4.5vmin;
-	margin: 0 2vmax;
+	font-size: max(min(5vmin, 32px), 16px);
+	margin: 0 2vw;
 	padding-bottom: 2px;
 
 	background-image: linear-gradient(var(--main-gold), var(--main-gold));

@@ -10,7 +10,7 @@
 .typed-text {
 	color: white;
 	font-family: 'Impact', sans-serif;
-	font-size: 12vw;
+	font-size: max(12vw, 32px);
 	font-weight: 300;
 	text-align: center;
 	white-space: nowrap;
