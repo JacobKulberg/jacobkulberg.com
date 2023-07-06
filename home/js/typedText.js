@@ -7,12 +7,11 @@ window.addEventListener('load', function () {
 		let cursor = typedText.getElementsByClassName('typed-text-cursor')[0];
 		let unfinished = typedText.getElementsByClassName('unfinished')[0];
 
-		let mostRecentTimeoutId = NaN;
 		let mostRecentTimeout = null;
 
 		let spedUp = false;
 
-		mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+		let mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 			cursor.style.height = '';
 			mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 				cursor.style.animation = `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`;
