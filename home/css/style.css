@@ -1,5 +1,6 @@
 :root {
 	--main-bg-color: #1c1c1c;
+	--main-gold: #e6bb00;
 }
 
 * {
@@ -33,7 +34,7 @@ nav a {
 	margin: 0 2vmax;
 	padding-bottom: 2px;
 
-	background-image: linear-gradient(white, white);
+	background-image: linear-gradient(var(--main-gold), var(--main-gold));
 	background-size: 0 0.5vmin;
 	background-repeat: no-repeat;
 	background-position: center bottom;
@@ -47,4 +48,7 @@ nav a:hover {
 header hr {
 	transform: scaleX(0);
 	transition: transform 300ms ease-in;
+	background-color: var(--main-gold);
+	height: 1px;
+	border: none;
 }
