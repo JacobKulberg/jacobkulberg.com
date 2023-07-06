@@ -68,8 +68,7 @@ window.addEventListener('load', function () {
 										let scale = window.innerWidth > window.innerHeight ? 0.45 : 0.75;
 										text.style.transform = `translateX(-50%) scale(${scale})`;
 
-										let textBounds = text.getBoundingClientRect();
-										spacer.style.height = `${textBounds.y + textBounds.height}px`;
+										spacer.style.height = `${text.getBoundingClientRect().height}px`;
 									});
 								}, 600);
 							}, 800);
