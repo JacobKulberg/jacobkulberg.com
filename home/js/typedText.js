@@ -62,7 +62,7 @@ window.addEventListener('load', function () {
 												decelerateTimeouts();
 											}, 300);
 										}, 200);
-									}, 800);
+									}, 850);
 
 									window.addEventListener('resize', () => {
 										let scale = window.innerWidth > window.innerHeight ? 0.45 : 0.75;
