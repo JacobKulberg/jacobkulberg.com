@@ -2,7 +2,7 @@ $(window).on('load', () => {
 	let links = $('header nav a');
 	let pages = $('.page');
 
-	let underline = $('#selectedPage');
+	let underline = $('#selected-page');
 
 	let selected = window.location.hash || '#home';
 

@@ -38,7 +38,7 @@ nav a {
 	cursor: pointer;
 }
 
-#selectedPage {
+#selected-page {
 	border-bottom: 3px solid var(--main-gold);
 	width: 30px;
 	height: 100%;
