@@ -41,7 +41,7 @@ $(window).on('load', function() {
 							cursor.css({
 								'animation': `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`,
 								'transition': '',
-								'height': '0px'
+								'height': '0'
 							});
 
 							mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
@@ -52,7 +52,7 @@ $(window).on('load', function() {
 								text.css({
 									'transformOrigin': 'top center',
 									'transform': `translateX(-50%) scale(${scale})`,
-									'top': '0px'
+									'top': '0'
 								});
 
 								mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
