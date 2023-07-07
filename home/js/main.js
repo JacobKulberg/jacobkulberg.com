@@ -1,33 +1,33 @@
-window.addEventListener('load', () => {
-	let links = document.querySelectorAll('header nav a');
-	let pages = document.getElementsByClassName('page');
+$(window).on('load', () => {
+	let links = $('header nav a');
+	let pages = $('.page');
 
-	let underline = document.querySelector('#selectedPage');
+	let underline = $('#selectedPage');
 
 	let selected = window.location.hash || '#home';
 
-	selectPage(document.querySelector(`header nav a[href="${selected}"]`));
+	selectPage($('header nav a[href="' + selected + '"]'));
 
-	[...links].forEach((link) => {
-		link.addEventListener('click', () => {
-			selectPage(link);
-			selected = link.getAttribute('href');
+	links.each((index, link) => {
+		$(link).on('click', () => {
+			selectPage($(link));
+			selected = $(link).attr('href');
 		});
 	});
 
-	window.addEventListener('resize', () => {
-		underline.style.transition = 'none';
-		selectPage(document.querySelector(`header nav a[href="${selected}"]`));
-		underline.style.transition = '';
+	$(window).on('resize', () => {
+		underline.css('transition', 'none');
+		selectPage($('header nav a[href="' + selected + '"]'));
+		underline.css('transition', '');
 	});
 
 	function selectPage(link) {
-		underline.style.left = `${link.offsetLeft}px`;
-		underline.style.width = `${link.offsetWidth}px`;
+		underline.css('left', link.offset().left + 'px');
+		underline.css('width', link.outerWidth() + 'px');
 
-		[...pages].forEach((page) => {
-			page.style.display = 'none';
+		pages.each((index, page) => {
+			$(page).css('display', 'none');
 		});
-		document.getElementById(link.getAttribute('href').substring(1)).style.display = '';
+		$('#' + link.attr('href').substring(1)).css('display', '');
 	}
 });

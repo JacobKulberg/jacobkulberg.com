@@ -1,79 +1,85 @@
-window.addEventListener('load', function () {
-	let spacer = document.getElementById('header-spacer');
+$(window).on('load', function() {
+	let spacer = $('#header-spacer');
 
-	let typedTexts = document.querySelectorAll('.typed-text-container');
-	[...typedTexts].forEach((typedText) => {
-		let text = typedText.getElementsByClassName('typed-text')[0];
-		let cursor = typedText.getElementsByClassName('typed-text-cursor')[0];
-		let unfinished = typedText.getElementsByClassName('unfinished')[0];
+	$('.typed-text-container').each(function() {
+		let typedText = $(this);
+		let text = typedText.find('.typed-text:first');
+		let cursor = typedText.find('.typed-text-cursor:first');
+		let unfinished = typedText.find('.unfinished:first');
 
 		let mostRecentTimeout = null;
 
 		let spedUp = false;
 
-		let mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-			cursor.style.height = '';
-			mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-				cursor.style.transition = 'none';
-				cursor.style.animation = `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`;
+		let mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
+			cursor.css('height', '');
+			mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
+				cursor.css({
+					'transition': 'none',
+					'animation': `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`
+				});
 
-				mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-					cursor.style.animation = 'none';
+				mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
+					cursor.css('animation', 'none');
 
-					let value = text.getAttribute('text-value');
+					let value = text.attr('text-value');
 					let index = 0;
 
 					function typeLetter() {
 						if (index < value.length) {
-							text.innerHTML += value[index];
-							cursor.style.left = `calc(51% + ${text.offsetWidth / 2}px)`;
+							text.html(text.html() + value[index]);
+							cursor.css('left', `calc(51% + ${text.width() / 2}px)`);
 							index++;
 							mostRecentTimeoutId = setTimeout(mostRecentTimeout = typeLetter, 100);
 						} else {
-							window.addEventListener('resize', (cursorResize = () => {
-								cursor.style.left = `calc(51% + ${text.offsetWidth / 2}px)`;
-							}));
+							let cursorResize = function() {
+								cursor.css('left', `calc(51% + ${text.width() / 2}px)`);
+							}
 
-							cursor.style.animation = `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`;
-							mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-								cursor.style.transition = '';
-								cursor.style.height = '0px';
-								cursor.style.animation = 'none';
-								mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-									window.removeEventListener('resize', cursorResize);
-									cursor.parentNode.removeChild(cursor);
+							$(window).on('resize', cursorResize);
 
-									let scale = window.innerWidth > window.innerHeight ? 0.45 : 0.75;
-									text.style.transformOrigin = 'top center';
-									text.style.transform = `translateX(-50%) scale(${scale})`;
-									text.style.top = `0px`;
+							cursor.css({
+								'animation': `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`,
+								'transition': '',
+								'height': '0px'
+							});
 
-									mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-										typedText.style.backgroundColor = 'transparent';
-										text.style.transition = 'none';
+							mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
+								$(window).off('resize', cursorResize);
+								cursor.remove();
 
-										let textBounds = text.getBoundingClientRect();
-										spacer.style.height = `${textBounds.y + textBounds.height}px`;
+								let scale = $(window).innerWidth() > $(window).innerHeight() ? 0.45 : 0.75;
+								text.css({
+									'transformOrigin': 'top center',
+									'transform': `translateX(-50%) scale(${scale})`,
+									'top': '0px'
+								});
 
-										mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-											document.querySelector('header hr').style.transform = 'scaleX(1)';
+								mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
+									typedText.css('backgroundColor', 'transparent');
+									text.css('transition', 'none');
 
-											mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-												if (unfinished.parentNode) unfinished.parentNode.removeChild(unfinished);
+									let textBounds = text[0].getBoundingClientRect();
+									spacer.css('height', `${textBounds.y + textBounds.height}px`);
 
-												decelerateTimeouts();
-											}, 300);
-										}, 200);
-									}, 850);
+									mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
+										$('header hr:first').css('transform', 'scaleX(1)');
 
-									window.addEventListener('resize', () => {
-										let scale = window.innerWidth > window.innerHeight ? 0.45 : 0.75;
-										text.style.transform = `translateX(-50%) scale(${scale})`;
+										mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
+											if (unfinished.parent().length) unfinished.remove();
 
-										spacer.style.height = `${text.getBoundingClientRect().height}px`;
-									});
-								}, 600);
-							}, 800);
+											decelerateTimeouts();
+										}, 300);
+									}, 200);
+								}, 850);
+
+								$(window).on('resize', function() {
+									let scale = $(window).innerWidth() > $(window).innerHeight() ? 0.45 : 0.75;
+									text.css('transform', `translateX(-50%) scale(${scale})`);
+
+									spacer.css('height', `${text[0].getBoundingClientRect().height}px`);
+								});
+							}, 600);
 						}
 					}
 
@@ -82,12 +88,8 @@ window.addEventListener('load', function () {
 			}, 400);
 		}, 1000);
 
-		unfinished.addEventListener('click', () => {
-			unfinished.parentNode.removeChild(unfinished);
-			accelerateTimeouts();
-		});
-		unfinished.addEventListener('touchstart', () => {
-			unfinished.parentNode.removeChild(unfinished);
+		unfinished.on('click touchstart', function() {
+			$(this).remove();
 			accelerateTimeouts();
 		});
 
@@ -95,10 +97,10 @@ window.addEventListener('load', function () {
 		function accelerateTimeouts() {
 			spedUp = true;
 
-			typedText.style.transition = `transition: background-color ${800 / 7}ms ease-in-out`;
-			text.style.transition = `top ${800 / 7}ms ease-in-out, transform ${800 / 7}ms ease-in-out`;
+			typedText.css('transition', `background-color ${800 / 7}ms ease-in-out`);
+			text.css('transition', `top ${800 / 7}ms ease-in-out, transform ${800 / 7}ms ease-in-out`);
 
-			window.setTimeout = function (callback, delay, ...args) {
+			window.setTimeout = function(callback, delay, ...args) {
 				return originalSetTimeout(callback, delay / 7, ...args);
 			};
 
@@ -109,8 +111,8 @@ window.addEventListener('load', function () {
 		function decelerateTimeouts() {
 			spedUp = false;
 
-			typedText.style.transition = 'none';
-			text.style.transition = 'none';
+			typedText.css('transition', 'none');
+			text.css('transition', 'none');
 
 			window.setTimeout = originalSetTimeout;
 		}
