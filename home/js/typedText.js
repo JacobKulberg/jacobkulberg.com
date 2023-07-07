@@ -14,6 +14,7 @@ window.addEventListener('load', function () {
 		let mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 			cursor.style.height = '';
 			mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+				cursor.style.transition = 'none';
 				cursor.style.animation = `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`;
 
 				mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
@@ -35,6 +36,7 @@ window.addEventListener('load', function () {
 
 							cursor.style.animation = `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`;
 							mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
+								cursor.style.transition = '';
 								cursor.style.height = '0px';
 								cursor.style.animation = 'none';
 								mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
@@ -48,7 +50,7 @@ window.addEventListener('load', function () {
 
 									mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 										typedText.style.backgroundColor = 'transparent';
-										text.style.transition = 'unset';
+										text.style.transition = 'none';
 
 										let textBounds = text.getBoundingClientRect();
 										spacer.style.height = `${textBounds.y + textBounds.height}px`;
@@ -107,8 +109,8 @@ window.addEventListener('load', function () {
 		function decelerateTimeouts() {
 			spedUp = false;
 
-			typedText.style.transition = 'unset';
-			text.style.transition = 'unset';
+			typedText.style.transition = 'none';
+			text.style.transition = 'none';
 
 			window.setTimeout = originalSetTimeout;
 		}

@@ -7,6 +7,7 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	user-select: none;
 }
 
 html,
@@ -23,6 +24,7 @@ nav {
 	display: flex;
 	justify-content: center;
 	margin: 0 auto 8px;
+	position: relative;
 }
 
 nav a {
@@ -33,16 +35,16 @@ nav a {
 	font-size: max(min(5vmin, 32px), 16px);
 	margin: 0 2vw;
 	padding-bottom: 2px;
-
-	background-image: linear-gradient(var(--main-gold), var(--main-gold));
-	background-size: 0 0.5vmin;
-	background-repeat: no-repeat;
-	background-position: center bottom;
-	transition: background-size 200ms ease-out;
+	cursor: pointer;
 }
 
-nav a:hover {
-	background-size: 100% 0.5vmin;
+#selectedPage {
+	border-bottom: 3px solid var(--main-gold);
+	width: 30px;
+	height: 100%;
+	position: absolute;
+	transition: left 250ms ease-out, width 250ms ease-out;
+	pointer-events: none;
 }
 
 header hr {

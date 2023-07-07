@@ -5,6 +5,7 @@
 	pointer-events: none;
 	background-color: var(--main-bg-color);
 	transition: background-color 800ms ease-in-out;
+	z-index: 10;
 }
 
 .typed-text {
