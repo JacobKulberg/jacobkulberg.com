@@ -167,3 +167,20 @@ header hr {
 		flex-grow: 0;
 	}
 }
+
+@media (max-height: 600px) {
+	#lettle {
+		max-width: 175px;
+		max-height: 175px;
+	}
+
+	.project-description {
+		& h1 {
+			font-size: 20px;
+		}
+
+		& p {
+			font-size: 16px;
+		}
+	}
+}
