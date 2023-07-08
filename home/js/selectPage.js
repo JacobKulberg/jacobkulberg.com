@@ -15,10 +15,12 @@ $(window).on('load', () => {
 		});
 	});
 
-	$(window).on('resize', () => {
+	$(window).on('resize orientationchange', () => {
 		underline.css('transition', 'none');
 		selectPage($('header nav a[href="' + selected + '"]'));
-		underline.css('transition', '');
+		setTimeout(() => {
+			underline.css('transition', '');
+		}, 0);
 	});
 
 	function selectPage(link) {
@@ -26,8 +28,11 @@ $(window).on('load', () => {
 		underline.css('width', link.outerWidth() + 'px');
 
 		pages.each((index, page) => {
-			$(page).css('display', 'none');
+			$(page).css('opacity', '0');
+			$(page).css('pointerEvents', 'none');
 		});
-		$('#' + link.attr('href').substring(1)).css('display', '');
+
+		$('#' + link.attr('href').substring(1)).css('opacity', '');
+		$('#' + link.attr('href').substring(1)).css('pointerEvents', '');
 	}
 });

@@ -1,6 +1,10 @@
 :root {
 	--main-bg-color: #1c1c1c;
 	--main-gold: #e6bb00;
+	--link-blue: #00aaff;
+	--link-blue-hover: #007cba;
+	--link-hover-bg: rgba(255, 255, 255, 0.15);
+	--link-hover-border: rgba(255, 255, 255, 0.5);
 }
 
 * {
@@ -53,4 +57,113 @@ header hr {
 	background-color: var(--main-gold);
 	height: 1px;
 	border: none;
+}
+
+.page {
+	position: absolute;
+	transition: opacity 250ms linear;
+	color: white;
+	width: 100%;
+}
+
+.project {
+	position: relative;
+	flex: 100000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 100%;
+	border: transparent 3px;
+	border-style: solid none;
+	transition: background-color 250ms ease-out, border-color 250ms ease-out, margin-left 250ms ease-out, padding-left 250ms ease-out;
+	text-decoration: none;
+}
+
+.project-container {
+	display: flex;
+	justify-content: center;
+	margin: 5px 0;
+	font-family: 'Roboto', sans-serif;
+}
+
+.project-container:hover .project {
+	background-color: var(--link-hover-bg);
+	border-color: var(--link-hover-border);
+	margin-left: -30%;
+	padding-left: 30%;
+}
+
+.project canvas {
+	transition: margin-left 500ms ease-in-out;
+}
+
+.link {
+	flex: 1;
+	width: 30%;
+	background-color: var(--link-blue);
+	transition: background-color 250ms ease-out;
+	z-index: 1;
+	overflow: hidden;
+	border: var(--link-blue-hover) 3px;
+	border-style: solid none;
+}
+
+.link:hover {
+	background-color: var(--link-blue-hover);
+}
+
+.link div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	font-size: min(4.5vw, 28px);
+	cursor: pointer;
+}
+
+.link div i {
+	margin: 10px;
+}
+
+.project-selected {
+	background-color: var(--link-hover-bg);
+	border-color: var(--link-hover-border);
+}
+
+.project-description {
+	max-width: 225px;
+	text-align: center;
+	flex: 1;
+	transition: opacity 250ms ease-out, flex-grow 250ms ease-out;
+	position: relative;
+	overflow: hidden;
+
+	& h1 {
+		font-size: min(5vw, 30px);
+		text-decoration: underline;
+	}
+
+	& p {
+		font-size: min(3.75vw, 18px);
+		white-space: nowrap;
+	}
+}
+
+#lettle {
+	flex: 1;
+	width: 50vw !important;
+	height: 50vw !important;
+	max-width: 300px;
+	max-height: 300px;
+	flex-grow: 0;
+}
+
+@media (max-width: 720px) {
+	.project-container:hover .project .project-description {
+		opacity: 0;
+		flex-grow: 0;
+	}
 }
