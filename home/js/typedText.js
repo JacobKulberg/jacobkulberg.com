@@ -60,7 +60,7 @@ $(window).on('load', function() {
 									text.css('transition', 'none');
 
 									let textBounds = text[0].getBoundingClientRect();
-									spacer.css('height', `${textBounds.y + textBounds.height}px`);
+									spacer.css('height', `${textBounds.height}px`);
 
 									mostRecentTimeoutId = setTimeout(mostRecentTimeout = function() {
 										$('header hr:first').css('transform', 'scaleX(1)');
