@@ -6,7 +6,7 @@ $(window).on('load', () => {
 
 	let selected = window.location.hash || '#home';
 
-	selectPage($('header nav a[href="' + selected + '"]'));
+	selectPage($(`header nav a[href="${selected}"]`));
 
 	links.each((index, link) => {
 		$(link).on('click', () => {
@@ -17,22 +17,28 @@ $(window).on('load', () => {
 
 	$(window).on('resize orientationchange', () => {
 		underline.css('transition', 'none');
-		selectPage($('header nav a[href="' + selected + '"]'));
+		selectPage($(`header nav a[href="${selected}"]`));
 		setTimeout(() => {
 			underline.css('transition', '');
 		}, 0);
 	});
 
 	function selectPage(link) {
-		underline.css('left', link.offset().left + 'px');
-		underline.css('width', link.outerWidth() + 'px');
-
-		pages.each((index, page) => {
-			$(page).css('opacity', '0');
-			$(page).css('pointerEvents', 'none');
+		underline.css({
+			left: `${link.offset().left}px`,
+			width: `${link.width()}px`,
 		});
 
-		$('#' + link.attr('href').substring(1)).css('opacity', '');
-		$('#' + link.attr('href').substring(1)).css('pointerEvents', '');
+		pages.each((index, page) => {
+			$(page).css({
+				opacity: '0',
+				pointerEvents: 'none',
+			});
+		});
+
+		$(`#${link.attr('href').slice(1)}`).css({
+			opacity: '',
+			pointerEvents: '',
+		});
 	}
 });

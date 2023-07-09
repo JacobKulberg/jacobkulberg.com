@@ -13,9 +13,12 @@ $(window).on('load', () => {
 
 		let mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 			$(cursor).css('height', '');
+
 			mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
-				$(cursor).css('transition', 'none');
-				$(cursor).css('animation', `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`);
+				$(cursor).css({
+					transition: 'none',
+					animation: `blink ${spedUp ? 600 / 7 : 600}ms step-end infinite`
+				});
 
 				mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 					$(cursor).css('animation', 'none');
