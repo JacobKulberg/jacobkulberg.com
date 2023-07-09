@@ -145,7 +145,9 @@ $('.project-container').on('touchstart', (e) => {
 	});
 });
 
-$(window).on('touchstart', () => {
+$(window).on('touchstart', (e) => {
+	if ($(e.target).parents('.link').length) return;
+
 	let end = $(window).one('touchend', () => {
 		$('.project-container').removeClass('clicked');
 	});
