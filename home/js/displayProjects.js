@@ -115,8 +115,6 @@ function animateLettle() {
 
 animateLettle();
 
-// $(window).on('touchstart', () => {});
-
 $('.link div')
 	.on('touchstart', (e) => {
 		let end = $(e.currentTarget).one('touchend', () => {
