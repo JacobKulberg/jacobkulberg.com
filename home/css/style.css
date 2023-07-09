@@ -86,7 +86,7 @@ header hr {
 	font-family: 'Roboto', sans-serif;
 }
 
-.project-container:hover .project {
+.project-container.clicked .project {
 	background-color: var(--link-hover-bg);
 	border-color: var(--link-hover-border);
 	margin-left: -30%;
@@ -106,10 +106,6 @@ header hr {
 	overflow: hidden;
 	border: var(--link-blue-hover) 3px;
 	border-style: solid none;
-}
-
-.link:hover {
-	background-color: var(--link-blue-hover);
 }
 
 .link div {
@@ -161,10 +157,30 @@ header hr {
 	flex-grow: 0;
 }
 
+@media (hover: hover) {
+	.project-container:hover .project {
+		background-color: var(--link-hover-bg);
+		border-color: var(--link-hover-border);
+		margin-left: -30%;
+		padding-left: 30%;
+	}
+
+	.project-container .link:hover {
+		background-color: var(--link-blue-hover);
+	}
+}
+
 @media (max-width: 720px) {
-	.project-container:hover .project .project-description {
+	.project-container.clicked .project .project-description {
 		opacity: 0;
 		flex-grow: 0;
+	}
+
+	@media (hover: hover) {
+		.project-container:hover .project .project-description {
+			opacity: 0;
+			flex-grow: 0;
+		}
 	}
 }
 

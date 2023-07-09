@@ -115,20 +115,44 @@ function animateLettle() {
 
 animateLettle();
 
-$(window).on('touchstart', () => {});
+// $(window).on('touchstart', () => {});
 
 $('.link div')
 	.on('touchstart', (e) => {
 		let end = $(e.currentTarget).one('touchend', () => {
-			window.location = $('.link div').attr('value');
+			window.location = $(e.currentTarget).attr('value');
 		});
 
 		$(e.currentTarget).one('touchmove', () => {
 			end.off('touchend');
 		});
 	})
-	.on('click', () => {
+	.on('click', (e) => {
 		if (!('ontouchstart' in window || navigator.maxTouchPoints || navigator.msMaxTouchPoints)) {
-			window.location = $('.link div').attr('value');
+			window.location = $(e.currentTarget).attr('value');
 		}
 	});
+
+$('.project-container').on('touchstart', (e) => {
+	let end = $(e.currentTarget).one('touchend', () => {
+		if (!$(e.currentTarget).hasClass('clicked')) {
+			setTimeout(() => {
+				$(e.currentTarget).addClass('clicked');
+			}, 0);
+		}
+	});
+
+	$(e.currentTarget).one('touchmove', () => {
+		end.off('touchend');
+	});
+});
+
+$(window).on('touchstart', () => {
+	let end = $(window).one('touchend', () => {
+		$('.project-container').removeClass('clicked');
+	});
+
+	$(window).one('touchmove', () => {
+		end.off('touchend');
+	});
+});
