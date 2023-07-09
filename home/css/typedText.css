@@ -28,11 +28,11 @@
 	position: absolute;
 	left: 10.5vmin;
 	top: 9vmin;
-	animation: pointer-click 2000ms ease-in-out 2;
+	animation: pointer-click 2000ms ease-in-out 2 200ms;
 }
 
 .fa-forward-fast {
-	animation: clicked 2000ms ease-in-out 2;
+	animation: clicked 2000ms ease-in-out 2 200ms;
 	color: lightgray;
 }
 
