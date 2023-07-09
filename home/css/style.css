@@ -124,6 +124,10 @@ header hr {
 	margin: 10px;
 }
 
+.project-container .link.clicked {
+	background-color: var(--link-blue-hover);
+}
+
 .project-selected {
 	background-color: var(--link-hover-bg);
 	border-color: var(--link-hover-border);

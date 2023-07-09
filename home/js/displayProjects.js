@@ -117,11 +117,14 @@ animateLettle();
 
 $('.link div')
 	.on('touchstart', (e) => {
+		$(e.currentTarget).parents('.link').addClass('clicked');
+
 		let end = $(e.currentTarget).one('touchend', () => {
 			window.location = $(e.currentTarget).attr('value');
 		});
 
 		$(e.currentTarget).one('touchmove', () => {
+			$('.link').removeClass('clicked');
 			end.off('touchend');
 		});
 	})
@@ -147,6 +150,7 @@ $('.project-container').on('touchstart', (e) => {
 
 $(window).on('touchstart', (e) => {
 	if ($(e.target).parents('.link').length) return;
+	$('.link').removeClass('clicked');
 
 	let end = $(window).one('touchend', () => {
 		$('.project-container').removeClass('clicked');
