@@ -7,6 +7,8 @@ $(window).on('load', () => {
 		let cursor = $('.typed-text-cursor').first();
 		let unfinished = $('.unfinished').first();
 
+		$('#ff-text').css('opacity', '1');
+
 		let mostRecentTimeout = null;
 
 		let spedUp = false;
@@ -22,6 +24,8 @@ $(window).on('load', () => {
 
 				mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 					$(cursor).css('animation', 'none');
+
+					$('#ff-text').css('opacity', '0');
 
 					let value = text.attr('text-value');
 					let index = 0;
@@ -101,7 +105,8 @@ $(window).on('load', () => {
 			spedUp = true;
 
 			$(typedText).css('transition', `background-color ${800 / 7}ms ease-in-out`);
-			$(text).css('transition', `top ${800 / 7}ms ease-in-out, transform ${800 / 7}ms ease-in-out`)
+			$(text).css('transition', `top ${800 / 7}ms ease-in-out, transform ${800 / 7}ms ease-in-out`);
+			$('#ff-text').css('transition', '400ms ease-in-out');
 
 			window.setTimeout = function (callback, delay, ...args) {
 				return originalSetTimeout(callback, delay / 7, ...args);
