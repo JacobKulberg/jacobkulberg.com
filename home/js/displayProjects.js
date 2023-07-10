@@ -123,7 +123,7 @@ $('.link div')
 			window.location = $(e.currentTarget).attr('value');
 		});
 
-		$(window).one('touchmove', () => {
+		$(window).one('touchmove visibilitychange blur', () => {
 			$('.link').removeClass('clicked');
 			end.off('touchend');
 		});
@@ -133,7 +133,7 @@ $('.link div')
 			window.location = $(e.currentTarget).attr('value');
 		});
 
-		$(window).one('mouseup', () => {
+		$(window).one('mouseup visibilitychange blur', () => {
 			end.off('mouseup');
 		});
 	});
