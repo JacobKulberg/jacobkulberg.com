@@ -74,6 +74,8 @@ $(window).on('load', () => {
 													unfinished.remove();
 												}
 
+												$(typedText).css('pointerEvents', 'none');
+
 												decelerateTimeouts();
 											}, 300);
 										}, 200);
