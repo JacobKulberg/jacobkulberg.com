@@ -21,6 +21,7 @@ body {
 
 body {
 	background-color: var(--main-bg-color);
+	overflow-x: hidden;
 }
 
 nav {
@@ -58,6 +59,7 @@ header hr {
 	background-color: var(--main-gold);
 	height: 1px;
 	border: none;
+	margin-bottom: 5px;
 }
 
 .page {
@@ -83,7 +85,7 @@ header hr {
 .project-container {
 	display: flex;
 	justify-content: center;
-	margin: 5px 0;
+	margin-bottom: 5px;
 	font-family: 'Roboto', sans-serif;
 }
 
