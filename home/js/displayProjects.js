@@ -137,11 +137,6 @@ $('.link div')
 			end.off('mouseup');
 		});
 	});
-// .on('click', (e) => {
-// 	if (!('ontouchstart' in window || navigator.maxTouchPoints || navigator.msMaxTouchPoints)) {
-// 		window.location = $(e.currentTarget).attr('value');
-// 	}
-// });
 
 $('.project-container').on('touchstart', (e) => {
 	let end = $(e.currentTarget).one('touchend', () => {
