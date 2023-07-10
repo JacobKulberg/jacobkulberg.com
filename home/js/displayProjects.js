@@ -123,16 +123,25 @@ $('.link div')
 			window.location = $(e.currentTarget).attr('value');
 		});
 
-		$(e.currentTarget).one('touchmove', () => {
+		$(window).one('touchmove', () => {
 			$('.link').removeClass('clicked');
 			end.off('touchend');
 		});
 	})
-	.on('click', (e) => {
-		if (!('ontouchstart' in window || navigator.maxTouchPoints || navigator.msMaxTouchPoints)) {
+	.on('mousedown', (e) => {
+		let end = $(e.currentTarget).one('mouseup', () => {
 			window.location = $(e.currentTarget).attr('value');
-		}
+		});
+
+		$(window).one('mouseup', () => {
+			end.off('mouseup');
+		});
 	});
+// .on('click', (e) => {
+// 	if (!('ontouchstart' in window || navigator.maxTouchPoints || navigator.msMaxTouchPoints)) {
+// 		window.location = $(e.currentTarget).attr('value');
+// 	}
+// });
 
 $('.project-container').on('touchstart', (e) => {
 	let end = $(e.currentTarget).one('touchend', () => {
