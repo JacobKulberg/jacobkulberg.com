@@ -1,10 +1,14 @@
 $(window).on('load', () => {
 	let links = $('header nav a');
 	let pages = $('.page');
-
 	let underline = $('#selected-page');
 
-	let selected = window.location.hash || '#home';
+	let validHashes = ['#about-me', '#projects', '#services'];
+	let selected = '#about-me';
+	if (validHashes.includes(window.location.hash)) {
+		selected = window.location.hash;
+	}
+	window.location.hash = selected;
 
 	selectPage($(`header nav a[href="${selected}"]`));
 
