@@ -9,7 +9,7 @@ let lettleCube = new Zdog.Box({
 	depth: 250,
 	stroke: 15,
 	fill: true,
-	color: '#538d4e', // lettle green
+	color: $(':root').css('--lettle-green'),
 	rotate: { x: Zdog.TAU / 72 },
 });
 
