@@ -7,7 +7,7 @@ $(window).on('load', () => {
 	let titles = ['About Me', 'Projects', 'Services'];
 
 	let selected = '#about-me';
-	if (validHashes.indexOf(window.location.hash)) {
+	if (validHashes.indexOf(window.location.hash) > 0) {
 		selected = window.location.hash;
 		$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
 	}
