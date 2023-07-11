@@ -4,9 +4,12 @@ $(window).on('load', () => {
 	let underline = $('#selected-page');
 
 	let validHashes = ['#about-me', '#projects', '#services'];
+	let titles = ['About Me', 'Projects', 'Services'];
+
 	let selected = '#about-me';
-	if (validHashes.includes(window.location.hash)) {
+	if (validHashes.indexOf(window.location.hash)) {
 		selected = window.location.hash;
+		$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
 	}
 	window.location.hash = selected;
 
@@ -16,6 +19,7 @@ $(window).on('load', () => {
 		$(link).on('click', () => {
 			selectPage($(link));
 			selected = $(link).attr('href');
+			$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
 		});
 	});
 
