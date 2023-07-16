@@ -65,6 +65,7 @@ $(window).on('load', () => {
 										$(text).css('transition', 'none');
 
 										$(spacer).css('height', `${text[0].getBoundingClientRect().height}px`);
+										resizeAboutMe();
 
 										mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 											$('header hr').css('transform', 'scaleX(1)');
@@ -86,6 +87,8 @@ $(window).on('load', () => {
 										$(text).css('transform', `translateX(-50%) scale(${scale})`);
 
 										$(spacer).css('height', `${text[0].getBoundingClientRect().height}px`);
+
+										resizeAboutMe();
 									});
 								}, 600);
 							}, 800);

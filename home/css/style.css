@@ -70,6 +70,33 @@ header hr {
 	width: 100%;
 }
 
+#about-me {
+	top: 0;
+	height: 100%;
+	pointer-events: none;
+}
+
+#about-me-container {
+	height: 100%;
+	width: 90%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2vw;
+}
+
+#about-me-container img {
+	border-radius: 25%;
+}
+
+#about-me-container p {
+	font-family: 'Roboto', sans-serif;
+	font-size: min(4vw, 3.25vh);
+	text-align: justify;
+	max-width: 50vw;
+}
+
 .project {
 	position: relative;
 	flex: 100000;
