@@ -4,27 +4,53 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Tech Time</title>
-		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>Jacob Kulberg | About Me</title>
+		<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="/public/css/typedText.css" />
+		<link rel="stylesheet" type="text/css" href="/techtime/css/style.css" />
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<!-- Roboto Font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
 	</head>
 
 	<body>
-		<button onclick="goToTop()" id="go-to-top">Back to top</button>
-		<div>
-			<header>
-				<div>
-					<h1><span>Tech Time</span> <span>with Jacob</span></h1>
-				</div>
-				<nav>
-					<ul>
-						<li><a href="#my-mission">My Mission</a></li>
-						<li><a href="#services">Services</a></li>
-						<li><a href="#about-me">About Me</a></li>
-						<li><a href="#contact-me">Contact Me</a></li>
-					</ul>
-				</nav>
-			</header>
+		<div class="typed-text-container">
+			<h1 class="typed-text" text-value="Tech Time with Jacob"></h1>
+			<div class="typed-text-cursor" style="height: 0"></div>
+			<div class="unfinished"></div>
 
+			<h1 id="ff-text">
+				<span class="fa-stack">
+					<i class="fa-solid fa-display fa-stack-2x"></i>
+					<i class="fa-solid fa-forward-fast fa-stack-1x"></i>
+				</span>
+				<i class="fa-solid fa-arrow-pointer fa-lg"></i>
+				to skip animation...
+			</h1>
+		</div>
+
+		<header>
+			<div id="header-spacer"></div>
+
+			<nav>
+				<a href="#my-mission">My Mission</a>
+				<a href="#services">Services</a>
+				<a href="#contact-me">Contact Me</a>
+				<div id="selected-page"></div>
+			</nav>
+
+			<hr />
+		</header>
+
+		<div class="content">
 			<section id="my-mission">
 				<h2>My Mission</h2>
 				<p>Tech Time with Jacob is a nonprofit initiative aimed at empowering residents in 55 and over communities throughout South Florida with the knowledge and support they need to tackle technology-related challenges.</p>
@@ -45,39 +71,15 @@
 				</div>
 			</section>
 
-			<section id="about-me">
-				<h2>About Me</h2>
-				<img id="hidden-jacob-image" src="images/jacob.png" alt="Jacob Kulberg" />
-				<div id="about-me-divider">
-					<div>
-						<p>Hi there, my name is Jacob! I'm a high school student from South Florida, currently in my senior year at American Heritage School in Boca Delray. My journey with computers started at a very young age, and since then, my curiosity and passion for technology have only grown.</p>
-						<p>I am deeply invested in computer science and plan to major in it during my college years. My ultimate goal is to become a software engineer. Through my education and personal projects, I have developed a skill set that I am eager to share with others, especially those who might find the ever-evolving world of technology a bit daunting.</p>
-						<p>Running Tech Time with Jacob is not just a project for me, but a way to give back to my community. By helping the residents in 55 and over communities, I aim to make a difference by sharing the knowledge that has been a significant part of my life.</p>
-					</div>
-					<div id="jacob-image-container">
-						<img src="images/jacob.png" alt="Jacob Kulberg" />
-					</div>
-				</div>
-			</section>
-
 			<section id="contact-me">
 				<h2>Contact Me</h2>
 				<p>For inquiries and assistance, please contact:</p>
 				<p>Email: <a href="mailto:jacobkulberg@gmail.com">jacobkulberg@gmail.com</a></p>
 				<p>Text: (561) 324-2188</p>
 			</section>
-
-			<footer>
-				<p>
-					©
-					<script>
-						document.write(new Date().getFullYear());
-					</script>
-					Tech Time with Jacob. All rights reserved.
-				</p>
-			</footer>
-
-			<script src="js/script.js"></script>
 		</div>
+
+		<script src="/public/js/typedText.js"></script>
+		<script src="/techtime/js/selectPage.js"></script>
 	</body>
 </html>

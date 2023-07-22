@@ -159,11 +159,6 @@ header hr {
 	background-color: var(--link-blue-hover);
 }
 
-.project-selected {
-	background-color: var(--link-hover-bg);
-	border-color: var(--link-hover-border);
-}
-
 .project-description {
 	max-width: 225px;
 	text-align: center;
@@ -193,6 +188,60 @@ header hr {
 	flex-grow: 0;
 }
 
+.service-container {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 5px;
+	font-family: 'Roboto', sans-serif;
+}
+
+.service {
+	position: relative;
+	flex: 100000;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	max-width: 100%;
+	border: transparent 3px;
+	border-style: solid none;
+	transition: background-color 250ms ease-out, border-color 250ms ease-out, margin-left 250ms ease-out, padding-left 250ms ease-out;
+	text-decoration: none;
+}
+
+.service-container.clicked .service {
+	background-color: var(--link-hover-bg);
+	border-color: var(--link-hover-border);
+	margin-left: -30%;
+	padding-left: 30%;
+}
+
+.service-container .link.clicked {
+	background-color: var(--link-blue-hover);
+}
+
+.service-description {
+	text-align: center;
+	transition: opacity 250ms ease-out, flex-grow 250ms ease-out, left 250ms ease-in-out;
+	left: 0px;
+	position: relative;
+	overflow: hidden;
+	margin: 0 10%;
+	font-size: min(4.5vw, 24px);
+	white-space: nowrap;
+}
+
+.service-title {
+	text-align: center;
+	transition: opacity 250ms ease-out, flex-grow 250ms ease-out, left 250ms ease-in-out;
+	left: 0px;
+	position: relative;
+	overflow: hidden;
+	font-size: min(3vw, 18px);
+	text-decoration: underline;
+	white-space: nowrap;
+}
+
 @media (hover: hover) {
 	.project-container:hover .project {
 		background-color: var(--link-hover-bg);
@@ -202,6 +251,17 @@ header hr {
 	}
 
 	.project-container .link:hover {
+		background-color: var(--link-blue-hover);
+	}
+
+	.service-container:hover .service {
+		background-color: var(--link-hover-bg);
+		border-color: var(--link-hover-border);
+		margin-left: -30%;
+		padding-left: 30%;
+	}
+
+	.service-container .link:hover {
 		background-color: var(--link-blue-hover);
 	}
 }
@@ -237,4 +297,8 @@ header hr {
 			font-size: 16px;
 		}
 	}
+}
+
+.content {
+	display: none;
 }

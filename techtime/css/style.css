@@ -1,73 +1,81 @@
+:root {
+	--main-bg-color: #1c1c1c;
+	--main-gold: #e6bb00;
+	--link-blue: #00aaff;
+	--link-blue-hover: #007cba;
+	--link-hover-bg: rgba(255, 255, 255, 0.15);
+	--link-hover-border: rgba(255, 255, 255, 0.5);
+	--lettle-green: #538d4e;
+}
+
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	user-select: none;
+}
+
+html,
+body {
+	height: 100%;
+	scroll-behavior: smooth;
 }
 
 body {
-	font-family: Calibri, sans-serif;
-	line-height: 1.6;
+	background-color: var(--main-bg-color);
+	overflow-x: hidden;
 }
 
-header {
-	background: no-repeat center;
-	background-size: cover;
-	background-image: url('../images/helping.jpg');
-	color: #fff;
-	text-align: center;
-	padding: 16px 0;
+header hr {
+	transform: scaleX(0);
+	transition: transform 300ms ease-in;
+	background-color: var(--main-gold);
+	height: 1px;
+	border: none;
+	margin-bottom: 5px;
 }
 
-header h1 {
-	font-size: 54px;
-	background-color: rgba(0, 0, 0, 0.4);
-	border-radius: 20px;
-	margin-bottom: 10px;
+.typed-text {
+	font-size: max(10vw, 26px);
 }
 
-header div,
-header nav {
-	width: 50%;
-	margin: 0 auto;
+nav {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto 8px;
+	position: relative;
 }
 
-h1 span {
-	display: inline-block;
-}
-
-nav ul {
-	list-style: none;
-}
-
-nav ul li {
-	display: inline-block;
-	margin: 3px 10px;
-}
-
-nav ul li a {
-	color: #ffffff;
+nav a {
+	color: white;
 	text-decoration: none;
-	font-weight: bold;
-	font-size: 26px;
+	font-family: 'Impact', sans-serif;
+	font-weight: 300;
+	font-size: max(min(5vmin, 32px), 16px);
+	margin: 0 2vw;
+	padding-bottom: 2px;
+	cursor: pointer;
 	white-space: nowrap;
-	background-color: rgba(0, 0, 0, calc(1 / 3));
-	border-radius: 10px;
-	padding: 5px;
-	transition: background-color linear 0.5s;
 }
 
-@media (hover: hover) {
-	nav ul li a:hover {
-		background-color: rgba(0, 0, 0, 0.75);
-	}
+#selected-page {
+	border-bottom: 3px solid var(--main-gold);
+	width: 30px;
+	height: 100%;
+	position: absolute;
+	transition: left 250ms ease-out, width 250ms ease-out;
+	pointer-events: none;
 }
 
 section h2 {
-	font-size: 28px;
+	font-size: max(24px, 1.8vw);
+	text-decoration: underline;
+	text-decoration-color: var(--main-gold);
 }
 
 section p {
-	font-size: 20px;
+	font-size: max(16px, 1.2vw);
 	max-width: 1000px;
 	margin: 0 auto;
 }
@@ -100,8 +108,21 @@ section p {
 	display: none;
 }
 
+section div ul {
+	list-style: none;
+}
+
 section div ul li {
-	font-size: 20px;
+	font-size: max(16px, 1.25vw);
+}
+
+section div ul li::before {
+	content: '\2022';
+	font-weight: bold;
+	display: inline-block;
+	width: 1em;
+	margin-left: -1em;
+	color: var(--main-gold);
 }
 
 .selectedAnchor {
@@ -112,11 +133,8 @@ section {
 	padding: 20px;
 	text-align: center;
 	transition: background-color linear 0.5s;
-}
-
-#services,
-#contact-me {
-	background: #f4f4f4;
+	font-family: 'Roboto', sans-serif;
+	color: white;
 }
 
 #services li {
@@ -129,76 +147,14 @@ section {
 	padding: 0 20px;
 }
 
-footer {
-	text-align: center;
-	padding: 1em 0;
-	background: #333;
-	color: #ffffff;
+#contact-me a {
+	color: var(--main-gold);
 }
 
-#go-to-top {
+.content {
 	display: none;
-	position: fixed;
-	top: 15px;
-	left: 15px;
-	z-index: 100;
-	border: none;
-	outline: none;
-	background-color: rgba(140, 140, 140, 0.7);
-	color: white;
-	cursor: pointer;
-	padding: 15px;
-	border-radius: 10px;
-	font-size: 18px;
-	font-weight: bold;
-	transition: background-color linear 0.5s;
 }
 
-@media (hover: hover) {
-	#go-to-top:hover {
-		background-color: #333;
-	}
-}
-
-@media (max-width: 1000px) {
-	#about-me-divider div {
-		margin: 0;
-	}
-
-	#hidden-jacob-image {
-		display: block;
-		margin: 5px auto 15px;
-		width: 250px;
-	}
-
-	#jacob-image-container {
-		display: none;
-	}
-}
-
-@media (max-width: 966px) {
-	header div,
-	header nav {
-		width: 70%;
-	}
-}
-
-@media (max-width: 841px) {
-	header h1 {
-		font-size: 40px;
-	}
-
-	nav ul li a {
-		font-size: 20px;
-	}
-}
-
-@media (max-width: 695px) {
-	header h1 {
-		font-size: 30px;
-	}
-
-	nav ul li a {
-		font-size: 15px;
-	}
+.selected-section {
+	background-color: rgba(255, 255, 0, 0.3) !important;
 }

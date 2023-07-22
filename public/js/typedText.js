@@ -63,9 +63,10 @@ $(window).on('load', () => {
 									mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 										$(typedText).css('backgroundColor', 'transparent');
 										$(text).css('transition', 'none');
+										$('.content').css('display', 'block');
 
 										$(spacer).css('height', `${text[0].getBoundingClientRect().height}px`);
-										resizeAboutMe();
+										if (typeof resizeAboutMe === "function") resizeAboutMe();
 
 										mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 											$('header hr').css('transform', 'scaleX(1)');
@@ -88,7 +89,7 @@ $(window).on('load', () => {
 
 										$(spacer).css('height', `${text[0].getBoundingClientRect().height}px`);
 
-										resizeAboutMe();
+										if (typeof resizeAboutMe === "function") resizeAboutMe();
 									});
 								}, 600);
 							}, 800);
@@ -111,7 +112,7 @@ $(window).on('load', () => {
 
 			$(typedText).css('transition', `background-color ${800 / 7}ms ease-in-out`);
 			$(text).css('transition', `top ${800 / 7}ms ease-in-out, transform ${800 / 7}ms ease-in-out`);
-			$('#ff-text').css('transition', '400ms ease-in-out');
+			$('#ff-text').css('transition', 'opacity 400ms ease-in-out');
 
 			window.setTimeout = function (callback, delay, ...args) {
 				return originalSetTimeout(callback, delay / 7, ...args);
