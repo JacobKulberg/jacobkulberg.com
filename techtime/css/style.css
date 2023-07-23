@@ -132,7 +132,7 @@ section div ul li::before {
 section {
 	padding: 20px;
 	text-align: center;
-	transition: background-color linear 0.5s;
+	transition: background-color ease-in-out 1000ms;
 	font-family: 'Roboto', sans-serif;
 	color: white;
 }
