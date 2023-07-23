@@ -163,3 +163,23 @@ section {
 .selected-section {
 	background-color: rgba(255, 255, 0, 0.3) !important;
 }
+
+#back-to-home {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	width: 120px;
+	height: 50px;
+	border-radius: 25px;
+	background-color: var(--main-bg-color);
+	border: var(--main-gold) 3px solid;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	text-decoration: none;
+	color: white;
+	font-family: 'Impact', sans-serif;
+	font-size: 20px;
+	z-index: 5;
+}
