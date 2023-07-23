@@ -64,6 +64,9 @@ $(window).on('load', () => {
 										$(typedText).css('backgroundColor', 'transparent');
 										$(text).css('transition', 'none');
 										$('.content').css('display', 'block');
+										setTimeout(() => {
+											window.dispatchEvent(new Event('resize'));
+										}, 0);
 
 										$(spacer).css('height', `${text[0].getBoundingClientRect().height}px`);
 										if (typeof resizeAboutMe === "function") resizeAboutMe();
