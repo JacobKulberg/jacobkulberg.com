@@ -15,10 +15,15 @@
 	user-select: none;
 }
 
+body::-webkit-scrollbar {
+	display: none;
+}
+
 html,
 body {
 	height: 100%;
 	scroll-behavior: smooth;
+	scrollbar-width: none;
 }
 
 body {
