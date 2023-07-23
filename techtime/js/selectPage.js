@@ -8,7 +8,7 @@ $(window).on('load', () => {
 	let selected = '#my-mission';
 	if (validHashes.indexOf(window.location.hash) > 0) {
 		selected = window.location.hash;
-		$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
+		$(document).prop('title', `Tech Time | ${titles[validHashes.indexOf(selected)]}`);
 	}
 	window.location.hash = selected;
 
@@ -18,7 +18,7 @@ $(window).on('load', () => {
 		$(link).on('click', () => {
 			selectPage($(link));
 			selected = $(link).attr('href');
-			$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
+			$(document).prop('title', `Tech Time | ${titles[validHashes.indexOf(selected)]}`);
 		});
 	});
 
