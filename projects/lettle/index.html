@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+		<meta content="Lettle!" property="og:title" />
+		<meta content="Guess a mystery letter in only 4 tries!" property="og:description" />
+		<meta content="/assets/images/lettle.png" property="og:image" />
+		<meta content="#121213" name="theme-color" />
+		<meta content="#538D4E" property="theme-color" />
+
+		<meta name="title" content="Lettle" />
+		<meta name="description" content="Guess a mystery letter in only 4 tries!" />
+
+		<link href="/projects/lettle/css/lettle.css" rel="stylesheet" />
+
+		<!-- prettier-ignore -->
+		<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css />
+		<link href=/assets/images/lettle-favicon.ico rel=icon type=image/x-icon sizes=32x32 />
+
+		<script src="/projects/lettle/js/lettle.js"></script>
+		<script src="/projects/lettle/js/confetti.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<title>Lettle!</title>
+	</head>
+
+	<body id="body">
+		<div id="container">
+			<div id="game">
+				<header>
+					<svg id="info-button" onclick="toggleInfo()" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 0 24 24" width="32px">
+						<path fill="gainsboro" d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"></path>
+					</svg>
+					<h1 class="title">LETTLE<span id="practiceHeader">PRACTICE</span></h1>
+					<svg class="settings-cog" onclick="toggleSettings()" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 0 24 24" width="32px">
+						<path fill="gainsboro" d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"></path>
+					</svg>
+				</header>
+				<div id="instructions-container">
+					<p id="instructions">Enter a letter between <span class="square" id="blue">A</span> and <span class="square" id="orange">Z</span></p>
+				</div>
+				<div id="board-container">
+					<div id="board"></div>
+				</div>
+				<div id="restart-container"><button id="restart-button">Play again!</button></div>
+				<div id="keyboard-container">
+					<div class="keyboard-row"><button data-key="q">q</button><button data-key="w">w</button><button data-key="e">e</button><button data-key="r">r</button><button data-key="t">t</button><button data-key="y">y</button><button data-key="u">u</button><button data-key="i">i</button> <button data-key="o">o</button><button data-key="p">p</button></div>
+					<div class="keyboard-row">
+						<button data-key="a">a</button><button data-key="s">s</button><button data-key="d">d</button><button data-key="f">f</button><button data-key="g">g</button><button data-key="h">h</button><button data-key="j">j</button><button data-key="k">k</button>
+						<button data-key="l">l</button>
+					</div>
+					<div class="keyboard-row"><button data-key="z">z</button><button data-key="x">x</button><button data-key="c">c</button><button data-key="v">v</button><button data-key="b">b</button><button data-key="n">n</button><button data-key="m">m</button></div>
+				</div>
+			</div>
+			<div id="youLose">
+				<p id="youLoseMessage">You lost! The correct letter was <span class="square" id="letter"></span></p>
+			</div>
+			<div id="copied">
+				<p id="copiedMessage">Copied results to clipboard</p>
+			</div>
+			<div id="settings">
+				<header>
+					<h1 class="title">SETTINGS</h1>
+				</header>
+				<svg class="settings-cog" onclick="toggleSettings()" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 0 24 24" width="32px">
+					<path fill="gainsboro" d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"></path>
+				</svg>
+				<div class="whole-setting">
+					<div class="setting-container">
+						<h1 class="setting">Alphabetical Keyboard</h1>
+						<label class="setting-description">Makes it so the keyboard is sorted alphabetically</label>
+					</div>
+					<div class="switch-container">
+						<label class="switch"><input id="alphabetical" onclick="toggleAlphabeticalKeyboard()" type="checkbox" /><span class="slider round"></span></label>
+					</div>
+				</div>
+				<script>
+					if ((document.cookie.match(/^(?:.*;)?\s*alphabetical\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1] == 'true') {
+						toggleAlphabeticalKeyboard();
+					}
+				</script>
+				<div class="whole-setting">
+					<div class="setting-container">
+						<h1 class="setting">Hard Mode</h1>
+						<label class="setting-description">Makes it so letters do not gray out when they cannot be the answer</label>
+					</div>
+					<div class="switch-container">
+						<label class="switch"><input id="hard-mode" onclick="toggleHardMode()" type="checkbox" /><span class="slider round"></span></label>
+					</div>
+				</div>
+				<script>
+					if ((document.cookie.match(/^(?:.*;)?\s*hardMode\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1] == 'true') {
+						toggleHardMode();
+					}
+				</script>
+				<div class="whole-setting">
+					<div class="setting-container">
+						<h1 class="setting">Swap Intruction Letter Colors</h1>
+						<label class="setting-description">Swaps the colors of the letters in the instructions on the top of the game page</label>
+					</div>
+					<div class="switch-container">
+						<label class="switch"><input id="swap-instruction" onclick="swapInstructionLetters()" type="checkbox" /><span class="slider round"></span></label>
+					</div>
+				</div>
+				<script>
+					if ((document.cookie.match(/^(?:.*;)?\s*swapInstruction\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1] == 'true') {
+						document.getElementById('swap-instruction').checked = !document.getElementById('swap-instruction').checked;
+						swapInstructionLetters();
+					}
+				</script>
+			</div>
+			<div id="info">
+				<header>
+					<h1 class="title" style="letter-spacing: 0px">HOW TO PLAY</h1>
+				</header>
+				<svg id="close-info" onclick="toggleInfo()" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 0 24 24" width="32px">
+					<path fill="gainsboro" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+				</svg>
+				<div id="info-container">
+					<div id="how-to-play">
+						<h3 class="info-text" style="text-align: center">Guess the letter in 4 tries.</h3>
+						<h3 class="info-text" style="text-align: center">After each guess, the tile changes color to show whether the target letter is before or after your guess alphabetically.</h3>
+						<hr color="#3A3A3C" />
+						<h3 class="info-text" style="text-decoration: underline">Examples:</h3>
+						<div class="square" style="background-color: #ad5713; border-color: #ad5713; margin-left: 10px">H</div>
+						<h3 class="info-text">The letter is after H alphabetically.</h3>
+						<div class="square" style="background-color: #1b8ae4; border-color: #1b8ae4; margin-left: 10px">P</div>
+						<h3 class="info-text">The letter is before P alphabetically.</h3>
+						<div class="square" style="background-color: #538d4e; border-color: #538d4e; margin-left: 10px">L</div>
+						<h3 class="info-text">The letter is L, you win!</h3>
+						<hr color="#3A3A3C" />
+						<h3 class="info-text" style="text-align: center">After each game, you can click "Play again!" to play again.</h3>
+					</div>
+				</div>
+			</div>
+			<div id="splash-screen-container">
+				<div id="splash-screen">
+					<header>
+						<h1 class="title" style="font-size: 1.75rem; letter-spacing: 0">HOW TO PLAY</h1>
+					</header>
+					<svg id="close-splash" onclick="disableSplashScreen()" xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 0 24 24" width="32px">
+						<path fill="gainsboro" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+					</svg>
+					<h3 class="splash-text">Guess the letter in 4 tries.</h3>
+					<h3 class="splash-text">After each guess, the tile changes color to show whether the target letter is before or after your guess alphabetically.</h3>
+					<hr color="#3A3A3C" />
+					<h3 class="splash-text" style="text-decoration: underline">Examples:</h3>
+					<div class="square" style="margin-left: 0.5rem; background-color: #ad5713; border-color: #ad5713">H</div>
+					<h3 class="splash-text">The letter is after H alphabetically.</h3>
+					<div class="square" style="margin-left: 0.5rem; background-color: #1b8ae4; border-color: #1b8ae4">P</div>
+					<h3 class="splash-text">The letter is before P alphabetically.</h3>
+					<div class="square" style="margin-left: 0.5rem; background-color: #538d4e; border-color: #538d4e">L</div>
+					<h3 class="splash-text">The letter is L, you win!</h3>
+					<hr color="#3A3A3C" />
+					<h3 class="splash-text">After each game, you can click 'Play again!' to play again.</h3>
+				</div>
+				<div id="splash-background" onclick="disableSplashScreen()"></div>
+			</div>
+			<svg onclick="enableEndSplashScreen()" id="stats-button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32px" height="32px" viewBox="0 0 32 32" version="1.1">
+				<g id="surface1">
+					<path style="stroke: none; fill-rule: nonzero; fill: rgb(255, 255, 255); fill-opacity: 1" d="M 26.667969 7.464844 L 20.621094 7.464844 L 20.621094 4.265625 C 20.621094 3.984375 20.507812 3.710938 20.308594 3.511719 C 20.109375 3.3125 19.839844 3.199219 19.554688 3.199219 L 12.445312 3.199219 C 12.160156 3.199219 11.890625 3.3125 11.691406 3.511719 C 11.492188 3.710938 11.378906 3.984375 11.378906 4.265625 L 11.378906 11.734375 L 5.332031 11.734375 C 5.050781 11.734375 4.777344 11.84375 4.578125 12.046875 C 4.378906 12.246094 4.265625 12.515625 4.265625 12.800781 L 4.265625 21.332031 C 4.265625 21.617188 4.378906 21.886719 4.578125 22.085938 C 4.777344 22.289062 5.050781 22.398438 5.332031 22.398438 L 26.667969 22.398438 C 26.949219 22.398438 27.21875 22.289062 27.421875 22.085938 C 27.621094 21.886719 27.734375 21.617188 27.734375 21.332031 L 27.734375 8.535156 C 27.734375 8.25 27.621094 7.980469 27.421875 7.777344 C 27.21875 7.578125 26.949219 7.464844 26.667969 7.464844 Z M 11.378906 20.265625 L 6.398438 20.265625 L 6.398438 13.867188 L 11.378906 13.867188 Z M 18.488281 8.535156 L 18.488281 20.265625 L 13.511719 20.265625 L 13.511719 5.332031 L 18.488281 5.332031 Z M 25.601562 20.265625 L 20.621094 20.265625 L 20.621094 9.601562 L 25.601562 9.601562 Z M 25.601562 20.265625 " />
+				</g>
+			</svg>
+			<div id="end-splash-screen-container">
+				<div id="end-splash-screen">
+					<header>
+						<h1 class="title" style="font-size: 1.75rem; letter-spacing: 0">Statistics</h1>
+					</header>
+					<div id="statsContainer">
+						<div class="stat">
+							<span class="statVal" id="numPlayed">0</span><span class="statsText" style="display: block">Played<br />&#8205;</span>
+						</div>
+						<div class="stat">
+							<span class="statVal" id="winPercent">0</span><span class="statsText" style="display: block">Win %<br />&#8205;</span>
+						</div>
+						<div class="stat">
+							<span class="statVal" id="curStreak">0</span><span class="statsText" style="display: block">Current<br />Streak</span>
+						</div>
+						<div class="stat">
+							<span class="statVal" id="maxStreak">0</span><span class="statsText" style="display: block">Max<br />Streak</span>
+						</div>
+					</div>
+					<header>
+						<h1 class="title" style="font-size: 1.75rem; letter-spacing: 0">Guess Distribution</h1>
+					</header>
+					<div id="chart"></div>
+					<script>
+						let options = {
+							series: [
+								{
+									data: [0, 0, 0, 0, 0],
+								},
+							],
+							chart: {
+								type: 'bar',
+								toolbar: {
+									show: false,
+								},
+							},
+							dataLabels: {
+								style: {
+									colors: ['gainsboro'],
+								},
+							},
+							colors: ['#555', '#555', '#555', '#555', '#555'],
+							plotOptions: {
+								bar: {
+									distributed: true,
+								},
+							},
+							xaxis: {
+								type: 'category',
+								categories: [1, 2, 3, 4, 'X'],
+								labels: {
+									style: {
+										colors: 'gainsboro',
+									},
+								},
+							},
+							yaxis: {
+								show: false,
+							},
+							grid: {
+								show: false,
+							},
+							legend: {
+								show: false,
+							},
+							tooltip: {
+								enabled: false,
+							},
+							states: {
+								hover: {
+									filter: {
+										type: 'none',
+									},
+								},
+								active: {
+									filter: {
+										type: 'none',
+									},
+								},
+							},
+						};
+
+						let chart = new ApexCharts(document.querySelector('#chart'), options);
+						chart.render();
+					</script>
+					<header>
+						<h1 class="title" style="font-size: 1.75rem; letter-spacing: 0">Next Lettle</h1>
+					</header>
+					<div style="text-align: center"><span id="nextLettle">HH:MM:SS</span></div>
+					<div style="text-align: center">
+						<button id="shareButton" class="statButton">Share!</button>
+						<button id="practiceButton" class="statButton">Play!</button>
+					</div>
+				</div>
+				<div id="end-splash-background" onclick="disableEndSplashScreen()"></div>
+			</div>
+			<script>
+				if ((document.cookie.match(/^(?:.*;)?\s*hasVisited\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1] == 'true') {
+					let e = document.getElementById('splash-screen');
+					let t = document.getElementById('splash-background');
+					e.style.display = 'none';
+					t.style.display = 'none';
+					e.style.opacity = 0;
+					t.style.opacity = 0;
+				}
+				let hasVisited = 'hasVisited=true; path=/; expires=' + expirationDate.toUTCString();
+				document.cookie = hasVisited;
+			</script>
+		</div>
+	</body>
+</html>
