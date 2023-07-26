@@ -18,13 +18,20 @@
 		<!-- Font CDNs -->
 		<link href="https://fonts.cdnfonts.com/css/roboto" rel="stylesheet" />
 		<link href="https://fonts.cdnfonts.com/css/impact" rel="stylesheet" />
+		<link href="https://fonts.cdnfonts.com/css/claro-2" rel="stylesheet" />
 	</head>
 
 	<body>
-		<a href="/" id="back-to-home">
+		<div id="back-to-home">
 			<i class="fa-solid fa-arrow-left"></i>
 			<p>Home</p>
-		</a>
+
+			<div class="v-line"></div>
+
+			<div href="https://www.google.com" id="back-to-home-cancel">
+				<i class="fa-solid fa-xmark"></i>
+			</div>
+		</div>
 
 		<div class="typed-text-container">
 			<h1 class="typed-text" text-value="Tech Time with Jacob"></h1>
@@ -85,5 +92,6 @@
 
 		<script src="/shared/js/typedText.js"></script>
 		<script src="js/selectPage.js"></script>
+		<script src="js/backToHome.js"></script>
 	</body>
 </html>

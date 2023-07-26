@@ -168,18 +168,40 @@ section {
 	position: fixed;
 	bottom: 20px;
 	left: 20px;
-	width: 120px;
-	height: 50px;
+	width: 150px;
+	height: 45px;
 	border-radius: 25px;
 	background-color: var(--main-bg-color);
-	border: var(--main-gold) 3px solid;
+	border: var(--main-gold) 2px solid;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
 	text-decoration: none;
 	color: white;
-	font-family: 'Impact', sans-serif;
+	font-family: 'Claro', sans-serif;
 	font-size: 20px;
 	z-index: 5;
+	cursor: pointer;
+	transition: left 250ms ease-in-out;
+}
+
+#back-to-home-cancel {
+	position: relative;
+	margin: 0 -12px;
+	padding-left: 14px;
+	padding-right: 16px;
+	right: 0;
+	height: calc(100% + 6px);
+	display: flex;
+	align-items: center;
+	z-index: 6;
+	cursor: default;
+}
+
+.v-line {
+	width: 2px;
+	height: 100%;
+	background-color: var(--main-gold);
+	transform: translateX(-50%);
 }
