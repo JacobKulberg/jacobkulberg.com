@@ -57,9 +57,9 @@ header {
 }
 
 header svg {
-	width: 4vh;
-	height: 4vh;
-	margin: 0.5vh;
+	width: min(4vmax, 36px);
+	height: min(4vmax, 36px);
+	margin: 0.5vmax;
 	cursor: pointer;
 	z-index: 1;
 }
@@ -364,7 +364,7 @@ header svg {
 	#current-bananas {
 		justify-content: flex-start;
 		left: 5px;
-		top: calc(3vh + 5px);
+		top: calc(min(3vmax, 27px) + 5px);
 	}
 
 	#find-angle-container {
@@ -386,7 +386,7 @@ header svg {
 	}
 
 	#remaining-attempts {
-		top: calc(10px + 3vh);
+		top: calc(10px + min(3vmax, 27px));
 		bottom: auto;
 		right: 10px;
 		left: auto;
@@ -397,7 +397,7 @@ header svg {
 	#current-bananas {
 		justify-content: flex-start;
 		left: 5px;
-		top: calc(3vh + 5px);
+		top: calc(min(3vmax, 27px) + 5px);
 	}
 
 	#find-angle-container {
@@ -419,7 +419,7 @@ header svg {
 	}
 
 	#remaining-attempts {
-		top: calc(10px + 3vh);
+		top: calc(10px + min(3vmax, 27px));
 		bottom: auto;
 		right: 10px;
 		left: auto;
@@ -430,7 +430,7 @@ header svg {
 	#current-bananas {
 		justify-content: flex-start;
 		left: 5px;
-		top: calc(3vh + 5px);
+		top: calc(min(3vmax, 27px) + 5px);
 	}
 
 	#find-angle-container {
@@ -452,7 +452,7 @@ header svg {
 	}
 
 	#remaining-attempts {
-		top: calc(10px + 3vh);
+		top: calc(10px + min(3vmax, 27px));
 		bottom: auto;
 		right: 10px;
 		left: auto;
