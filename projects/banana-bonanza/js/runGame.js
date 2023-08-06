@@ -164,6 +164,7 @@ function score() {
 function addBanana() {
 	const currentBananas = parseInt($('#current-banana-count').text());
 	$('#current-banana-count').text(currentBananas + 1);
+	$('#current-banana-count-text').text(currentBananas + 1 === 1 ? 'Banana' : 'Bananas');
 
 	let banana = $('<img src="images/banana.png" />');
 	banana.addClass('banana');
@@ -180,6 +181,7 @@ function endGame() {
 	gameOver.css('pointer-events', 'all');
 
 	finalBananaCount.text($('#current-banana-count').text());
+	$('#final-banana-count-text').text($('#current-banana-count').text() === '1' ? 'Banana!' : 'Bananas!');
 }
 
 $('#play-again').on('click', function () {
