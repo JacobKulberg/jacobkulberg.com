@@ -162,6 +162,7 @@ body::after {
 
 #remaining-attempts img {
 	width: calc(max(min(3vw, 4vh), 20px) * 1.75);
+	transition: filter 0.5s ease-in-out;
 }
 
 #search {
