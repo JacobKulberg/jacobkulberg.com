@@ -97,9 +97,9 @@ header svg {
 
 #how-to-play svg {
 	cursor: pointer;
-	width: min(5vmax, 45px);
-	height: min(5vmax, 45px);
-	padding: 0.5vmax;
+	width: min(4vmax, 36px);
+	height: min(4vmax, 36px);
+	margin: 0.5vmax;
 	position: fixed;
 	background-color: #121213;
 	border-radius: 0 0 10px 0;
