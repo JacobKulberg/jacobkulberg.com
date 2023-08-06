@@ -54,24 +54,41 @@ search.on('click touchstart', function () {
 });
 
 function setRandomAngle() {
+	let hardMode = Cookies.get('bananaBonanzaHardMode') == 'true';
+
 	let prevAngle = parseInt($('#current-angle').text());
 
 	let randAngle;
 	do {
-		randAngle = Math.floor(Math.random() * 359) + 1;
+		if (hardMode) {
+			randAngle = (Math.round(Math.random() * 2 * Math.PI * 1000) / 1000) % 6.283;
+		} else {
+			randAngle = Math.floor(Math.random() * 359) + 1;
+		}
 	} while (randAngle == prevAngle);
 
 	$('#current-angle').text(randAngle);
-	$('#current-unit').text(`degree${randAngle !== 1 ? 's' : ''}`);
+
+	if (hardMode) {
+		$('#current-unit').text(`radian${randAngle !== 1 ? 's' : ''}`);
+	} else {
+		$('#current-unit').text(`degree${randAngle !== 1 ? 's' : ''}`);
+	}
 }
 setRandomAngle();
 
 function score() {
-	const correctAngle = parseInt($('#current-angle').text());
+	let correctAngle = parseFloat($('#current-angle').text());
+	let hardMode = Cookies.get('bananaBonanzaHardMode') == 'true';
 
 	let playerAngle = Math.round(((-angle * 180) / Math.PI + 360) % 360) % 360;
+	if (hardMode) {
+		playerAngle = Math.round(((-angle + 2 * Math.PI) % (2 * Math.PI)) * 1000) / 1000;
+	}
 
-	let difference = Math.abs(correctAngle - playerAngle);
+	let correctAngleDegrees = hardMode ? Math.round((correctAngle * 180) / Math.PI) : correctAngle;
+	let playerAngleDegrees = hardMode ? Math.round((playerAngle * 180) / Math.PI) : playerAngle;
+	let difference = Math.abs(correctAngleDegrees - playerAngleDegrees);
 
 	let background = $('#background');
 	background.addClass('background');
@@ -102,7 +119,7 @@ function score() {
 	let bananasFound = n;
 
 	setTimeout(() => {
-		$('#background #bananas').css('width', `max(calc(max(${n * 4.5}vw, ${n * 4.5}vh) + 40px), 350px)`);
+		$('#background #bananas').css('width', `max(calc(max(${n * 4.5}vw, ${n * 4.5}vh) + 40px), 425px)`);
 		$('#background #bananas').css('border-width', '3px');
 
 		if (difference > 5) {
@@ -112,7 +129,7 @@ function score() {
 		}
 	}, 0);
 
-	$('#bananas-collected-text').text(`You searched at ${playerAngle}° and found ${bananasFound} banana${bananasFound !== 1 ? 's' : ''}!`);
+	$('#bananas-collected-text').text(`You searched at ${playerAngle} ${hardMode ? 'radians' : 'degrees'} and found ${bananasFound} banana${bananasFound !== 1 ? 's' : ''}!`);
 	if (difference > 5) $('#bananas-collected-text').css('top', 'calc(50% - 12.5px)');
 	setTimeout(() => {
 		if (difference <= 5) {

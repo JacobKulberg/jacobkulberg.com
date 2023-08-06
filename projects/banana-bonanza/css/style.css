@@ -5,7 +5,6 @@
 	user-select: none;
 	-webkit-user-select: none;
 	color: white !important;
-	border-color: white !important;
 	font-family: 'Comic Sans MS', sans-serif;
 }
 
@@ -15,7 +14,7 @@ body {
 }
 
 body {
-	background-color: #121213;
+	background-color: #121213 !important;
 	touch-action: none;
 	overflow: hidden;
 }
@@ -44,7 +43,7 @@ body::after {
 }
 
 #loading img {
-	width: 25%;
+	width: 30vmin;
 	animation: rotate 1s infinite ease-in-out;
 }
 
@@ -62,6 +61,7 @@ header svg {
 	margin: 0.5vmax;
 	cursor: pointer;
 	z-index: 1;
+	transition: transform 0.5s ease-in-out;
 }
 
 #how-to-play {
@@ -111,6 +111,79 @@ header svg {
 	text-align: center;
 	text-decoration: underline;
 	text-underline-offset: min(0.5vmax, 8px);
+}
+
+#settings {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #121213;
+	z-index: 60;
+	transition: opacity 0.5s ease-in-out;
+	opacity: 0;
+	pointer-events: none;
+	overflow-y: auto;
+}
+
+#settings svg {
+	right: 0;
+	cursor: pointer;
+	width: min(4vmax, 36px);
+	height: min(4vmax, 36px);
+	margin: 0.5vmax;
+	position: fixed;
+	background-color: #121213;
+	border-radius: 0 10px 0 0;
+	transition: transform 0.5s ease-in-out;
+}
+
+#settings h1 {
+	font-size: max(5vmax, 36px);
+	margin-bottom: 10px;
+	text-align: center;
+	text-decoration: underline;
+	text-underline-offset: min(0.5vmax, 8px);
+}
+
+.setting {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5vmin;
+	margin: 0 5vmin;
+}
+
+.setting-title {
+	font-size: min(max(3vmax, 24px), 36px);
+	margin-bottom: 10px;
+	text-align: left;
+	text-decoration: underline;
+	text-underline-offset: min(0.5vmax, 8px);
+}
+
+.setting-description {
+	font-size: min(max(2vmax, 14px), 20px);
+	margin-bottom: 10px;
+	text-align: left;
+	color: lightgray !important;
+}
+
+.toggle-handle {
+	background-color: white !important;
+}
+
+.toggle[disabled] {
+	opacity: 0.5;
+}
+
+.toggle[disabled] > .toggle-group > .btn {
+	cursor: not-allowed;
+}
+
+.toggle-handle:active {
+	border-color: white !important;
 }
 
 .background {
@@ -320,7 +393,6 @@ header svg {
 
 #final-bananas img {
 	position: relative;
-	top: 15px;
 	width: 65px;
 }
 
