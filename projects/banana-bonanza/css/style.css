@@ -17,6 +17,7 @@ body {
 body {
 	background-color: #121213;
 	touch-action: none;
+	overflow: hidden;
 }
 
 body::after {
@@ -64,7 +65,7 @@ header svg {
 }
 
 #how-to-play {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
