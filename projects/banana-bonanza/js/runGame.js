@@ -1,7 +1,7 @@
 const search = $('#search');
 const remainingAttempts = $('#remaining-attempts-images img');
 
-search.on('click', function () {
+search.on('click touchstart', function () {
 	if (search.hasClass('searching')) return;
 
 	if (search.children('span').text() === 'Next!') {
