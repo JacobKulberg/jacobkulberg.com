@@ -56,6 +56,7 @@ search.on('click touchstart', function () {
 function setRandomAngle() {
 	let randAngle = Math.floor(Math.random() * 360);
 	$('#current-angle').text(randAngle);
+	$('#current-unit').text(`degree${randAngle !== 1 ? 's' : ''}`);
 }
 setRandomAngle();
 
