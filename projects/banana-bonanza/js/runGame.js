@@ -61,7 +61,7 @@ function setRandomAngle() {
 	let randAngle;
 	do {
 		if (hardMode) {
-			randAngle = (Math.round(Math.random() * 2 * Math.PI * 1000) / 1000) % 6.283;
+			randAngle = (Math.round(Math.random() * 2 * Math.PI * 1000) / 1000) % (2 * Math.PI);
 		} else {
 			randAngle = Math.floor(Math.random() * 359) + 1;
 		}
