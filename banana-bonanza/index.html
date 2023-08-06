@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Banana Bonanza</title>
+
+		<link rel="stylesheet" href="css/style.css" />
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+		<!-- Font CDNs -->
+		<link href="https://allfont.net/allfont.css?fonts=comic-sans-ms" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<canvas id="banana-circle"></canvas>
+		<canvas id="banana-circle-overlay"></canvas>
+
+		<div id="background">
+			<div id="bananas">
+				<span id="bananas-collected-text"></span>
+			</div>
+		</div>
+
+		<div id="current-bananas">
+			<img src="images/banana.png" draggable="false" />
+			<span id="current-banana-count">0</span>
+			<span>Bananas</span>
+		</div>
+
+		<div id="find-angle-container">
+			<div id="find-angle">
+				<span>Bananas located at:</span>
+				<br />
+				<div style="text-align: center">
+					<span id="current-angle"></span>
+					<span id="current-unit">degrees</span>
+				</div>
+			</div>
+		</div>
+
+		<div id="remaining-attempts">
+			<div class="background"></div>
+			<span>Remaining Attempts:</span>
+			<div id="remaining-attempts-images">
+				<img src="images/banana.png" />
+				<img src="images/banana.png" />
+				<img src="images/banana.png" />
+				<img src="images/banana.png" />
+				<img src="images/banana.png" />
+			</div>
+		</div>
+
+		<div id="search">
+			<div class="background"></div>
+			<img src="images/neutral_monkey.svg" draggable="false" />
+			<span>Search!</span>
+		</div>
+
+		<div id="game-over">
+			<div class="background"></div>
+			<div id="game-over-modal">
+				<span>You collected:</span>
+				<div style="display: inline-block">
+					<div id="final-bananas">
+						<img src="images/banana.png" />
+						<span id="final-banana-count"></span>
+					</div>
+					<span>Bananas!</span>
+				</div>
+				<div id="final-adjective">Amazing!</div>
+				<br />
+				<img src="images/winking_monkey.svg" draggable="false" />
+				<div id="final-buttons">
+					<div id="play-again">Play Again</div>
+					<div id="share">Share</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/main.js"></script>
+		<script src="js/circle.js"></script>
+		<script src="js/runGame.js"></script>
+	</body>
+</html>
