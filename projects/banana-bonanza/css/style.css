@@ -25,7 +25,7 @@ body::after {
 	height: 0;
 	overflow: hidden;
 	z-index: -1;
-	content: url(/images/banana.png) url(/images/excited_monkey.svg) url(/images/goofy_monkey.svg) url(/images/neutral_monkey.svg) url(/images/winking_monkey.svg);
+	content: url(../images/banana.png) url(../images/excited_monkey.svg) url(../images/goofy_monkey.svg) url(../images/neutral_monkey.svg) url(../images/winking_monkey.svg);
 }
 
 #loading {
