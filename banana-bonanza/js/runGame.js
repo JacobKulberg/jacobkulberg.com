@@ -183,7 +183,9 @@ $('#share').on('mousedown', function (e) {
 	if (typeof window.ontouchstart != 'undefined' && e.type == 'mousedown') return;
 
 	$('#share').one('mouseup', function () {
-		copyTextToClipboard();
+		let shareText = `I found ${$('#current-banana-count').text()} banana${$('#current-banana-count').text() !== '1' ? 's' : ''} in Banana Bonanza! Can you beat my score? https://jacobkulberg.me/banana-bonanza/`;
+
+		copyTextToClipboard(shareText);
 	});
 
 	$window.one('mouseup', function () {
@@ -193,12 +195,14 @@ $('#share').on('mousedown', function (e) {
 
 $('#share').on('touchstart', function () {
 	$('#share').one('touchend', function () {
+		let shareText = `I found ${$('#current-banana-count').text()} banana${$('#current-banana-count').text() !== '1' ? 's' : ''} in Banana Bonanza! Can you beat my score? https://jacobkulberg.me/banana-bonanza/`;
+
 		if (navigator.canShare) {
 			navigator.share({
 				text: shareText,
 			});
 		} else {
-			copyTextToClipboard();
+			copyTextToClipboard(shareText);
 		}
 	});
 
@@ -207,9 +211,7 @@ $('#share').on('touchstart', function () {
 	});
 });
 
-function copyTextToClipboard() {
-	let shareText = `I found ${$('#current-banana-count').text()} banana${$('#current-banana-count').text() !== '1' ? 's' : ''} in Banana Bonanza! Can you beat my score? https://jacobkulberg.me/banana-bonanza/`;
-
+function copyTextToClipboard(shareText) {
 	navigator.clipboard.writeText(shareText);
 
 	$('#share').text('Copied!');
