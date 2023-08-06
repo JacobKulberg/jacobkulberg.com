@@ -129,7 +129,7 @@ function score() {
 		}
 	}, 0);
 
-	$('#bananas-collected-text').text(`You searched at ${playerAngle} ${hardMode ? 'radians' : 'degrees'} and found ${bananasFound} banana${bananasFound !== 1 ? 's' : ''}!`);
+	$('#bananas-collected-text').text(`You searched at ${playerAngle} ${hardMode ? (playerAngle !== 1 ? 'radians' : 'radian') : playerAngle !== 1 ? 'degrees' : 'degree'} and found ${bananasFound} banana${bananasFound !== 1 ? 's' : ''}!`);
 	if (difference > 5) $('#bananas-collected-text').css('top', 'calc(50% - 12.5px)');
 	setTimeout(() => {
 		if (difference <= 5) {
