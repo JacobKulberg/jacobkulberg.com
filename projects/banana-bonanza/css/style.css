@@ -47,6 +47,69 @@ body::after {
 	animation: rotate 1s infinite ease-in-out;
 }
 
+header {
+	position: absolute;
+	width: 100%;
+	height: 5vh;
+	display: flex;
+	justify-content: space-between;
+}
+
+header svg {
+	width: 4vh;
+	height: 4vh;
+	margin: 0.5vh;
+	cursor: pointer;
+	z-index: 1;
+}
+
+#how-to-play {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #121213;
+	z-index: 60;
+	transition: opacity 0.5s ease-in-out;
+	opacity: 0;
+	pointer-events: none;
+	overflow-y: auto;
+}
+
+#how-to-play-text {
+	text-align: center;
+	font-size: min(max(2.5vmax, 18px), 26px);
+}
+
+#how-to-play-text > div > span:has(img) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#how-to-play-text > div > span > img {
+	width: 3.5vmax;
+	height: 3.5vmax;
+	margin: 0.5vmax;
+}
+
+#how-to-play svg {
+	cursor: pointer;
+	width: 4vh;
+	height: 4vh;
+	margin: 0.5vh;
+	position: fixed;
+}
+
+#how-to-play h1 {
+	font-size: max(5vmax, 36px);
+	margin-bottom: 10px;
+	text-align: center;
+	text-decoration: underline;
+	text-underline-offset: min(0.5vmax, 8px);
+}
+
 .background {
 	position: absolute;
 	top: 0;
@@ -300,6 +363,7 @@ body::after {
 	#current-bananas {
 		justify-content: flex-start;
 		left: 5px;
+		top: calc(3vh + 5px);
 	}
 
 	#find-angle-container {
@@ -321,7 +385,7 @@ body::after {
 	}
 
 	#remaining-attempts {
-		top: 10px;
+		top: calc(10px + 3vh);
 		bottom: auto;
 		right: 10px;
 		left: auto;
@@ -332,6 +396,7 @@ body::after {
 	#current-bananas {
 		justify-content: flex-start;
 		left: 5px;
+		top: calc(3vh + 5px);
 	}
 
 	#find-angle-container {
@@ -353,7 +418,7 @@ body::after {
 	}
 
 	#remaining-attempts {
-		top: 10px;
+		top: calc(10px + 3vh);
 		bottom: auto;
 		right: 10px;
 		left: auto;
@@ -364,6 +429,7 @@ body::after {
 	#current-bananas {
 		justify-content: flex-start;
 		left: 5px;
+		top: calc(3vh + 5px);
 	}
 
 	#find-angle-container {
@@ -385,7 +451,7 @@ body::after {
 	}
 
 	#remaining-attempts {
-		top: 10px;
+		top: calc(10px + 3vh);
 		bottom: auto;
 		right: 10px;
 		left: auto;
