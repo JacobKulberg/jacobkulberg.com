@@ -88,7 +88,7 @@ function score() {
 
 	let correctAngleDegrees = hardMode ? Math.round((correctAngle * 180) / Math.PI) : correctAngle;
 	let playerAngleDegrees = hardMode ? Math.round((playerAngle * 180) / Math.PI) : playerAngle;
-	let difference = Math.abs(correctAngleDegrees - playerAngleDegrees);
+	let difference = Math.min(Math.abs(correctAngleDegrees - playerAngleDegrees), Math.abs(correctAngleDegrees - (playerAngleDegrees + 360)), Math.abs(correctAngleDegrees - (playerAngleDegrees - 360)));
 
 	let background = $('#background');
 	background.addClass('background');
