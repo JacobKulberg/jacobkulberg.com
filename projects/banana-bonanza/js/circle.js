@@ -9,7 +9,7 @@ let centerX = 0,
 	angle = 0;
 
 let banana = new Image();
-banana.src = '../images/banana.png';
+banana.src = 'images/banana.png';
 
 let circlePath = new Path2D();
 
