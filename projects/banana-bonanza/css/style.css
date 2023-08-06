@@ -230,6 +230,7 @@ header svg {
 	top: calc(50% - 57.5px);
 	opacity: 0;
 	transition: opacity 0.5s ease-in-out;
+	font-size: min(4vw, 16px);
 }
 
 #banana-circle {
