@@ -182,6 +182,30 @@ function endGame() {
 
 	finalBananaCount.text($('#current-banana-count').text());
 	$('#final-banana-count-text').text($('#current-banana-count').text() === '1' ? 'Banana!' : 'Bananas!');
+
+	let bananaCount = parseInt($('#current-banana-count').text());
+	if (bananaCount === 50) {
+		$('#final-adjective').text('World Class!');
+		$('#final-monkey img').css('content', 'url(images/excited_monkey.svg)');
+	} else if (bananaCount >= 40) {
+		$('#final-adjective').text('Phenomenal!');
+		$('#final-monkey img').css('content', 'url(images/winking_monkey.svg)');
+	} else if (bananaCount >= 30) {
+		$('#final-adjective').text('Excellent!');
+		$('#final-monkey img').css('content', 'url(images/goofy_monkey.svg)');
+	} else if (bananaCount >= 20) {
+		$('#final-adjective').text('Decent!');
+		$('#final-monkey img').css('content', 'url(images/neutral_monkey.svg)');
+	} else if (bananaCount >= 10) {
+		$('#final-adjective').text('Mediocre!');
+		$('#final-monkey img').css('content', 'url(images/sad_monkey.svg)');
+	} else if (bananaCount > 0) {
+		$('#final-adjective').text('Poor!');
+		$('#final-monkey img').css('content', 'url(images/crying_monkey.svg)');
+	} else {
+		$('#final-adjective').text('Abysmal!');
+		$('#final-monkey img').css('content', 'url(images/dead_monkey.svg)');
+	}
 }
 
 $('#play-again').on('click', function () {
