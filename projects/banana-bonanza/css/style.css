@@ -586,6 +586,18 @@ header svg {
 	}
 }
 
+@media (min-width: 850px) {
+	#find-angle-container span {
+		font-size: max(min(12vw, 36px), 30px);
+	}
+}
+
+@media (min-height: 650px) {
+	#find-angle-container span {
+		font-size: max(min(12vw, 36px), 30px);
+	}
+}
+
 @keyframes rotate {
 	0% {
 		transform: rotate(0deg);
