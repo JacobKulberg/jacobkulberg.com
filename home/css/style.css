@@ -120,6 +120,7 @@ header hr {
 	justify-content: center;
 	margin-bottom: 5px;
 	font-family: 'Roboto', sans-serif;
+	overflow: hidden;
 }
 
 .project-container.clicked .project {
@@ -176,6 +177,7 @@ header hr {
 	& h1 {
 		font-size: min(5vw, 30px);
 		text-decoration: underline;
+		white-space: nowrap;
 	}
 
 	& p {
@@ -184,13 +186,18 @@ header hr {
 	}
 }
 
-#lettle {
+#lettle,
+#banana-bonanza {
 	flex: 1;
 	width: 50vw !important;
 	height: 50vw !important;
 	max-width: 300px;
 	max-height: 300px;
 	flex-grow: 0;
+}
+
+#banana-bonanza {
+	transform: scale(1.35);
 }
 
 .service-container {

@@ -1,3 +1,5 @@
+// Lettle Cube
+
 let lettle = new Zdog.Illustration({
 	element: '#lettle',
 });
@@ -115,6 +117,24 @@ function animateLettle() {
 
 animateLettle();
 
+// Banana Bonanza Monkeys
+
+let monkeyImages = ['crying_monkey.svg', 'dead_monkey.svg', 'excited_monkey.svg', 'goofy_monkey.svg', 'sad_monkey.svg', 'winking_monkey.svg'];
+
+function changeMonkeyImage() {
+	let monkeyImage = monkeyImages[Math.floor(Math.random() * monkeyImages.length)];
+
+	// add current to pool
+	if ($('#banana-bonanza').attr('src')) monkeyImages.push($('#banana-bonanza').attr('src').split('/').pop());
+
+	// remove new from pool
+	monkeyImages.splice(monkeyImages.indexOf(monkeyImage), 1);
+
+	$('#banana-bonanza').attr('src', `projects/banana-bonanza/images/${monkeyImage}`);
+}
+
+$('.project-container:has(#banana-bonanza)').on('mouseenter', changeMonkeyImage);
+
 $('.link div')
 	.on('touchstart', (e) => {
 		$(e.currentTarget).parents('.link').addClass('clicked');
@@ -143,6 +163,8 @@ $('.project-container').on('touchstart', (e) => {
 		if (!$(e.currentTarget).hasClass('clicked')) {
 			setTimeout(() => {
 				$(e.currentTarget).addClass('clicked');
+
+				if ($('.project-container:has(#banana-bonanza)').hasClass('clicked')) changeMonkeyImage();
 			}, 0);
 		}
 	});
