@@ -119,15 +119,37 @@ $window.on('mouseup', () => {
 	$window.off('mousemove', mousemove);
 });
 
+let endCoords = [];
 let touchmove = (e) => {
+	e.pageX = e.originalEvent.touches[0].pageX;
+	e.pageY = e.originalEvent.touches[0].pageY;
+	endCoords = [e.pageX, e.pageY];
 	drawUserLine(e);
 };
 bananaCircle.on('touchstart', (e) => {
+	clearInterval(reposition);
+
+	e.pageX = e.originalEvent.touches[0].pageX;
+	e.pageY = e.originalEvent.touches[0].pageY;
+	endCoords = [e.pageX, e.pageY];
+
 	if (bananaCircleCtx.isPointInPath(circlePath, e.pageX * ratio, e.pageY * ratio)) {
 		drawUserLine(e);
-		$window.on('touchmove', mousemove);
+		$window.on('touchmove', touchmove);
 	}
 });
-$window.on('touchend', () => {
-	$window.off('touchmove', mousemove);
+
+let reposition = null;
+$window.on('touchend', (e) => {
+	reposition = setInterval(() => {
+		e.pageX = endCoords[0];
+		e.pageY = endCoords[1];
+		drawUserLine(e);
+	}, 0);
+
+	setTimeout(() => {
+		clearInterval(reposition);
+	}, 50);
+
+	$window.off('touchmove', touchmove);
 });
