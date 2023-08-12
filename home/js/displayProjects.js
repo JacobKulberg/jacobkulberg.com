@@ -149,11 +149,17 @@ $('.link div')
 		});
 	})
 	.on('mousedown', (e) => {
-		let end = $(e.currentTarget).one('mouseup', () => {
+		if (e.which != 1) return;
+
+		let end = $(e.currentTarget).one('mouseup', (ev) => {
+			if (ev.which != 1) return;
+
 			window.location = $(e.currentTarget).attr('value');
 		});
 
-		$(window).one('mouseup visibilitychange blur', () => {
+		$(window).one('mouseup visibilitychange blur', (ev) => {
+			if (ev.which != 1) return;
+
 			end.off('mouseup');
 		});
 	});
