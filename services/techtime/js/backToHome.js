@@ -10,7 +10,7 @@ $(window).on('load', () => {
 			$('#back-to-home').on('click', backToHome);
 		});
 
-		if ($('#back-to-home').css('left') == '-104px') {
+		if ($('#back-to-home').css('left') == '-102px') {
 			$('#back-to-home').css({
 				left: '',
 			});
@@ -19,7 +19,7 @@ $(window).on('load', () => {
 			$('#back-to-home-cancel i').addClass('fa-times');
 		} else {
 			$('#back-to-home').css({
-				left: '-104px',
+				left: '-102px',
 			});
 
 			$('#back-to-home-cancel i').removeClass('fa-times');
