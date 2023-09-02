@@ -118,7 +118,7 @@ body {
 	box-shadow: inset 0 0 0 calc(100vmin / 8 / 18) rgba(255, 255, 255, 0.5);
 }
 
-.hovered-square:has(.legal-circle):not(.hovered-square-off):hover > .legal-circle {
+.hovered-square:has(.legal-circle):not(.hovered-square-off) > .legal-circle {
 	border-color: rgba(255, 255, 255, 0.5);
 }
 
