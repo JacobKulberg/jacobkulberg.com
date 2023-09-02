@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- Custom CSS -->
+		<link rel="stylesheet" type="text/css" href="css/board.css" />
+
+		<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png" />
+		<link rel="manifest" href="images/favicon/site.webmanifest" />
+		<link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#b88762" />
+		<link rel="shortcut icon" href="images/favicon/favicon.ico" />
+		<meta name="apple-mobile-web-app-title" content="Chess AI" />
+		<meta name="application-name" content="Chess AI" />
+		<meta name="msapplication-TileColor" content="#b88762" />
+		<meta name="msapplication-config" content="images/favicon/browserconfig.xml" />
+		<meta name="theme-color" content="#b88762" />
+
+		<title>Chess AI</title>
+	</head>
+	<body>
+		<!-- <div id="fen">
+			<p>Fen:</p>
+			<input type="text" id="fen-input" value="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" />
+			<button id="fen-button">Set Position</button>
+		</div> -->
+
+		<div id="board-container">
+			<div id="board"></div>
+
+			<div id="promotion">
+				<div>
+					<div id="promotion-queen" class="promotion-piece">
+						<img src="images/wQ.svg" data-piece-white="5" data-piece-black="11" draggable="false" />
+					</div>
+					<div id="promotion-rook" class="promotion-piece">
+						<img src="images/wR.svg" data-piece-white="4" data-piece-black="10" draggable="false" />
+					</div>
+				</div>
+				<div>
+					<div id="promotion-knight" class="promotion-piece">
+						<img src="images/wN.svg" data-piece-white="2" data-piece-black="8" draggable="false" />
+					</div>
+					<div id="promotion-bishop" class="promotion-piece">
+						<img src="images/wB.svg" data-piece-white="3" data-piece-black="9" draggable="false" />
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="cover"></div>
+
+		<script src="js/all.min.js"></script>
+	</body>
+</html>

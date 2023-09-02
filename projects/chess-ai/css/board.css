@@ -1,0 +1,202 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	touch-action: manipulation;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	overflow: hidden;
+}
+
+#fen {
+	margin-top: 60px;
+	margin-left: 60px;
+}
+
+#fen p {
+	display: inline;
+}
+
+#fen input {
+	width: 480px;
+}
+
+#board-container {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+#board {
+	display: absolute;
+	width: 100vmin;
+	height: 100vmin;
+}
+
+.board-rank {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: calc(100vmin / 8 / 18);
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Helvetica, Arial, sans-serif;
+	font-weight: 600;
+	font-size: calc(100vmin / 8 / 4);
+}
+
+.board-file {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin: calc(100vmin / 8 / 18);
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Helvetica, Arial, sans-serif;
+	font-weight: 600;
+	font-size: calc(100vmin / 8 / 4);
+}
+
+.square {
+	position: relative;
+	width: calc(100vmin / 8);
+	height: calc(100vmin / 8);
+	display: inline-flex;
+	vertical-align: top;
+	justify-content: center;
+	align-items: center;
+}
+
+.square:has(img) {
+	cursor: grab;
+}
+
+.square > img {
+	width: calc(100vmin / 8 * 0.9);
+	height: calc(100vmin / 8 * 0.9);
+	z-index: 1;
+}
+
+.light {
+	background-color: #edd6b0;
+	color: #b88762;
+}
+
+.light.selected-square {
+	background-color: #f6eb72;
+	color: #d4ab6a;
+}
+
+.light.previously-moved-square {
+	background-color: #f6eb72;
+	color: #d4ab6a;
+}
+
+.dark {
+	background-color: #b88762;
+	color: #edd6b0;
+}
+
+.dark.selected-square {
+	background-color: #dcc34b;
+	color: #b88762;
+}
+
+.dark.previously-moved-square {
+	background-color: #dcc34b;
+	color: #b88762;
+}
+
+.hovered-square:not(:has(img + .legal-circle)):not(.hovered-square-off) {
+	box-shadow: inset 0 0 0 calc(100vmin / 8 / 18) rgba(255, 255, 255, 0.5);
+}
+
+.hovered-square:has(.legal-circle):not(.hovered-square-off):hover > .legal-circle {
+	border-color: rgba(255, 255, 255, 0.5);
+}
+
+@media (hover: hover) {
+	.square:not(:has(img + .legal-circle)):not(.hovered-square-off):hover {
+		box-shadow: inset 0 0 0 calc(100vmin / 8 / 18) rgba(255, 255, 255, 0.5);
+	}
+
+	.square:has(.legal-circle):not(.hovered-square-off):hover > .legal-circle {
+		border-color: rgba(255, 255, 255, 0.5);
+	}
+}
+
+.legal-circle {
+	position: absolute;
+	width: calc(100vmin / 8 / 3);
+	height: calc(100vmin / 8 / 3);
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.15);
+	pointer-events: none;
+}
+
+.square:has(.legal-circle) {
+	cursor: pointer;
+}
+
+img + .legal-circle {
+	border: calc(100vmin / 8 / 12) solid rgba(0, 0, 0, 0.15);
+	background-color: transparent;
+	width: calc(100vmin / 8 - 0.5vmin);
+	height: calc(100vmin / 8 - 0.5vmin);
+}
+
+#promotion {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: none;
+	justify-content: center;
+	align-items: center;
+	gap: 7vmin;
+	z-index: 3;
+}
+
+#promotion .promotion-piece:first-child {
+	margin-bottom: 7vmin;
+}
+
+#promotion .promotion-piece {
+	background-color: rgba(0, 0, 0, 0.25);
+	border-radius: 10%;
+	width: 40vmin;
+	height: 40vmin;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+#promotion .promotion-piece img {
+	width: 90%;
+	height: 90%;
+}
+
+#cover {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	z-index: 2;
+	display: none;
+}
+
+.square:not(.selected-square):not(.previously-moved-square) > .check-square {
+	position: absolute;
+	width: calc(100vmin / 8);
+	height: calc(100vmin / 8);
+	background: radial-gradient(rgba(255, 0, 0, 0.9), transparent) !important;
+}
