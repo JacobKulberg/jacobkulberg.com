@@ -1,4 +1,6 @@
 $('#fen-button').on('click', function () {
+	if (e.which && e.which != 1) return;
+
 	let newFen = $('#fen input').val();
 	parseFEN(newFen);
 	printBoard();
@@ -43,6 +45,8 @@ function setupBoard() {
 		e.stopPropagation();
 		e.preventDefault();
 
+		if (e.which && e.which != 1) return;
+
 		if ($(e.currentTarget).has('.legal-circle').length) {
 			return;
 		}
@@ -59,6 +63,7 @@ function setupBoard() {
 
 			square.addClass('selected-square hovered-square');
 
+			piece.removeAttr('style');
 			piece.css({
 				position: 'absolute',
 				top: Math.min(Math.max(mouse.y - piece.height() / 2, 0), $(window).height() - piece.height()),
@@ -87,8 +92,11 @@ function setupBoard() {
 				if (from == squareNum) {
 					let to = getToSquare(moves[i]);
 					let toSquareEl = $(`.square[data-id="${getMirror64(BOARD_120_TO_64[to])}"]`);
+
 					let circle = document.createElement('div');
+
 					circle.classList.add('legal-circle');
+
 					toSquareEl.append(circle);
 				}
 			}
@@ -96,6 +104,8 @@ function setupBoard() {
 			$(window).on('mousemove touchmove', (e) => {
 				e.stopPropagation();
 				e.preventDefault();
+
+				if (e.which && e.which != 1) return;
 
 				mouse.x = e.pageX || e.originalEvent.touches?.[0].pageX || mouse.x;
 				mouse.y = e.pageY || e.originalEvent.touches?.[0].pageY || mouse.y;
@@ -133,7 +143,10 @@ function setupBoard() {
 				}
 
 				square.removeClass('selected-square');
+
 				$('.square').children('.check-square').remove();
+
+				let previousBoard = [...board.pieces];
 
 				let aiMoveTimeout = null;
 
@@ -195,7 +208,7 @@ function setupBoard() {
 
 					$('.square').addClass('hovered-square-off');
 
-					aiMoveTimeout = setTimeout(aiMove, 500);
+					aiMoveTimeout = setTimeout(aiMove, 1000);
 				}
 
 				clearHints();
@@ -204,7 +217,7 @@ function setupBoard() {
 				nearestSquare.removeClass('hovered-square');
 				nearestSquare.append(piece);
 
-				refreshBoardGUI();
+				refreshBoardGUI(previousBoard, true /* isDragged */);
 
 				if (board.fiftyMove >= 100) {
 					clearTimeout(aiMoveTimeout);
@@ -236,6 +249,8 @@ function setupBoard() {
 		e.stopPropagation();
 		e.preventDefault();
 
+		if (e.which && e.which != 1) return;
+
 		if ($(e.currentTarget).children('.legal-circle').length) {
 			return;
 		}
@@ -256,6 +271,8 @@ function setupBoard() {
 		e.stopPropagation();
 		e.preventDefault();
 
+		if (e.which && e.which != 1) return;
+
 		if (!$(e.currentTarget).has('.legal-circle').length) {
 			return;
 		}
@@ -270,6 +287,8 @@ function setupBoard() {
 		let piece = $('.selected-square').children('img');
 		let pieceFrom = BOARD_64_TO_120[getMirror64($('.selected-square').attr('data-id'))];
 		let pieceTo = BOARD_64_TO_120[getMirror64($(e.currentTarget).attr('data-id'))];
+
+		let previousBoard = [...board.pieces];
 
 		let moves = getAllMovesArr();
 		for (let i = 0; i < moves.length; i++) {
@@ -319,16 +338,29 @@ function setupBoard() {
 
 		$('.square').addClass('hovered-square-off');
 
-		let aiMoveTimeout = setTimeout(aiMove, 500);
+		let aiMoveTimeout = setTimeout(aiMove, 1000);
 
 		clearHints();
 		piece.removeAttr('style');
-		$(e.currentTarget).children('img').remove();
+
+		let previousPiece = $($(e.currentTarget).children('img')[0]);
+		previousPiece.addClass('previous-piece');
+
+		previousPiece.css({
+			opacity: 0,
+			position: 'absolute',
+		});
+
+		setTimeout(() => {
+			previousPiece.remove();
+			$($(e.currentTarget).children('img:not([draggable="false"])')[0]).remove();
+		}, 150);
+
 		$(e.currentTarget).removeClass('hovered-square');
 		$(e.currentTarget).append(piece);
 		$('.selected-square').removeClass('selected-square');
 
-		refreshBoardGUI();
+		refreshBoardGUI(previousBoard);
 
 		if (board.fiftyMove >= 100) {
 			clearTimeout(aiMoveTimeout);
@@ -373,15 +405,21 @@ async function aiMove() {
 		}
 	}
 
+	let previousBoard = [...board.pieces];
+
 	makeMove(bestAIMove);
 
-	$('.square').removeClass('hovered-square-off previously-moved-square');
-	$('.square').children('.check-square').remove();
+	setTimeout(() => {
+		$('.square').removeClass('hovered-square-off previously-moved-square');
+		$('.square').children('.check-square').remove();
 
-	$(`.square[data-id="${getMirror64(BOARD_120_TO_64[getFromSquare(bestAIMove)])}"]`).addClass('previously-moved-square');
-	$(`.square[data-id="${getMirror64(BOARD_120_TO_64[getToSquare(bestAIMove)])}"]`).addClass('previously-moved-square');
+		$(`.square[data-id="${getMirror64(BOARD_120_TO_64[getFromSquare(bestAIMove)])}"]`).addClass('previously-moved-square');
+		$(`.square[data-id="${getMirror64(BOARD_120_TO_64[getToSquare(bestAIMove)])}"]`).addClass('previously-moved-square');
+	}, search.time - 1000);
 
-	refreshBoardGUI();
+	setTimeout(() => {
+		refreshBoardGUI(previousBoard);
+	}, 0);
 
 	allLegalMoves = getAllMovesArr().filter((move) => isLegalMove(move));
 	if (allLegalMoves.length == 0) {
@@ -438,6 +476,8 @@ async function getPromotedPieceGUI() {
 		$('#promotion').css('display', 'flex');
 
 		$('.promotion-piece').on('click', (e) => {
+			if (e.which && e.which != 1) return;
+
 			let piece = $(e.currentTarget)
 				.children('img')
 				.attr(`data-piece-${board.side == COLORS.WHITE ? 'white' : 'black'}`);
@@ -450,7 +490,7 @@ async function getPromotedPieceGUI() {
 	});
 }
 
-function refreshBoardGUI() {
+function refreshBoardGUI(previousBoard, isDragged = false) {
 	for (let i = 0; i < board.pieces.length; i++) {
 		if (board.pieces[i] != SQUARES.INVALID && board.pieces[i] != SQUARES.OFFBOARD) {
 			let pieceNum = board.pieces[i];
@@ -504,7 +544,18 @@ function refreshBoardGUI() {
 			if (boardPiece != pieceNum) {
 				$('.square').each((index, square) => {
 					if (pieceNum && $(square).attr('data-id') == getMirror64(BOARD_120_TO_64[i])) {
-						$(square).children('img').remove();
+						let previousPiece = $($(square).children('img')[0]);
+						previousPiece.addClass('previous-piece');
+
+						previousPiece.css({
+							opacity: 0,
+							position: 'absolute',
+						});
+
+						setTimeout(() => {
+							previousPiece.remove();
+						}, 150);
+
 						let piece = document.createElement('img');
 						piece.src = `images/${pieceNum}.svg`;
 						$(square).append(piece);
@@ -520,16 +571,86 @@ function refreshBoardGUI() {
 				if (isSquareAttacked(i, COLORS.BLACK)) {
 					let checkSquare = document.createElement('div');
 					$(checkSquare).addClass('check-square');
+
+					setTimeout(() => {
+						$(checkSquare).css('opacity', '1');
+					});
+
 					$(`.square[data-id="${getMirror64(BOARD_120_TO_64[i])}"]`).append(checkSquare);
 				}
 			} else if (boardPiece == 'bK') {
 				if (isSquareAttacked(i, COLORS.WHITE)) {
 					let checkSquare = document.createElement('div');
 					$(checkSquare).addClass('check-square');
+
+					setTimeout(() => {
+						$(checkSquare).css('opacity', '1');
+					});
+
 					$(`.square[data-id="${getMirror64(BOARD_120_TO_64[i])}"]`).append(checkSquare);
 				}
 			}
 		}
+	}
+
+	let hasMovedKingOrRook = false;
+	if (!isDragged) {
+		let fromRow = 0;
+		let fromCol = 0;
+		for (let i = 0; i < board.pieces.length; i++) {
+			if (board.pieces[i] != previousBoard[i] && board.pieces[i] == 0 && PIECE_COLOR[previousBoard[i]] != board.side) {
+				fromRow = Math.floor(getMirror64(BOARD_120_TO_64[i]) / 8);
+				fromCol = getMirror64(BOARD_120_TO_64[i]) % 8;
+			}
+		}
+		for (let i = 0; i < board.pieces.length; i++) {
+			if (board.pieces[i] != previousBoard[i] && board.pieces[i] > 0) {
+				if (hasMovedKingOrRook) {
+					switch (board.pieces[i]) {
+						case PIECES.wK:
+							fromCol -= 3;
+							break;
+						case PIECES.bK:
+							fromCol -= 3;
+							break;
+						case PIECES.wR:
+							fromCol -= 4;
+							break;
+						case PIECES.bR:
+							fromCol -= 4;
+							break;
+					}
+				}
+
+				if (board.pieces[i] == PIECES.wK || board.pieces[i] == PIECES.bK || board.pieces[i] == PIECES.wR || board.pieces[i] == PIECES.bR) {
+					hasMovedKingOrRook = true;
+				}
+
+				let piece = $(`.square[data-id="${getMirror64(BOARD_120_TO_64[i])}"]`).children('img');
+				piece.each((index, p) => {
+					p = $(p);
+					if (!p.hasClass('previous-piece')) {
+						p.css({
+							position: 'absolute',
+							top: `calc(${fromRow - Math.floor(getMirror64(BOARD_120_TO_64[i]) / 8)} * 12.5vmin + 0.625vmin)`,
+							left: `calc(${fromCol - (getMirror64(BOARD_120_TO_64[i]) % 8)} * 12.5vmin + 0.625vmin)`,
+							transition: 'top 250ms ease-in-out, left 250ms ease-in-out',
+						});
+					}
+				});
+			}
+		}
+
+		setTimeout(() => {
+			$('.square').children('img').css({
+				top: '0.625vmin',
+				left: '0.625vmin',
+			});
+		}, 0);
+
+		setTimeout(() => {
+			$('.square').children('img').removeAttr('style');
+		}, 250);
 	}
 }
 

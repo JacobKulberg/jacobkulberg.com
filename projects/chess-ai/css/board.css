@@ -72,6 +72,7 @@ body {
 	vertical-align: top;
 	justify-content: center;
 	align-items: center;
+	transition: background-color 250ms ease-out, box-shadow 50ms ease-out;
 }
 
 .square:has(img) {
@@ -82,6 +83,8 @@ body {
 	width: calc(100vmin / 8 * 0.9);
 	height: calc(100vmin / 8 * 0.9);
 	z-index: 1;
+	transition: opacity 150ms ease-in-out, top 500ms linear, left 500ms linear;
+	opacity: 1;
 }
 
 .light {
@@ -199,4 +202,6 @@ img + .legal-circle {
 	width: calc(100vmin / 8);
 	height: calc(100vmin / 8);
 	background: radial-gradient(rgba(255, 0, 0, 0.9), transparent) !important;
+	opacity: 0;
+	transition: opacity 150ms ease-out;
 }
