@@ -574,7 +574,7 @@ function refreshBoardGUI(previousBoard, isDragged = false) {
 
 					setTimeout(() => {
 						$(checkSquare).css('opacity', '1');
-					});
+					}, 0);
 
 					$(`.square[data-id="${getMirror64(BOARD_120_TO_64[i])}"]`).append(checkSquare);
 				}
@@ -585,7 +585,7 @@ function refreshBoardGUI(previousBoard, isDragged = false) {
 
 					setTimeout(() => {
 						$(checkSquare).css('opacity', '1');
-					});
+					}, 0);
 
 					$(`.square[data-id="${getMirror64(BOARD_120_TO_64[i])}"]`).append(checkSquare);
 				}
@@ -605,6 +605,8 @@ function refreshBoardGUI(previousBoard, isDragged = false) {
 		}
 		for (let i = 0; i < board.pieces.length; i++) {
 			if (board.pieces[i] != previousBoard[i] && board.pieces[i] > 0) {
+				let piece = $(`.square[data-id="${getMirror64(BOARD_120_TO_64[i])}"]`).children('img');
+
 				if (hasMovedKingOrRook) {
 					switch (board.pieces[i]) {
 						case PIECES.wK:
@@ -624,9 +626,10 @@ function refreshBoardGUI(previousBoard, isDragged = false) {
 
 				if (board.pieces[i] == PIECES.wK || board.pieces[i] == PIECES.bK || board.pieces[i] == PIECES.wR || board.pieces[i] == PIECES.bR) {
 					hasMovedKingOrRook = true;
+
+					piece.attr('draggable', 'false');
 				}
 
-				let piece = $(`.square[data-id="${getMirror64(BOARD_120_TO_64[i])}"]`).children('img');
 				piece.each((index, p) => {
 					p = $(p);
 					if (!p.hasClass('previous-piece')) {
