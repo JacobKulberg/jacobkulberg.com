@@ -608,6 +608,8 @@ function refreshBoardGUI(previousBoard, isDragged = false) {
 				let piece = $(`.square[data-id="${getMirror64(BOARD_120_TO_64[i])}"]`).children('img');
 
 				if (hasMovedKingOrRook) {
+					$('.square').children('img').attr('draggable', 'false');
+
 					switch (board.pieces[i]) {
 						case PIECES.wK:
 							fromCol -= 3;
@@ -626,8 +628,6 @@ function refreshBoardGUI(previousBoard, isDragged = false) {
 
 				if (board.pieces[i] == PIECES.wK || board.pieces[i] == PIECES.bK || board.pieces[i] == PIECES.wR || board.pieces[i] == PIECES.bR) {
 					hasMovedKingOrRook = true;
-
-					piece.attr('draggable', 'false');
 				}
 
 				piece.each((index, p) => {
