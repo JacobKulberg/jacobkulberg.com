@@ -1,4 +1,4 @@
-$('#fen-button').on('click', function () {
+$('#fen-button').on('click', function (e) {
 	if (e.which && e.which != 1) return;
 
 	let newFen = $('#fen input').val();
@@ -68,10 +68,10 @@ function setupBoard() {
 				position: 'absolute',
 				top: Math.min(Math.max(mouse.y - piece.height() / 2, 0), $(window).height() - piece.height()),
 				left: Math.min(Math.max(mouse.x - piece.width() / 2, 0), $(window).width() - piece.width()),
-				width: 'calc(100vmin / 8 * 0.9)',
-				height: 'calc(100vmin / 8 * 0.9)',
+				width: 'calc(87.5dvmin / 8 * 0.9)',
+				height: 'calc(87.5dvmin / 8 * 0.9)',
 				pointerEvents: 'none',
-				zIndex: 1,
+				zIndex: 2,
 			});
 			piece.remove();
 			$('body').append(piece);
@@ -113,6 +113,7 @@ function setupBoard() {
 				piece.css({
 					top: Math.min(Math.max(mouse.y - piece.height() / 2, 0), $(window).height() - piece.height()),
 					left: Math.min(Math.max(mouse.x - piece.width() / 2, 0), $(window).width() - piece.width()),
+					zIndex: 2,
 				});
 
 				$('.square').each((index, square) => {
@@ -415,9 +416,7 @@ async function aiMove() {
 
 		$(`.square[data-id="${getMirror64(BOARD_120_TO_64[getFromSquare(bestAIMove)])}"]`).addClass('previously-moved-square');
 		$(`.square[data-id="${getMirror64(BOARD_120_TO_64[getToSquare(bestAIMove)])}"]`).addClass('previously-moved-square');
-	}, search.time - 1000);
 
-	setTimeout(() => {
 		refreshBoardGUI(previousBoard);
 	}, 0);
 
@@ -633,12 +632,23 @@ function refreshBoardGUI(previousBoard, isDragged = false) {
 				piece.each((index, p) => {
 					p = $(p);
 					if (!p.hasClass('previous-piece')) {
-						p.css({
-							position: 'absolute',
-							top: `calc(${fromRow - Math.floor(getMirror64(BOARD_120_TO_64[i]) / 8)} * 12.5vmin + 0.625vmin)`,
-							left: `calc(${fromCol - (getMirror64(BOARD_120_TO_64[i]) % 8)} * 12.5vmin + 0.625vmin)`,
-							transition: 'top 250ms ease-in-out, left 250ms ease-in-out',
-						});
+						if (board.isFlipped) {
+							p.css({
+								position: 'absolute',
+								top: `calc(${fromRow - Math.floor(getMirror64(BOARD_120_TO_64[i]) / 8)} * -10.9375dvmin + 0.546875dvmin)`,
+								left: `calc(${fromCol - (getMirror64(BOARD_120_TO_64[i]) % 8)} * -10.9375dvmin + 0.546875dvmin)`,
+								transition: 'top 250ms ease-in-out, left 250ms ease-in-out',
+								zIndex: 3,
+							});
+						} else {
+							p.css({
+								position: 'absolute',
+								top: `calc(${fromRow - Math.floor(getMirror64(BOARD_120_TO_64[i]) / 8)} * 10.9375dvmin + 0.546875dvmin)`,
+								left: `calc(${fromCol - (getMirror64(BOARD_120_TO_64[i]) % 8)} * 10.9375dvmin + 0.546875dvmin)`,
+								transition: 'top 250ms ease-in-out, left 250ms ease-in-out',
+								zIndex: 3,
+							});
+						}
 					}
 				});
 			}
@@ -646,14 +656,26 @@ function refreshBoardGUI(previousBoard, isDragged = false) {
 
 		setTimeout(() => {
 			$('.square').children('img').css({
-				top: '0.625vmin',
-				left: '0.625vmin',
+				top: '0.546875dvmin',
+				left: '0.546875dvmin',
 			});
 		}, 0);
 
 		setTimeout(() => {
 			$('.square').children('img').removeAttr('style');
 		}, 250);
+	} else {
+		for (let i = 0; i < board.pieces.length; i++) {
+			if (board.pieces[i] != previousBoard[i] && board.pieces[i] > 0) {
+				if (hasMovedKingOrRook) {
+					$('.square').children('img').attr('draggable', 'false');
+				}
+
+				if (board.pieces[i] == PIECES.wK || board.pieces[i] == PIECES.bK || board.pieces[i] == PIECES.wR || board.pieces[i] == PIECES.bR) {
+					hasMovedKingOrRook = true;
+				}
+			}
+		}
 	}
 }
 
@@ -673,4 +695,50 @@ function getNearestSquare(x, y) {
 
 function clearHints() {
 	$('.legal-circle').remove();
+}
+
+function flipBoard() {
+	board.isFlipped = !board.isFlipped;
+
+	$('#board').toggleClass('flipped');
+	$('.square').toggleClass('flipped');
+
+	$('.board-rank').remove();
+	$('.board-file').remove();
+
+	if (board.isFlipped) {
+		for (let i = 0; i < 64; i++) {
+			let square = $(`.square[data-id="${i}"]`)[0];
+
+			if (i % 8 == 7) {
+				let rank = document.createElement('div');
+				rank.classList.add('board-rank');
+				rank.innerText = RANKS_STRING[Math.floor(getMirror64(i) / 8)];
+				square.appendChild(rank);
+			}
+			if (i <= 7) {
+				let file = document.createElement('div');
+				file.classList.add('board-file');
+				file.innerText = FILES_STRING[i];
+				square.appendChild(file);
+			}
+		}
+	} else {
+		for (let i = 0; i < 64; i++) {
+			let square = $(`.square[data-id="${i}"]`)[0];
+
+			if (i % 8 == 0) {
+				let rank = document.createElement('div');
+				rank.classList.add('board-rank');
+				rank.innerText = RANKS_STRING[Math.floor(getMirror64(i) / 8)];
+				square.appendChild(rank);
+			}
+			if (i >= 56) {
+				let file = document.createElement('div');
+				file.classList.add('board-file');
+				file.innerText = FILES_STRING[i - 56];
+				square.appendChild(file);
+			}
+		}
+	}
 }

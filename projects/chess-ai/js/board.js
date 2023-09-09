@@ -26,6 +26,8 @@ board.PVArray = [];
 board.searchHistory = [];
 board.searchKillers = [];
 
+board.isFlipped = false;
+
 function updatePieceLists() {
 	for (let i = 0; i < 140; i++) {
 		board.pieceList[i] = PIECES.EMPTY;
