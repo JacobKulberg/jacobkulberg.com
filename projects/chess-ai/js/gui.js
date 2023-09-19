@@ -1,9 +1,70 @@
+let aiMoveTimeout = null;
+
 $('#fen-button').on('click', function (e) {
 	if (e.which && e.which != 1) return;
+	if (aiMoveTimeout !== null) return;
 
-	let newFen = $('#fen input').val();
+	let newFen = $('#fen-input').val();
 	parseFEN(newFen);
-	printBoard();
+
+	$('.square').removeClass('previously-moved-square');
+	$('.square').removeClass('hovered-square-off');
+	$('.square').children('.check-square').remove();
+
+	if (board.side == $('#ai-play-as').val()) {
+		$('#cover').css('display', 'block');
+		aiMoveTimeout = setTimeout(aiMove, 250);
+	} else {
+		$('#cover').css('display', '');
+
+		clearTimeout(aiMoveTimeout);
+		aiMoveTimeout = null;
+	}
+});
+
+$('#fen-input').on('input', function (e) {
+	let newFen = $('#fen-input').val();
+
+	if (!validateFEN(newFen)) {
+		$('#fen-input').addClass('invalid');
+		$('#fen-button').addClass('invalid');
+		$('#fen-button').prop('disabled', true);
+
+		$('#fen-button').tooltip('enable');
+	} else {
+		$('#fen-input').removeClass('invalid');
+		$('#fen-button').removeClass('invalid');
+		$('#fen-button').prop('disabled', false);
+
+		$('#fen-button').tooltip('disable');
+	}
+});
+
+$('#fen-input').on('click', function (e) {
+	if (!$(this).prop('selected') && !(window.getSelection && window.getSelection().type === 'Range')) {
+		$(this).select();
+		$(this).prop('selected', true);
+	}
+});
+
+$('#fen-input').on('blur', function (e) {
+	window.getSelection().removeAllRanges();
+	$(this).prop('selected', false);
+});
+
+$('#reset-fen-button').on('click', function (e) {
+	if (e.which && e.which != 1) return;
+
+	$('#fen-input').prop('value', STARTING_FEN);
+	$('#fen-input').trigger('input');
+});
+
+$('#ai-play-as').on('change', function (e) {
+	$(this).blur();
+	if (board.side == e.target.value) {
+		$('#cover').css('display', 'block');
+		aiMoveTimeout = setTimeout(aiMove, 250);
+	}
 });
 
 function setupBoard() {
@@ -68,8 +129,8 @@ function setupBoard() {
 				position: 'absolute',
 				top: Math.min(Math.max(mouse.y - piece.height() / 2, 0), $(window).height() - piece.height()),
 				left: Math.min(Math.max(mouse.x - piece.width() / 2, 0), $(window).width() - piece.width()),
-				width: 'calc(87.5dvmin / 8 * 0.9)',
-				height: 'calc(87.5dvmin / 8 * 0.9)',
+				width: 'calc(82.5dvmin / 8 * 0.9)',
+				height: 'calc(82.5dvmin / 8 * 0.9)',
 				pointerEvents: 'none',
 				zIndex: 2,
 			});
@@ -130,6 +191,7 @@ function setupBoard() {
 				e.stopPropagation();
 				e.preventDefault();
 				$(window).off('mousemove touchmove');
+				$(window).off('mouseup touchend');
 
 				$('.square').removeClass('hovered-square');
 
@@ -148,8 +210,6 @@ function setupBoard() {
 				$('.square').children('.check-square').remove();
 
 				let previousBoard = [...board.pieces];
-
-				let aiMoveTimeout = null;
 
 				if (!nearestSquare || !nearestSquare.has('.legal-circle').length) {
 					nearestSquare = square;
@@ -222,10 +282,12 @@ function setupBoard() {
 
 				if (board.fiftyMove >= 100) {
 					clearTimeout(aiMoveTimeout);
+					aiMoveTimeout = null;
 					$('#cover').css('display', 'block');
 					return endGame(END_GAME_STATUS.STALEMATE, 'Fifty move rule!');
 				} else if (isPositionInsufficient()) {
 					clearTimeout(aiMoveTimeout);
+					aiMoveTimeout = null;
 					$('#cover').css('display', 'block');
 					return endGame(END_GAME_STATUS.STALEMATE, 'Insufficient material!');
 				}
@@ -238,17 +300,19 @@ function setupBoard() {
 
 					if (samePositionCount >= 2) {
 						clearTimeout(aiMoveTimeout);
+						aiMoveTimeout = null;
 						$('#cover').css('display', 'block');
 						return endGame(END_GAME_STATUS.STALEMATE, 'Threefold repetition!');
 					}
 				}
+
+				$('#fen-input').prop('value', generateFEN());
 			});
 		}
 	});
 
 	$('*:not(.square:has(.selected-square))').on('mousedown touchstart', (e) => {
 		e.stopPropagation();
-		e.preventDefault();
 
 		if (e.which && e.which != 1) return;
 
@@ -365,10 +429,12 @@ function setupBoard() {
 
 		if (board.fiftyMove >= 100) {
 			clearTimeout(aiMoveTimeout);
+			aiMoveTimeout = null;
 			$('#cover').css('display', 'block');
 			return endGame(END_GAME_STATUS.STALEMATE, 'Fifty move rule!');
 		} else if (isPositionInsufficient()) {
 			clearTimeout(aiMoveTimeout);
+			aiMoveTimeout = null;
 			$('#cover').css('display', 'block');
 			return endGame(END_GAME_STATUS.STALEMATE, 'Insufficient material!');
 		}
@@ -381,16 +447,17 @@ function setupBoard() {
 
 			if (samePositionCount >= 2) {
 				clearTimeout(aiMoveTimeout);
+				aiMoveTimeout = null;
 				$('#cover').css('display', 'block');
 				return endGame(END_GAME_STATUS.STALEMATE, 'Threefold repetition!');
 			}
 		}
+
+		$('#fen-input').prop('value', generateFEN());
 	});
 }
 
 async function aiMove() {
-	$('#cover').css('display', '');
-
 	let fen = generateFEN();
 	parseFEN(fen);
 
@@ -418,7 +485,10 @@ async function aiMove() {
 		$(`.square[data-id="${getMirror64(BOARD_120_TO_64[getToSquare(bestAIMove)])}"]`).addClass('previously-moved-square');
 
 		refreshBoardGUI(previousBoard);
-	}, 0);
+
+		$('#fen-input').prop('value', generateFEN());
+		$('#cover').css('display', '');
+	}, 100);
 
 	allLegalMoves = getAllMovesArr().filter((move) => isLegalMove(move));
 	if (allLegalMoves.length == 0) {

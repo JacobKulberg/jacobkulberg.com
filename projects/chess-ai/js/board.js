@@ -98,6 +98,72 @@ function resetBoard() {
 	board.moveListStart[board.ply] = 0;
 }
 
+function validateFEN(fen) {
+	let sections = fen.split(' ');
+	if (sections.length != 6) {
+		return false;
+	}
+
+	// validate piece placement
+	let ranks = sections[0].split('/');
+	if (ranks.length != 8) {
+		return false;
+	}
+
+	for (let i = 0; i < ranks.length; i++) {
+		let rank = ranks[i];
+		let rankItr = 0;
+		let file = FILES.A;
+
+		while (rankItr < rank.length) {
+			let piece = rank[rankItr];
+
+			if (isNaN(piece)) {
+				if (piece != 'p' && piece != 'n' && piece != 'b' && piece != 'r' && piece != 'q' && piece != 'k' && piece != 'P' && piece != 'N' && piece != 'B' && piece != 'R' && piece != 'Q' && piece != 'K') {
+					return false;
+				}
+				file++;
+			} else {
+				file += parseInt(piece);
+			}
+
+			rankItr++;
+		}
+
+		if (file != FILES.H + 1) {
+			return false;
+		}
+	}
+
+	// validate active color
+	if (!sections[1].match(/^(w|b)$/)) {
+		return false;
+	}
+
+	// validate castling availability
+	if (!sections[2].match(/^-$|^(KQ?k?q?|Qk?q?|kq?|q)$/)) {
+		return false;
+	}
+
+	// validate en passant square
+	if (!sections[3].match(/^(-|[a-h][36])$/)) {
+		return false;
+	}
+
+	// validate halfmove clock
+	if (!sections[4].match(/^([0-9]|[1-9][0-9])$/)) {
+		return false;
+	}
+
+	// validate fullmove number
+	// 1 - 5949
+	if (!sections[5].match(/^(?:[1-9]|[1-9]\d|[1-9]\d{2}|[1-4]\d{3}|5[0-9]{0,2}|59[0-4]\d|5949)$/)) {
+		return false;
+	}
+
+	return true;
+}
+
 function parseFEN(fen) {
 	if (fen == STARTING_FEN) {
 		resetBoard();
@@ -183,7 +249,7 @@ function parseFEN(fen) {
 				continue;
 
 			default:
-				console.log('error parsing FEN string');
+				console.error('error parsing FEN string');
 				return;
 		}
 
@@ -199,6 +265,8 @@ function parseFEN(fen) {
 				svgElement.src = `images/${svg}.svg`;
 				if ($(square).children('img')[0]?.src == svgElement.src) {
 					continue;
+				} else {
+					$(square).children('img').remove();
 				}
 				svgElement.draggable = false;
 				square.appendChild(svgElement);
@@ -245,6 +313,11 @@ function parseFEN(fen) {
 
 		board.enPassant = getSquareAt(file, rank);
 	}
+
+	let sections = fen.split(' ');
+
+	board.fiftyMove = parseInt(sections[4]);
+	board.historyPly = (parseInt(sections[5]) - 1) * 2 + (board.side == COLORS.WHITE ? 0 : 1);
 
 	board.positionKey = generatePositionKey();
 

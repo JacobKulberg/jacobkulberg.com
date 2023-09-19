@@ -1,10 +1,20 @@
+/* Bootstrap */
+.tooltip {
+	--bs-tooltip-color: #e16d6d !important;
+	--bs-tooltip-bg: #ffdede !important;
+	--bs-tooltip-opacity: 1 !important;
+}
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 	user-select: none;
+	-webkit-user-select: none;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	touch-action: manipulation;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Helvetica, Arial, sans-serif;
+	font-weight: 600;
 }
 
 html,
@@ -15,66 +25,136 @@ body {
 
 body {
 	overflow: hidden;
+	background-color: #121213 !important;
 }
 
-#fen {
-	margin-top: 60px;
-	margin-left: 60px;
+#header-ui {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
 }
 
-#fen p {
+#header-ui .header-spacer {
+	width: 1dvmin;
+	height: 100%;
+}
+
+#header-ui > p {
 	display: inline;
+	font-size: 16px;
+	margin-bottom: 0;
 }
 
-#fen input {
-	width: 480px;
+#header-ui > label {
+	white-space: nowrap;
+}
+
+#header-ui input {
+	width: max(500px, 30vw);
+	height: 50%;
+	text-align: center;
+	border-radius: 10px;
+	color: black;
+	background-color: transparent;
+	border-color: black;
+	transition: color 250ms ease-in-out, background-color 250ms ease-in-out, border-color 250ms ease-in-out;
+	font-size: 14px;
+	white-space: nowrap;
+}
+
+#header-ui input.invalid,
+#header-ui input.invalid:focus {
+	color: rgb(200, 0, 0);
+	background-color: rgba(255, 0, 0, 0.1);
+	border-color: rgba(255, 0, 0, 0.5);
+}
+
+#header-ui button {
+	width: max(100px, 5vw);
+	height: 50%;
+	border-radius: 10px;
+	transition: color 250ms ease-in-out, background-color 250ms ease-in-out, border-color 250ms ease-in-out;
+	color: rgb(0, 50, 0);
+	background-color: rgba(0, 200, 0, 0.2);
+	border: none;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: inherit;
+	padding: 0 8px;
+	white-space: nowrap;
+}
+
+@media (hover: hover) {
+	#header-ui button:hover {
+		color: rgb(0, 25, 0);
+		background-color: rgba(0, 175, 0, 0.5);
+	}
+}
+
+#header-ui button:active {
+	color: rgb(0, 25, 0);
+	background-color: rgba(0, 150, 0, 0.5);
+	transition: color 75ms ease-in-out, background-color 75ms ease-in-out, border-color 75ms ease-in-out;
+}
+
+#header-ui button.invalid {
+	color: rgb(200, 0, 0);
+	background-color: rgba(255, 0, 0, 0.2);
+	cursor: not-allowed;
+	pointer-events: inherit;
+}
+
+#header-container {
+	display: flex;
+	justify-content: center;
 }
 
 #header {
-	width: 100%;
-	height: 8dvmin;
-	background-color: red;
-	display: none;
+	width: 95%;
+	height: max(75px, 8dvmin);
+	background-color: white;
+	border-radius: 0px 0px max(75px, 8dvmin) max(75px, 8dvmin);
+	overflow-y: hidden;
 }
 
 #board-container {
+	position: relative;
 	display: flex;
 	width: 100%;
-	height: 100%; /* calc(100% - 8dvmin) */
+	height: calc(100% - max(75px, 8dvmin));
 	justify-content: center;
 	align-items: center;
 }
 
 #board {
 	display: absolute;
-	width: 87.5dvmin;
-	height: 87.5dvmin;
+	width: 82.5dvmin;
+	height: 82.5dvmin;
+	background-color: white;
 }
 
 .board-rank {
 	position: absolute;
 	top: 0;
 	left: 0;
-	margin: calc(87.5dvmin / 8 / 18);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Helvetica, Arial, sans-serif;
-	font-weight: 600;
-	font-size: calc(87.5dvmin / 8 / 4);
+	margin: calc(82.5dvmin / 8 / 18);
+	font-size: calc(82.5dvmin / 8 / 4);
 }
 
 .board-file {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	margin: calc(87.5dvmin / 8 / 18);
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Helvetica, Arial, sans-serif;
-	font-weight: 600;
-	font-size: calc(87.5dvmin / 8 / 4);
+	margin: calc(82.5dvmin / 8 / 18);
+	font-size: calc(82.5dvmin / 8 / 4);
 }
 
 .square {
 	position: relative;
-	width: calc(87.5dvmin / 8);
-	height: calc(87.5dvmin / 8);
+	width: calc(82.5dvmin / 8);
+	height: calc(82.5dvmin / 8);
 	display: inline-flex;
 	vertical-align: top;
 	justify-content: center;
@@ -91,8 +171,8 @@ body {
 }
 
 .square > img {
-	width: calc(87.5dvmin / 8 * 0.9);
-	height: calc(87.5dvmin / 8 * 0.9);
+	width: calc(82.5dvmin / 8 * 0.9);
+	height: calc(82.5dvmin / 8 * 0.9);
 	z-index: 1;
 	transition: opacity 150ms ease-in-out, top 500ms linear, left 500ms linear;
 	opacity: 1;
@@ -129,7 +209,7 @@ body {
 }
 
 .hovered-square:not(:has(img + .legal-circle)):not(.hovered-square-off) {
-	box-shadow: inset 0 0 0 calc(87.5dvmin / 8 / 18) rgba(255, 255, 255, 0.5);
+	box-shadow: inset 0 0 0 calc(82.5dvmin / 8 / 18) rgba(255, 255, 255, 0.5);
 }
 
 .hovered-square:has(.legal-circle):not(.hovered-square-off) > .legal-circle {
@@ -138,7 +218,7 @@ body {
 
 @media (hover: hover) {
 	.square:not(:has(img + .legal-circle)):not(.hovered-square-off):hover {
-		box-shadow: inset 0 0 0 calc(87.5dvmin / 8 / 18) rgba(255, 255, 255, 0.5);
+		box-shadow: inset 0 0 0 calc(82.5dvmin / 8 / 18) rgba(255, 255, 255, 0.5);
 	}
 
 	.square:has(.legal-circle):not(.hovered-square-off):hover > .legal-circle {
@@ -148,8 +228,8 @@ body {
 
 .legal-circle {
 	position: absolute;
-	width: calc(87.5dvmin / 8 / 3);
-	height: calc(87.5dvmin / 8 / 3);
+	width: calc(82.5dvmin / 8 / 3);
+	height: calc(82.5dvmin / 8 / 3);
 	border-radius: 50%;
 	background-color: rgba(0, 0, 0, 0.15);
 	pointer-events: none;
@@ -160,10 +240,10 @@ body {
 }
 
 img + .legal-circle {
-	border: calc(87.5dvmin / 8 / 12) solid rgba(0, 0, 0, 0.15);
+	border: calc(82.5dvmin / 8 / 12) solid rgba(0, 0, 0, 0.15);
 	background-color: transparent;
-	width: calc(87.5dvmin / 8 - 0.5dvmin);
-	height: calc(87.5dvmin / 8 - 0.5dvmin);
+	width: calc(82.5dvmin / 8 - 0.5dvmin);
+	height: calc(82.5dvmin / 8 - 0.5dvmin);
 }
 
 #promotion {
@@ -210,8 +290,8 @@ img + .legal-circle {
 
 .square:not(.selected-square):not(.previously-moved-square) > .check-square {
 	position: absolute;
-	width: calc(87.5dvmin / 8);
-	height: calc(87.5dvmin / 8);
+	width: calc(82.5dvmin / 8);
+	height: calc(82.5dvmin / 8);
 	background: radial-gradient(rgba(255, 0, 0, 0.9), transparent) !important;
 	opacity: 0;
 	transition: opacity 150ms ease-out;
@@ -219,4 +299,24 @@ img + .legal-circle {
 
 .flipped {
 	transform: rotate(180deg);
+}
+
+@media (max-width: 1165px) {
+	#header {
+		overflow-x: scroll;
+	}
+
+	#header-ui {
+		width: 1150px;
+	}
+}
+
+@media (max-height: 425px) {
+	#header {
+		display: none;
+	}
+
+	#board-container {
+		height: 100%;
+	}
 }

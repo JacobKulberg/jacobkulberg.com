@@ -82,7 +82,7 @@ const END_GAME_STATUS = {
 const INF = 50000;
 const MATE = 30000;
 
-const MAX_GAME_MOVES = 2048;
+const MAX_GAME_MOVES = 5949;
 const MAX_DEPTH = 64;
 
 const PV_ENTRIES = 10000;

@@ -40,7 +40,7 @@ function refreshTimeout() {
 
 function isRepetition() {
 	for (let i = board.historyPly - board.fiftyMove; i < board.historyPly - 1; i++) {
-		if (board.positionKey == board.history[i].positionKey) {
+		if (board.positionKey == board.history[i]?.positionKey) {
 			return true;
 		}
 	}

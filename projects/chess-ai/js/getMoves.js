@@ -25,11 +25,11 @@ function getAllMoves() {
 			}
 
 			if (board.enPassant != SQUARES.INVALID) {
-				if (curSquare + 9 == board.enPassant) {
+				if (curSquare + 9 == board.enPassant && curSquare + 9 >= 71) {
 					addEnPassantMove(getMove(curSquare, curSquare + 9, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 
-				if (curSquare + 11 == board.enPassant) {
+				if (curSquare + 11 == board.enPassant && curSquare + 11 >= 71) {
 					addEnPassantMove(getMove(curSquare, curSquare + 11, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 			}
@@ -70,11 +70,11 @@ function getAllMoves() {
 			}
 
 			if (board.enPassant != SQUARES.INVALID) {
-				if (curSquare - 9 == board.enPassant) {
+				if (curSquare - 9 == board.enPassant && curSquare - 9 <= 48) {
 					addEnPassantMove(getMove(curSquare, curSquare - 9, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 
-				if (curSquare - 11 == board.enPassant) {
+				if (curSquare - 11 == board.enPassant && curSquare - 11 <= 48) {
 					addEnPassantMove(getMove(curSquare, curSquare - 11, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 			}
@@ -171,11 +171,11 @@ function getAllCaptures() {
 			}
 
 			if (board.enPassant != SQUARES.INVALID) {
-				if (curSquare + 9 == board.enPassant) {
+				if (curSquare + 9 == board.enPassant && curSquare + 9 >= 71) {
 					addEnPassantMove(getMove(curSquare, curSquare + 9, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 
-				if (curSquare + 11 == board.enPassant) {
+				if (curSquare + 11 == board.enPassant && curSquare + 11 >= 71) {
 					addEnPassantMove(getMove(curSquare, curSquare + 11, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 			}
@@ -193,11 +193,11 @@ function getAllCaptures() {
 			}
 
 			if (board.enPassant != SQUARES.INVALID) {
-				if (curSquare - 9 == board.enPassant) {
+				if (curSquare - 9 == board.enPassant && curSquare - 9 <= 48) {
 					addEnPassantMove(getMove(curSquare, curSquare - 9, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 
-				if (curSquare - 11 == board.enPassant) {
+				if (curSquare - 11 == board.enPassant && curSquare - 11 <= 48) {
 					addEnPassantMove(getMove(curSquare, curSquare - 11, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 			}
@@ -366,11 +366,11 @@ function getAllMovesArr() {
 			}
 
 			if (board.enPassant != SQUARES.INVALID) {
-				if (curSquare + 9 == board.enPassant) {
+				if (curSquare + 9 == board.enPassant && curSquare + 9 >= 71) {
 					allMoves.push(getMove(curSquare, curSquare + 9, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 
-				if (curSquare + 11 == board.enPassant) {
+				if (curSquare + 11 == board.enPassant && curSquare + 11 >= 71) {
 					allMoves.push(getMove(curSquare, curSquare + 11, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 			}
@@ -411,11 +411,11 @@ function getAllMovesArr() {
 			}
 
 			if (board.enPassant != SQUARES.INVALID) {
-				if (curSquare - 9 == board.enPassant) {
+				if (curSquare - 9 == board.enPassant && curSquare - 9 <= 48) {
 					allMoves.push(getMove(curSquare, curSquare - 9, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 
-				if (curSquare - 11 == board.enPassant) {
+				if (curSquare - 11 == board.enPassant && curSquare - 11 <= 48) {
 					allMoves.push(getMove(curSquare, curSquare - 11, PIECES.EMPTY, PIECES.EMPTY, MOVE_FLAG_EN_PASSANT));
 				}
 			}
