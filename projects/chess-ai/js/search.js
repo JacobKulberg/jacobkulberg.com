@@ -4,7 +4,7 @@ search.nodes;
 search.fh;
 search.fhf;
 search.depth = MAX_DEPTH;
-search.time = 1000;
+search.time = 5000;
 search.start;
 search.stop;
 search.best;
