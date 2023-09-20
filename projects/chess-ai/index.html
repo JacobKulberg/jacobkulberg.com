@@ -29,6 +29,9 @@
 		<div id="header-container">
 			<div id="header">
 				<div id="header-ui">
+					<label for="think-time" id="think-time-label">Think Time:</label>
+					<input type="number" id="think-time" value="5" />
+
 					<label for="ai-play-as">AI Plays As:</label>
 					<select name="ai-play-as" id="ai-play-as">
 						<option value="0">White</option>
@@ -47,6 +50,19 @@
 					<button id="reset-fen-button">Reset FEN</button>
 				</div>
 			</div>
+		</div>
+
+		<div id="end-game-container">
+			<div id="end-game-top"></div>
+			<div id="end-game">
+				<h1 id="result-text"></h1>
+				<h2 id="result-text-description"></h2>
+				<div id="end-game-buttons">
+					<button class="end-game-button" id="new-game-button" onclick="resetGame();">New Game</button>
+					<button class="end-game-button" id="continue-game-button" onclick="continueGame();">Continue</button>
+				</div>
+			</div>
+			<div id="end-game-bottom"></div>
 		</div>
 
 		<div id="board-container">
@@ -74,9 +90,9 @@
 			<div id="cover"></div>
 		</div>
 
-		<!-- <script src="js/all.min.js"></script> -->
+		<script src="js/all.min.js"></script>
 
-		<script src="js/lib/jquery-3.7.0.min.js"></script>
+		<!-- <script src="js/lib/jquery-3.7.0.min.js"></script>
 		<script src="js/constants.js"></script>
 		<script src="js/debug.js"></script>
 		<script src="js/board.js"></script>
@@ -87,6 +103,6 @@
 		<script src="js/search.js"></script>
 		<script src="js/perft.js"></script>
 		<script src="js/gui.js"></script>
-		<script src="js/main.js"></script>
+		<script src="js/main.js"></script> -->
 	</body>
 </html>

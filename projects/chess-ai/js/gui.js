@@ -67,6 +67,10 @@ $('#ai-play-as').on('change', function (e) {
 	}
 });
 
+$('#think-time').on('input', function (e) {
+	search.time = parseInt($(this).val()) * 1000;
+});
+
 function setupBoard() {
 	let boardEl = document.getElementById('board');
 
@@ -280,6 +284,8 @@ function setupBoard() {
 
 				refreshBoardGUI(previousBoard, true /* isDragged */);
 
+				$('#fen-input').prop('value', generateFEN());
+
 				if (board.fiftyMove >= 100) {
 					clearTimeout(aiMoveTimeout);
 					aiMoveTimeout = null;
@@ -305,8 +311,6 @@ function setupBoard() {
 						return endGame(END_GAME_STATUS.STALEMATE, 'Threefold repetition!');
 					}
 				}
-
-				$('#fen-input').prop('value', generateFEN());
 			});
 		}
 	});
@@ -458,6 +462,8 @@ function setupBoard() {
 }
 
 async function aiMove() {
+	aiMoveTimeout = null;
+
 	let fen = generateFEN();
 	parseFEN(fen);
 
@@ -467,7 +473,7 @@ async function aiMove() {
 	if (allLegalMoves.length == 0) {
 		$('#cover').css('display', 'block');
 		if (isSquareAttacked(board.pieceList[getPieceIndex(KINGS[board.side], 0)], board.side ^ 1)) {
-			return endGame(END_GAME_STATUS.CHECKMATE, 'Checkmate!');
+			return endGame(END_GAME_STATUS.CHECKMATE, `${board.side != COLORS.WHITE ? 'White' : 'Black'} wins!`);
 		} else {
 			return endGame(END_GAME_STATUS.STALEMATE, 'Stalemate!');
 		}
@@ -494,7 +500,7 @@ async function aiMove() {
 	if (allLegalMoves.length == 0) {
 		$('#cover').css('display', 'block');
 		if (isSquareAttacked(board.pieceList[getPieceIndex(KINGS[board.side], 0)], board.side ^ 1)) {
-			return endGame(END_GAME_STATUS.CHECKMATE, 'Checkmate!');
+			return endGame(END_GAME_STATUS.CHECKMATE, `${board.side != COLORS.WHITE ? 'White' : 'Black'} wins!`);
 		} else {
 			return endGame(END_GAME_STATUS.STALEMATE, 'Stalemate!');
 		}
@@ -521,12 +527,63 @@ async function aiMove() {
 	}
 }
 
-function endGame(status, message) {
-	if (status === END_GAME_STATUS.STALEMATE) {
-		console.log('The game ended in a stalemate: ' + message);
-	} else if (status === END_GAME_STATUS.CHECKMATE) {
-		console.log('The game ended in a checkmate!');
+function endGame(status, description) {
+	let title = status == END_GAME_STATUS.STALEMATE ? 'Stalemate!' : 'Checkmate!';
+
+	$('#end-game-container').css('display', 'flex');
+
+	setTimeout(() => {
+		$('#end-game-container').css('opacity', '1');
+	}, 1000);
+
+	if (status == END_GAME_STATUS.CHECKMATE) {
+		let playerWon = board.side == $('#ai-play-as').val();
+
+		if (playerWon) {
+			$('#end-game-top').css('background-color', '#ccffce');
+			$('#end-game').css('background-color', '#ccffce');
+			$('#end-game-bottom').css('background-color', '#ccffce');
+		} else {
+			$('#end-game-top').css('background-color', '#ffd0cc');
+			$('#end-game').css('background-color', '#ffd0cc');
+			$('#end-game-bottom').css('background-color', '#ffd0cc');
+		}
 	}
+
+	$('#result-text').text(title);
+	$('#result-text-description').text(description);
+}
+
+function resetGame() {
+	$('#end-game-container').css('opacity', '0');
+
+	setTimeout(() => {
+		$('#end-game-container').css('display', 'none');
+
+		parseFEN(STARTING_FEN);
+
+		$('.square').removeClass('previously-moved-square');
+		$('.square').removeClass('hovered-square-off');
+		$('.square').children('.check-square').remove();
+
+		if (board.side == $('#ai-play-as').val()) {
+			$('#cover').css('display', 'block');
+			aiMoveTimeout = setTimeout(aiMove, 250);
+		} else {
+			$('#cover').css('display', '');
+
+			clearTimeout(aiMoveTimeout);
+			aiMoveTimeout = null;
+		}
+	}, 250);
+}
+
+function continueGame() {
+	$('#end-game-container').css('opacity', '0');
+
+	setTimeout(() => {
+		$('#end-game-container').css('display', 'none');
+	}, 250);
 }
 
 async function getPromotedPieceGUI() {
