@@ -187,7 +187,8 @@ header hr {
 }
 
 #lettle,
-#banana-bonanza {
+#banana-bonanza,
+#chess-ai {
 	flex: 1;
 	width: 50vw !important;
 	height: 50vw !important;
@@ -198,6 +199,10 @@ header hr {
 
 #banana-bonanza {
 	transform: scale(1.35);
+}
+
+#chess-ai {
+	transform: scale(0.65);
 }
 
 .service-container {
@@ -278,7 +283,7 @@ header hr {
 	}
 }
 
-@media (max-width: 720px) {
+@media (max-width: 755px) {
 	.project-container.clicked .project .project-description {
 		opacity: 0;
 		flex-grow: 0;
@@ -295,7 +300,8 @@ header hr {
 }
 
 @media (max-height: 600px) {
-	#lettle {
+	#lettle,
+	#chess-ai {
 		max-width: 175px;
 		max-height: 175px;
 	}
