@@ -11,7 +11,7 @@ $(window).on('load', () => {
 		selected = window.location.hash;
 		$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
 	}
-	window.location.hash = selected;
+	history.pushState(null, null, selected);
 
 	selectPage($(`header nav a[href="${selected}"]`));
 
@@ -31,7 +31,15 @@ $(window).on('load', () => {
 		}, 0);
 	});
 
+	$('nav a').on('click', (e) => {
+		e.preventDefault();
+
+		history.pushState(null, null, selected);
+	});
+
 	function selectPage(link) {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+
 		underline.css({
 			left: `${link.offset().left}px`,
 			width: `${link.width()}px`,
@@ -42,11 +50,23 @@ $(window).on('load', () => {
 				opacity: '0',
 				pointerEvents: 'none',
 			});
+
+			setTimeout(() => {
+				if (selected !== `#${$(page).attr('id')}`) {
+					$(page).css('display', 'none');
+				}
+			}, 250);
 		});
 
 		$(`#${link.attr('href').slice(1)}`).css({
-			opacity: '',
-			pointerEvents: '',
+			display: '',
 		});
+
+		setTimeout(() => {
+			$(`#${link.attr('href').slice(1)}`).css({
+				opacity: '',
+				pointerEvents: '',
+			});
+		}, 0);
 	}
 });
