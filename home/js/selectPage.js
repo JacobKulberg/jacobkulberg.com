@@ -25,7 +25,10 @@ $(window).on('load', () => {
 
 	$(window).on('resize orientationchange', () => {
 		underline.css('transition', 'none');
-		selectPage($(`header nav a[href="${selected}"]`));
+		underline.css({
+			left: `${link.offset().left}px`,
+			width: `${link.width()}px`,
+		});
 		setTimeout(() => {
 			underline.css('transition', '');
 		}, 0);
