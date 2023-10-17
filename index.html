@@ -7,6 +7,7 @@
 		<title>Jacob Kulberg | About Me</title>
 		<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="/shared/css/typedText.css" />
+		<link rel="stylesheet" type="text/css" href="/shared/css/customCursor.css" />
 		<link rel="stylesheet" type="text/css" href="/home/css/style.css" />
 
 		<!-- jQuery -->
@@ -43,9 +44,9 @@
 			<div id="header-spacer"></div>
 
 			<nav>
-				<a href="#about-me">About Me</a>
-				<a href="#projects">Projects</a>
-				<a href="#services">Services</a>
+				<a class="cursor-interactable" href="#about-me">About Me</a>
+				<a class="cursor-interactable" href="#projects">Projects</a>
+				<a class="cursor-interactable" href="#services">Services</a>
 				<div id="selected-page"></div>
 			</nav>
 
@@ -55,7 +56,7 @@
 		<div class="content">
 			<div id="about-me" class="page">
 				<div id="about-me-container">
-					<img src="/assets/images/jacob.png" />
+					<img src="/assets/images/jacob.png" draggable="false" />
 					<p>&ensp;&emsp;Hi, my name is Jacob. I am a rising high school senior from South Florida. Since I was young, I have been fascinated with computers and have been eager to expand my knowledge of them. I plan on majoring in computer science in college and exploring topics such as data analytics, artificial intelligence, and cyber security. My ultimate goal is to become a software engineer. In my free time I enjoy playing chess and rooting for the Miami Heat.</p>
 				</div>
 			</div>
@@ -69,7 +70,7 @@
 							<p>A fun guessing game!<br />Decipher a mystery letter<br />within 4 attempts while<br />only knowing if your<br />previous guesses are<br />before or after the target<br />letter alphabetically!</p>
 						</div>
 					</div>
-					<div class="link">
+					<div class="link cursor-interactable">
 						<div value="/projects/lettle/">
 							<i class="fa-solid fa-arrow-up-right-from-square fa-2xl"></i>
 						</div>
@@ -83,7 +84,7 @@
 							<p>Spin the circle to match the<br />mysterious banana angle<br />and grab as many bananas<br />as you can in just five<br />attempts! 🍌</p>
 						</div>
 					</div>
-					<div class="link">
+					<div class="link cursor-interactable">
 						<div value="/projects/banana-bonanza/">
 							<i class="fa-solid fa-arrow-up-right-from-square fa-2xl"></i>
 						</div>
@@ -96,7 +97,7 @@
 							<h1>Chess AI</h1>
 						</div>
 					</div>
-					<div class="link">
+					<div class="link cursor-interactable">
 						<div value="/projects/chess-ai/">
 							<i class="fa-solid fa-arrow-up-right-from-square fa-2xl"></i>
 						</div>
@@ -114,7 +115,7 @@
 							<p>A not-for-profit organization<br />that aims to assist senior<br />citizens with technology<br />questions or issues.</p>
 						</div>
 					</div>
-					<div class="link">
+					<div class="link cursor-interactable">
 						<div value="/services/techtime">
 							<i class="fa-solid fa-arrow-up-right-from-square fa-2xl"></i>
 						</div>
@@ -124,6 +125,7 @@
 		</div>
 
 		<script src="/shared/js/typedText.js"></script>
+		<script src="/shared/js/customCursor.js"></script>
 		<script src="/home/js/selectPage.js"></script>
 		<script src="/home/js/displayAboutMe.js"></script>
 		<script src="/home/js/displayProjects.js"></script>
