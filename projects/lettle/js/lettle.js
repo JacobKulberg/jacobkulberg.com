@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	let titles = document.querySelectorAll('title');
 	for (let i = 0; i < titles.length; i++) {
-		if (titles[i].textContent !== 'Lettle!') {
+		if (titles[i].textContent !== 'Lettle') {
 			titles[i].textContent = '';
 		}
 	}
@@ -570,7 +570,7 @@ function disableEndSplashScreen() {
 function enableEndSplashScreen() {
 	let titles = document.querySelectorAll('title');
 	for (let i = 0; i < titles.length; i++) {
-		if (titles[i].textContent !== 'Lettle!') {
+		if (titles[i].textContent !== 'Lettle') {
 			titles[i].textContent = '';
 		}
 	}
