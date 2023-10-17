@@ -99,7 +99,15 @@ header hr {
 }
 
 #about-me-container img {
+	pointer-events: all;
 	border-radius: 25%;
+	transition: transform 250ms ease-in-out;
+}
+
+@media (hover: hover) {
+	#about-me-container img:hover {
+		transform: scale(1.1) rotate(3deg) translateY(-10px);
+	}
 }
 
 #about-me-container p {
