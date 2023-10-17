@@ -32,7 +32,7 @@ $(window).on('load', () => {
 
 					function typeLetter() {
 						if (index < value.length) {
-							text.html(text.html() + value[index]);
+							text.html(text.html() + `<span class="typed-letter">${value[index]}</span>`);
 							$(cursor).css('left', `calc(51% + ${$(text).width() / 2}px)`);
 							index++;
 							mostRecentTimeoutId = setTimeout(mostRecentTimeout = typeLetter, 100);
@@ -102,7 +102,6 @@ $(window).on('load', () => {
 		}, 1000);
 
 		$(unfinished).on('click touchstart', () => {
-			unfinished.remove();
 			accelerateTimeouts();
 		});
 

@@ -25,6 +25,7 @@ $(window).on('load', () => {
 
 	$(window).on('resize orientationchange', () => {
 		underline.css('transition', 'none');
+		let link = $(`header nav a[href="${selected}"]`);
 		underline.css({
 			left: `${link.offset().left}px`,
 			width: `${link.width()}px`,
