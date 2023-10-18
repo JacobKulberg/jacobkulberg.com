@@ -41,6 +41,6 @@ $(window).on('load', () => {
 		cursor.style.backgroundColor = interacting && size != 1 ? 'white' : '';
 		cursor.style.color = interacting && size != 1 ? 'black' : 'var(--main-gold)';
 
-		cursor.animate(keyframes, { duration: moved ? 250 : 0, fill: 'forwards' });
+		cursor.animate(keyframes, { duration: moved ? 100 : 0, fill: 'forwards' });
 	}
 });
