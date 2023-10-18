@@ -1,6 +1,9 @@
+let moved = 0;
+
 $(window).on('load', () => {
 	let cursor = document.createElement('div');
 	cursor.classList.add('cursor');
+	cursor.style.opacity = 0;
 
 	let icon = document.createElement('i');
 	icon.setAttribute('id', 'cursor-icon');
@@ -11,24 +14,33 @@ $(window).on('load', () => {
 	$('body').append(cursor);
 
 	window.onmousemove = (e) => {
+		cursor.style.opacity = 1;
+
 		let interactable = e.target.closest('.cursor-interactable'),
 			interacting = interactable !== null;
 
-		animateCursor(e, interacting);
+		animateCursor(e, interacting, interacting ? parseInt(interactable.getAttribute('data-cursor-size')) : 1);
 
 		cursor.dataset.type = interacting ? 'interactable' : '';
+
+		moved = true;
 	};
 
-	function animateCursor(e, interacting) {
+	$(window).on('mouseenter', (e) => {
+		cursor.style.transform = `translate${e.pageX - 10}px, ${e.pageY - 10}px)`;
+	});
+
+	function animateCursor(e, interacting, size = 1) {
 		const x = e.pageX - 10,
 			y = e.pageY - 10;
 
 		const keyframes = {
-			transform: `translate(${x}px, ${y}px) scale(${interacting ? 5 : 1})`,
+			transform: `translate(${x}px, ${y}px) scale(${interacting ? size : 1})`,
 		};
 
-		cursor.style.backgroundColor = interacting ? 'white' : '';
+		cursor.style.backgroundColor = interacting && size != 1 ? 'white' : '';
+		cursor.style.color = interacting && size != 1 ? 'black' : 'var(--main-gold)';
 
-		cursor.animate(keyframes, { duration: 300, fill: 'forwards' });
+		cursor.animate(keyframes, { duration: moved ? 250 : 0, fill: 'forwards' });
 	}
 });

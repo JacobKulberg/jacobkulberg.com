@@ -60,8 +60,14 @@ nav a {
 	font-size: max(min(5vmin, 32px), 16px);
 	margin: 0 2vw;
 	padding-bottom: 2px;
-	cursor: pointer;
 	white-space: nowrap;
+	transition: color 100ms ease-in-out;
+}
+
+@media (hover: hover) {
+	nav a:hover {
+		color: var(--main-gold);
+	}
 }
 
 #selected-page {
@@ -182,7 +188,6 @@ section {
 	font-family: 'Claro', sans-serif;
 	font-size: 20px;
 	z-index: 5;
-	cursor: pointer;
 	transition: left 250ms ease-in-out;
 }
 
@@ -196,7 +201,6 @@ section {
 	display: flex;
 	align-items: center;
 	z-index: 6;
-	cursor: default;
 }
 
 .v-line {
