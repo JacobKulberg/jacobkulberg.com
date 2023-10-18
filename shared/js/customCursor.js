@@ -14,6 +14,11 @@ $(window).on('load', () => {
 	$('body').append(cursor);
 
 	window.onmousemove = (e) => {
+		if ('ontouchstart' in window || navigator.maxTouchPoints) {
+			cursor.style.opacity = 0;
+			return;
+		}
+
 		cursor.style.opacity = 1;
 
 		let interactable = e.target.closest('.cursor-interactable'),
@@ -27,6 +32,13 @@ $(window).on('load', () => {
 	};
 
 	$(window).on('mouseenter', (e) => {
+		if ('ontouchstart' in window || navigator.maxTouchPoints) {
+			cursor.style.opacity = 0;
+			return;
+		} else {
+			cursor.style.opacity = 1;
+		}
+
 		cursor.style.transform = `translate${e.pageX - 10}px, ${e.pageY - 10}px)`;
 	});
 
