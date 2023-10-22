@@ -31,16 +31,20 @@ $(window).on('load', () => {
 		moved = true;
 	};
 
-	$(window).on('mouseenter', (e) => {
-		if ('ontouchstart' in window || navigator.maxTouchPoints) {
-			cursor.style.opacity = 0;
-			return;
-		} else {
-			cursor.style.opacity = 1;
-		}
+	$(window)
+		.on('mouseenter', (e) => {
+			if ('ontouchstart' in window || navigator.maxTouchPoints) {
+				cursor.style.opacity = 0;
+				return;
+			} else {
+				cursor.style.opacity = 1;
+			}
 
-		cursor.style.transform = `translate${e.pageX - 10}px, ${e.pageY - 10}px)`;
-	});
+			cursor.style.transform = `translate${e.pageX - 10}px, ${e.pageY - 10}px)`;
+		})
+		.on('mouseleave', () => {
+			cursor.style.opacity = 0;
+		});
 
 	function animateCursor(e, interacting, size = 1) {
 		const x = e.pageX - 10,
