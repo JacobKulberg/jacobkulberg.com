@@ -9,8 +9,8 @@ $(window).on('load', () => {
 	let selected = '#about-me';
 	if (validHashes.indexOf(window.location.hash) > 0) {
 		selected = window.location.hash;
-		$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
 	}
+	$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
 	history.pushState(null, null, selected);
 
 	selectPage($(`header nav a[href="${selected}"]`));
@@ -22,8 +22,6 @@ $(window).on('load', () => {
 			$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
 		});
 	});
-
-	links[0].dispatchEvent(new Event('click'));
 
 	$(window).on('resize orientationchange', () => {
 		underline.css('transition', 'none');
