@@ -23,6 +23,8 @@ $(window).on('load', () => {
 		});
 	});
 
+	links[0].dispatchEvent(new Event('click'));
+
 	$(window).on('resize orientationchange', () => {
 		underline.css('transition', 'none');
 		let link = $(`header nav a[href="${selected}"]`);
