@@ -4,13 +4,13 @@ $(window).on('load', () => {
 	let underline = $('#selected-page');
 
 	let validHashes = ['#about-me', '#projects', '#services'];
-	let titles = ['About Me', 'Projects', 'Services'];
+	let titles = ['', '| Projects', '| Services'];
 
 	let selected = '#about-me';
 	if (validHashes.indexOf(window.location.hash) > 0) {
 		selected = window.location.hash;
 	}
-	$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
+	$(document).prop('title', `Jacob Kulberg ${titles[validHashes.indexOf(selected)]}`);
 	history.pushState(null, null, selected);
 
 	selectPage($(`header nav a[href="${selected}"]`));
@@ -19,7 +19,7 @@ $(window).on('load', () => {
 		$(link).on('click', () => {
 			selectPage($(link));
 			selected = $(link).attr('href');
-			$(document).prop('title', `Jacob Kulberg | ${titles[validHashes.indexOf(selected)]}`);
+			$(document).prop('title', `Jacob Kulberg ${titles[validHashes.indexOf(selected)]}`);
 		});
 	});
 
