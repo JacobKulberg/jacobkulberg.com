@@ -136,14 +136,12 @@ function changeMonkeyImage() {
 	monkeyImages.splice(monkeyImages.indexOf(monkeyImage), 1);
 
 	$('#banana-bonanza').animate({ opacity: 0 }, 250, function () {
-		$(this)
-			.attr('src', `projects/banana-bonanza/images/${monkeyImage}`)
-			.on('load', function () {
-				$(this).css('opacity', 0).animate({ opacity: 1 }, 250);
-				setTimeout(() => {
-					$('#banana-bonanza').removeClass('animating');
-				}, 250);
-			});
+		$(this).attr('src', `projects/banana-bonanza/images/${monkeyImage}`);
+
+		$(this).css('opacity', 0).animate({ opacity: 1 }, 250);
+		setTimeout(() => {
+			$('#banana-bonanza').removeClass('animating');
+		}, 250);
 	});
 }
 
