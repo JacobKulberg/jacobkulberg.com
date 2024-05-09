@@ -135,6 +135,7 @@ header hr {
 	margin-bottom: 5px;
 	font-family: 'Roboto', sans-serif;
 	overflow: hidden;
+	border-bottom: 1px solid transparent;
 }
 
 .project-container.clicked .project {
