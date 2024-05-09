@@ -122,18 +122,36 @@ animateLettle();
 let monkeyImages = ['crying_monkey.svg', 'dead_monkey.svg', 'excited_monkey.svg', 'goofy_monkey.svg', 'sad_monkey.svg', 'winking_monkey.svg'];
 
 function changeMonkeyImage() {
+	$('#banana-bonanza').addClass('animating');
+
 	let monkeyImage = monkeyImages[Math.floor(Math.random() * monkeyImages.length)];
 
 	// add current to pool
-	if ($('#banana-bonanza').attr('src')) monkeyImages.push($('#banana-bonanza').attr('src').split('/').pop());
+	if ($('#banana-bonanza').attr('src')) {
+		let currentImage = $('#banana-bonanza').attr('src').split('/').pop();
+		monkeyImages.push(currentImage);
+	}
 
 	// remove new from pool
 	monkeyImages.splice(monkeyImages.indexOf(monkeyImage), 1);
 
-	$('#banana-bonanza').attr('src', `projects/banana-bonanza/images/${monkeyImage}`);
+	$('#banana-bonanza').animate({ opacity: 0 }, 250, function () {
+		$(this)
+			.attr('src', `projects/banana-bonanza/images/${monkeyImage}`)
+			.on('load', function () {
+				$(this).css('opacity', 0).animate({ opacity: 1 }, 250);
+				setTimeout(() => {
+					$('#banana-bonanza').removeClass('animating');
+				}, 250);
+			});
+	});
 }
 
-$('.project-container:has(#banana-bonanza)').on('mouseenter', changeMonkeyImage);
+$('.project-container:has(#banana-bonanza)').on('mouseenter', () => {
+	if (!$('#banana-bonanza').hasClass('animating')) {
+		changeMonkeyImage();
+	}
+});
 
 $('.link div')
 	.on('touchstart', (e) => {
@@ -170,7 +188,10 @@ $('.project-container').on('touchstart', (e) => {
 			setTimeout(() => {
 				$(e.currentTarget).addClass('clicked');
 
-				if ($('.project-container:has(#banana-bonanza)').hasClass('clicked')) changeMonkeyImage();
+				if ($('.project-container:has(#banana-bonanza)').hasClass('clicked')) {
+					if ($('#banana-bonanza').hasClass('animating')) return;
+					changeMonkeyImage();
+				}
 			}, 0);
 		}
 	});
