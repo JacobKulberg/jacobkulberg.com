@@ -47,7 +47,7 @@ nav a {
 	margin: 0 2vw;
 	padding-bottom: 2px;
 	white-space: nowrap;
-	transition: color 100ms ease-in-out;
+	transition: color 250ms ease-in-out;
 }
 
 @media (hover: hover) {
@@ -68,7 +68,7 @@ nav a {
 header hr {
 	transform: scaleX(0);
 	transition: transform 300ms ease-in;
-	background-color: var(--main-gold);
+	background-color: var(--link-blue);
 	height: 1px;
 	border: none;
 	margin-bottom: 5px;

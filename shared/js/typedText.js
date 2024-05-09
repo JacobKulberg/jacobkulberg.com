@@ -12,6 +12,7 @@ $(window).on('load', () => {
 		let mostRecentTimeout = null;
 
 		let spedUp = false;
+		let hoverBlue = false;
 
 		let mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 			$(cursor).css('height', '');
@@ -32,7 +33,17 @@ $(window).on('load', () => {
 
 					function typeLetter() {
 						if (index < value.length) {
-							text.html(text.html() + `<span class="typed-letter">${value[index]}</span>`);
+							if (value.substr(index) == 'Kulberg' || value.substr(index) == 'Tech Time with Jacob') {
+								hoverBlue = true;
+							} else if (value.substr(index) == 'with Jacob') {
+								hoverBlue = false;
+							}
+
+							if (hoverBlue) {
+								text.html(text.html() + `<span class="typed-letter hover-blue">${value[index]}</span>`);
+							} else {
+								text.html(text.html() + `<span class="typed-letter">${value[index]}</span>`);
+							}
 							$(cursor).css('left', `calc(51% + ${$(text).width() / 2}px)`);
 							index++;
 							mostRecentTimeoutId = setTimeout(mostRecentTimeout = typeLetter, 100);

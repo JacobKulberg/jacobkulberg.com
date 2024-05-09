@@ -34,7 +34,7 @@ body {
 header hr {
 	transform: scaleX(0);
 	transition: transform 300ms ease-in;
-	background-color: var(--main-gold);
+	background-color: var(--link-blue);
 	height: 1px;
 	border: none;
 	margin-bottom: 5px;
@@ -82,7 +82,7 @@ nav a {
 section h2 {
 	font-size: max(24px, 1.8vw);
 	text-decoration: underline;
-	text-decoration-color: var(--main-gold);
+	text-decoration-color: var(--link-blue);
 }
 
 section p {
