@@ -148,6 +148,10 @@ header hr {
 	transition: margin-left 500ms ease-in-out;
 }
 
+.project a {
+	color: var(--link-blue);
+}
+
 .link {
 	flex: 1;
 	width: 30%;
