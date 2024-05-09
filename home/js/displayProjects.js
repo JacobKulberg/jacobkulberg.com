@@ -213,3 +213,7 @@ $(window).on('touchstart', (e) => {
 		end.off('touchend');
 	});
 });
+
+$('.project a').on('touchstart', (e) => {
+	e.stopPropagation();
+});
