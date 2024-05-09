@@ -189,6 +189,7 @@ section {
 	font-size: 20px;
 	z-index: 5;
 	transition: left 250ms ease-in-out;
+	cursor: pointer;
 }
 
 #back-to-home-cancel {
