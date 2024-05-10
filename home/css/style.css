@@ -280,6 +280,7 @@ header hr {
 	max-width: 300px;
 	max-height: 300px;
 	flex-grow: 0;
+	pointer-events: none;
 }
 
 #banana-bonanza {
