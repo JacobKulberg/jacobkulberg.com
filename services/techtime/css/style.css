@@ -248,6 +248,7 @@ section {
 	display: flex;
 	align-items: center;
 	z-index: 6;
+	cursor: default;
 }
 
 .v-line {
@@ -255,4 +256,5 @@ section {
 	height: 100%;
 	background-color: var(--primary-accent);
 	transform: translateX(-50%);
+	cursor: default;
 }
