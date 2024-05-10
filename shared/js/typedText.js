@@ -14,6 +14,8 @@ $(window).on('load', () => {
 		let spedUp = false;
 		let hoverBlue = false;
 
+		let currentTheme = Cookies.get('colorTheme') || 'dark';
+
 		let mostRecentTimeoutId = setTimeout(mostRecentTimeout = () => {
 			$(cursor).css('height', '');
 
@@ -40,9 +42,9 @@ $(window).on('load', () => {
 							}
 
 							if (hoverBlue) {
-								text.html(text.html() + `<span class="typed-letter hover-blue">${value[index]}</span>`);
+								text.html(text.html() + `<span class="typed-letter hover-blue ${currentTheme == 'light' ? 'light' : ''}">${value[index]}</span>`);
 							} else {
-								text.html(text.html() + `<span class="typed-letter">${value[index]}</span>`);
+								text.html(text.html() + `<span class="typed-letter ${currentTheme == 'light' ? 'light' : ''}">${value[index]}</span>`);
 							}
 							$(cursor).css('left', `calc(51% + ${$(text).width() / 2}px)`);
 							index++;

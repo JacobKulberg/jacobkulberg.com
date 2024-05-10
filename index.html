@@ -15,6 +15,9 @@
 		<!-- Zdog -->
 		<script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
 
+		<!-- JS Cookie -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js" integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -61,7 +64,11 @@
 		</div>
 
 		<header>
-			<div id="header-spacer"></div>
+			<div id="header-spacer">
+				<div class="dark-light-mode">
+					<i class="fa-solid fa-cloud-moon"></i>
+				</div>
+			</div>
 
 			<nav>
 				<a data-cursor-size="3" href="#about-me">About Me</a>
@@ -146,6 +153,7 @@
 		</div>
 
 		<script src="/shared/js/typedText.js"></script>
+		<script src="/shared/js/darkLightMode.js"></script>
 		<script src="/home/js/selectPage.js"></script>
 		<script src="/home/js/displayAboutMe.js"></script>
 		<script src="/home/js/displayProjects.js"></script>

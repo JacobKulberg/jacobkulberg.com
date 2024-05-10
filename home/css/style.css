@@ -1,8 +1,8 @@
 :root {
 	--main-bg-color: #1c1c1c;
-	--main-gold: #e6bb00;
-	--link-blue: #00aaff;
-	--link-blue-hover: #007cba;
+	--primary-accent: #e6bb00;
+	--secondary-accent: #00aaff;
+	--secondary-accent-hover: #007cba;
 	--link-hover-bg: rgba(255, 255, 255, 0.15);
 	--link-hover-border: rgba(255, 255, 255, 0.5);
 	--lettle-green: #538d4e;
@@ -30,6 +30,30 @@ body {
 	overflow-x: hidden;
 }
 
+* {
+	transition: background-color 250ms ease-out, color 250ms ease-out, text-decoration-color 250ms ease-out;
+	color: white;
+	text-decoration-color: white;
+}
+
+*.light {
+	--main-bg-color: #e3e3e3;
+	--primary-accent: #00aaff;
+	--secondary-accent: #e6bb00;
+	--link-hover-bg: rgba(0, 0, 0, 0.15);
+	--link-hover-border: rgba(0, 0, 0, 0.5);
+	color: black;
+	text-decoration-color: black;
+}
+
+hr.light {
+	background-color: black;
+}
+
+.dark-light-mode.light i {
+	color: black;
+}
+
 nav {
 	width: 100%;
 	display: flex;
@@ -52,23 +76,50 @@ nav a {
 
 @media (hover: hover) {
 	nav a:hover {
-		color: var(--main-gold);
+		color: var(--primary-accent);
 	}
 }
 
 #selected-page {
-	border-bottom: 3px solid var(--main-gold);
+	border-bottom: 3px solid var(--primary-accent);
 	width: 30px;
 	height: 100%;
 	position: absolute;
-	transition: left 250ms ease-out, width 250ms ease-out;
+	transition: left 250ms ease-out, width 250ms ease-out, border-bottom-color 250ms ease-out;
 	pointer-events: none;
+}
+
+.dark-light-mode {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: min(3vmin, 30px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	height: min(8vmin, 60px);
+	aspect-ratio: 1;
+	cursor: pointer;
+	transition: top 250ms ease-in-out;
+}
+
+.dark-light-mode i {
+	font-size: min(6vmin, 48px);
+	color: white;
+	transition: color 250ms ease-in-out;
+}
+
+@media (hover: hover) {
+	.dark-light-mode:hover i {
+		color: var(--primary-accent);
+	}
 }
 
 header hr {
 	transform: scaleX(0);
 	transition: transform 300ms ease-in;
-	background-color: var(--link-blue);
+	background-color: var(--secondary-accent);
 	height: 1px;
 	border: none;
 	margin-bottom: 5px;
@@ -76,7 +127,7 @@ header hr {
 
 .page {
 	position: absolute;
-	transition: opacity 250ms linear;
+	transition: opacity 250ms ease-out;
 	color: white;
 	width: 100%;
 }
@@ -114,6 +165,7 @@ header hr {
 	font-size: min(4vw, 3.25vh);
 	text-align: justify;
 	max-width: 50vw;
+	transition: color 250ms ease-out;
 }
 
 .project {
@@ -136,6 +188,7 @@ header hr {
 	font-family: 'Roboto', sans-serif;
 	overflow: hidden;
 	border-bottom: 1px solid transparent;
+	transition: color 250ms ease-out;
 }
 
 .project-container.clicked .project {
@@ -150,18 +203,27 @@ header hr {
 }
 
 .project a {
-	color: var(--link-blue);
+	color: var(--secondary-accent);
+	text-decoration: none;
+}
+
+.project a.light {
+	color: var(--primary-accent);
 }
 
 .link {
 	flex: 1;
 	width: 30%;
-	background-color: var(--link-blue);
+	background-color: var(--secondary-accent);
 	transition: background-color 250ms ease-out;
 	z-index: 1;
 	overflow: hidden;
-	border: var(--link-blue-hover) 3px;
+	border: var(--secondary-accent-hover) 3px;
 	border-style: solid none;
+}
+
+.link.light {
+	background-color: var(--primary-accent);
 }
 
 .link div {
@@ -177,10 +239,15 @@ header hr {
 
 .link div i {
 	margin: 10px;
+	color: white;
 }
 
 .project-container .link.clicked {
-	background-color: var(--link-blue-hover);
+	background-color: var(--secondary-accent-hover);
+}
+
+.project-container .link.clicked.light {
+	background-color: var(--primary-accent);
 }
 
 .project-description {
@@ -240,7 +307,7 @@ header hr {
 	max-width: 100%;
 	border: transparent 3px;
 	border-style: solid none;
-	transition: background-color 250ms ease-out, border-color 250ms ease-out, margin-left 250ms ease-out, padding-left 250ms ease-out;
+	transition: background-color 250ms ease-out, border-color 250ms ease-out, margin-left 250ms ease-out, padding-left 250ms ease-out, color 250ms ease-out, text-decoration-color 250ms ease-out;
 	text-decoration: none;
 }
 
@@ -252,7 +319,7 @@ header hr {
 }
 
 .service-container .link.clicked {
-	background-color: var(--link-blue-hover);
+	background-color: var(--secondary-accent-hover);
 }
 
 .service-description {
@@ -286,7 +353,7 @@ header hr {
 	}
 
 	.project-container .link:hover {
-		background-color: var(--link-blue-hover);
+		background-color: var(--secondary-accent-hover);
 	}
 
 	.service-container:hover .service {
@@ -297,7 +364,7 @@ header hr {
 	}
 
 	.service-container .link:hover {
-		background-color: var(--link-blue-hover);
+		background-color: var(--secondary-accent-hover);
 	}
 }
 

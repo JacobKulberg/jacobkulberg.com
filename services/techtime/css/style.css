@@ -1,8 +1,8 @@
 :root {
 	--main-bg-color: #1c1c1c;
-	--main-gold: #e6bb00;
-	--link-blue: #00aaff;
-	--link-blue-hover: #007cba;
+	--primary-accent: #e6bb00;
+	--secondary-accent: #00aaff;
+	--secondary-accent-hover: #007cba;
 	--link-hover-bg: rgba(255, 255, 255, 0.15);
 	--link-hover-border: rgba(255, 255, 255, 0.5);
 	--lettle-green: #538d4e;
@@ -31,10 +31,32 @@ body {
 	overflow-x: hidden;
 }
 
+* {
+	transition: background-color 250ms ease-out, color 250ms ease-out, text-decoration-color 250ms ease-out;
+	color: white;
+	text-decoration-color: white;
+}
+
+*.light {
+	--main-bg-color: #e3e3e3;
+	--primary-accent: #00aaff;
+	--secondary-accent: #e6bb00;
+	color: black;
+	text-decoration-color: var(--primary-accent);
+}
+
+hr.light {
+	background-color: black;
+}
+
+.dark-light-mode.light i {
+	color: black;
+}
+
 header hr {
 	transform: scaleX(0);
 	transition: transform 300ms ease-in;
-	background-color: var(--link-blue);
+	background-color: var(--secondary-accent);
 	height: 1px;
 	border: none;
 	margin-bottom: 5px;
@@ -66,12 +88,12 @@ nav a {
 
 @media (hover: hover) {
 	nav a:hover {
-		color: var(--main-gold);
+		color: var(--primary-accent);
 	}
 }
 
 #selected-page {
-	border-bottom: 3px solid var(--main-gold);
+	border-bottom: 3px solid var(--primary-accent);
 	width: 30px;
 	height: 100%;
 	position: absolute;
@@ -79,10 +101,37 @@ nav a {
 	pointer-events: none;
 }
 
+.dark-light-mode {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: min(3vmin, 30px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	height: min(8vmin, 60px);
+	aspect-ratio: 1;
+	cursor: pointer;
+	transition: top 250ms ease-in-out;
+}
+
+.dark-light-mode i {
+	font-size: min(6vmin, 48px);
+	color: white;
+	transition: color 250ms ease-in-out;
+}
+
+@media (hover: hover) {
+	.dark-light-mode:hover i {
+		color: var(--primary-accent);
+	}
+}
+
 section h2 {
 	font-size: max(24px, 1.8vw);
 	text-decoration: underline;
-	text-decoration-color: var(--link-blue);
+	text-decoration-color: var(--primary-accent);
 }
 
 section p {
@@ -133,7 +182,7 @@ section div ul li::before {
 	display: inline-block;
 	width: 1em;
 	margin-left: -1em;
-	color: var(--main-gold);
+	color: var(--primary-accent);
 }
 
 .selectedAnchor {
@@ -159,15 +208,12 @@ section {
 }
 
 #contact-me a {
-	color: var(--main-gold);
+	color: var(--primary-accent);
+	text-decoration: none;
 }
 
 .content {
 	display: none;
-}
-
-.selected-section {
-	background-color: rgba(255, 255, 0, 0.3) !important;
 }
 
 #back-to-home {
@@ -178,7 +224,7 @@ section {
 	height: 45px;
 	border-radius: 25px;
 	background-color: var(--main-bg-color);
-	border: var(--main-gold) 2px solid;
+	border: var(--primary-accent) 2px solid;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -207,6 +253,6 @@ section {
 .v-line {
 	width: 2px;
 	height: 100%;
-	background-color: var(--main-gold);
+	background-color: var(--primary-accent);
 	transform: translateX(-50%);
 }
