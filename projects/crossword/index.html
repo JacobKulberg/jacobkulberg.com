@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>WebRTC P2P Test</title>
+	</head>
+	<body>
+		<h1>WebRTC P2P Test</h1>
+		<button id="sendMessageButton" disabled>Send Message</button>
+		<div id="messages"></div>
+		<script src="https://cdn.jsdelivr.net/npm/simple-peer@latest/simplepeer.min.js"></script>
+		<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+		<script>
+			// Connect to the public signaling server
+			const socket = io('https://socketio-webrtc-signaling.glitch.me');
+
+			// Create a new SimplePeer instance
+			const peer = new SimplePeer({
+				initiator: location.hash === '#init', // Use hash to decide who initiates
+				trickle: false,
+			});
+
+			// Handle signaling data from the server
+			socket.on('signal', (data) => {
+				peer.signal(data);
+			});
+
+			// Send signaling data to the server
+			peer.on('signal', (data) => {
+				socket.emit('signal', data);
+			});
+
+			// Handle connection established
+			peer.on('connect', () => {
+				console.log('Peer connected');
+				document.getElementById('sendMessageButton').disabled = false;
+			});
+
+			// Handle data received from peer
+			peer.on('data', (data) => {
+				console.log('Received data:', data.toString());
+				const messagesDiv = document.getElementById('messages');
+				const messageElement = document.createElement('div');
+				messageElement.textContent = 'Received: ' + data;
+				messagesDiv.appendChild(messageElement);
+			});
+
+			// Send a message to the peer
+			document.getElementById('sendMessageButton').addEventListener('click', () => {
+				const message = 'Hello, peer!';
+				peer.send(message);
+				const messagesDiv = document.getElementById('messages');
+				const messageElement = document.createElement('div');
+				messageElement.textContent = 'Sent: ' + message;
+				messagesDiv.appendChild(messageElement);
+			});
+		</script>
+	</body>
+</html>
