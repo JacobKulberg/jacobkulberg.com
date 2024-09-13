@@ -1,0 +1,58 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+
+	-webkit-touch-callout: none !important;
+	-webkit-user-select: none !important;
+	-webkit-text-select: none !important;
+	-khtml-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
+
+	touch-action: manipulation !important;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+
+	overflow: hidden;
+}
+
+.main-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 100dvh;
+
+	overflow: hidden;
+}
+
+div:not(.keyboard-container).invisible {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+input.invisible,
+.keyboard-container.invisible {
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	position: fixed; /* Ensures it stays in the viewport */
+	bottom: 0; /* Keeps it at the bottom of the viewport */
+	left: 0;
+	background-color: transparent;
+	border: none;
+}
+
+/* Remove jQuery mobile "loading" text */
+.ui-loading .ui-loader,
+.ui-loader {
+	display: none;
+}

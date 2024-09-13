@@ -1,0 +1,21 @@
+.waiting-for-opponent-container {
+	position: absolute;
+
+	width: 100dvw;
+	height: 100dvh;
+
+	font-size: 3dvw;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.waiting-for-opponent-code {
+	font-size: 5dvw;
+	border: 0.8dvmin solid black;
+	border-radius: 2dvmin;
+	padding: 10px 20px;
+	margin-top: 30px;
+}

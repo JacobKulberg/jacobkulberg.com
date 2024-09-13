@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Crossword Battles!</title>
+
+		<link rel="stylesheet" href="../css/styles.css" />
+		<link rel="stylesheet" href="css/header.css" />
+		<link rel="stylesheet" href="css/endModal.css" />
+		<link rel="stylesheet" href="css/crossword.css" />
+		<link rel="stylesheet" href="css/waitingForOpponent.css" />
+		<link rel="stylesheet" href="css/crosswordLoadingAnimation.css" />
+
+		<link rel="icon" type="image/x-icon" href="../favicon.ico" />
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+		<!-- jQuery Mobile -->
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<!-- Simple Keyboard -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css" />
+		<script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
+	</head>
+	<body>
+		<div class="waiting-for-opponent-container">
+			<h1 class="waiting-for-opponent">Waiting for opponent</h1>
+			<h1 class="waiting-for-opponent-code"></h1>
+		</div>
+
+		<div class="crossword-loading-anim-container">
+			<h1>Generating crossword...</h1>
+			<div class="crossword-loading-anim"></div>
+		</div>
+
+		<div class="header">
+			<div class="header-player">
+				<h1></h1>
+			</div>
+			<div class="clock-container">
+				<div class="clock">
+					<h1>0:00</h1>
+				</div>
+			</div>
+			<div class="header-opponent">
+				<h1></h1>
+			</div>
+		</div>
+
+		<div class="crossword-container">
+			<div class="clues-container-across">
+				<h1>ACROSS</h1>
+			</div>
+			<div class="crossword"></div>
+			<div class="clues-container-down">
+				<h1>DOWN</h1>
+			</div>
+		</div>
+
+		<div class="keyboard-container invisible">
+			<div class="clues-container-keyboard">
+				<div class="clues-previous">
+					<i class="fa-solid fa-chevron-left"></i>
+				</div>
+				<div class="clues-current"></div>
+				<div class="clues-next">
+					<i class="fa-solid fa-chevron-right"></i>
+				</div>
+			</div>
+
+			<input class="input invisible" placeholder="Tap on the virtual keyboard to start" />
+			<div class="simple-keyboard"></div>
+		</div>
+
+		<div class="end-game-modal-container">
+			<div class="end-game-modal">
+				<div class="time-you">
+					<h1>
+						Your Time:
+						<div></div>
+					</h1>
+				</div>
+				<div class="time-opponent">
+					<h1>
+						Opponent's Time:
+						<div>
+							<i class="fa-solid fa-spinner"></i>
+							<i class="fa-solid fa-spinner" style="scale: -1"></i>
+						</div>
+					</h1>
+				</div>
+				<div class="result-text"></div>
+				<div class="end-game-buttons-container">
+					<button class="rematch">Rematch</button>
+					<button class="quit">Quit</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/constants.js"></script>
+
+		<script type="module" src="../js/connectToGame.js"></script>
+		<script type="module" src="js/startGame.js"></script>
+
+		<script src="../js/clues.js"></script>
+		<script src="js/waitingForOpponent.js"></script>
+		<script src="js/createCrossword.js"></script>
+		<script src="js/crosswordWorker.js"></script>
+		<script src="js/playGame.js"></script>
+		<script src="js/endGame.js"></script>
+		<script src="js/crosswordLoadingAnimation.js"></script>
+		<script src="js/virtualKeyboard.js"></script>
+	</body>
+</html>

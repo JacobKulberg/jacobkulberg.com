@@ -1,0 +1,19 @@
+.word-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100dvw;
+	height: 100dvh;
+	overflow: hidden;
+	z-index: -1;
+	transform: rotate(-12deg) scale(2);
+}
+
+.flying-word {
+	position: absolute;
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: bold;
+	font-size: calc(max(max(3dvw, 2.5vh), 20px) / 2);
+	letter-spacing: 3px;
+	transition: transform linear;
+}

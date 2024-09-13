@@ -1,0 +1,47 @@
+.crossword-loading-anim-container {
+	position: absolute;
+
+	width: 100dvw;
+	height: 100dvh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.crossword-loading-anim {
+	border: 0px solid black;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.crossword-loading-anim-row,
+.crossword-loading-anim-col {
+	border: 2px solid black;
+
+	display: flex;
+}
+
+.crossword-loading-anim-row:not(:last-child),
+.crossword-loading-anim-col {
+	border-bottom: none;
+}
+
+.crossword-loading-anim-row:last-child {
+	border-bottom: 4px solid black;
+}
+
+.crossword-loading-anim-row {
+	height: 35px;
+
+	display: flex;
+}
+
+.crossword-loading-anim-col {
+	width: 35px;
+}
+
+.crossword-loading-anim-col-black {
+	background-color: black;
+}

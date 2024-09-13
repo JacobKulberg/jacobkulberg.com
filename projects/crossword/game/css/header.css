@@ -1,0 +1,111 @@
+.header {
+	width: 100%;
+	height: 100px;
+
+	display: none;
+
+	position: relative;
+}
+
+.header.mobile {
+	height: 75px;
+}
+
+.header-player,
+.header-opponent {
+	min-width: calc(50% + 100px);
+	height: 100%;
+
+	position: relative;
+	top: 0;
+	left: -100px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	transform: skewX(-20deg);
+}
+
+.header-player {
+	background: rgb(255, 88, 88);
+	border-bottom: 3px solid rgb(198, 43, 43);
+}
+
+.header-opponent {
+	background: rgb(18, 128, 255);
+	border-bottom: 3px solid rgb(12, 73, 142);
+}
+
+.header-player h1,
+.header-opponent h1 {
+	color: white;
+	font-size: min(4.5dvmax, 60px);
+	transform: skewX(20deg);
+}
+
+.header-player h1 {
+	padding-left: 100px;
+}
+
+.header-player h1:after {
+	content: 'You';
+}
+
+.header-opponent h1 {
+	padding-right: 100px;
+}
+
+.header-opponent h1:after {
+	content: 'Opponent';
+}
+
+.clock-container {
+	width: 120px;
+	height: 50px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	position: absolute;
+	top: 25px;
+	left: calc(50% - 60px);
+
+	background-color: white;
+
+	border: 3px solid black;
+	border-radius: 7px;
+
+	z-index: 1;
+}
+
+.header.mobile .clock-container {
+	top: 12.5px;
+}
+
+@media screen and (max-width: 700px) {
+	.header-opponent h1:after {
+		content: 'Opp.';
+	}
+
+	.header-player {
+		justify-content: flex-start;
+		padding-left: 50px;
+	}
+
+	.header-opponent {
+		justify-content: flex-end;
+		padding-right: 50px;
+	}
+}
+
+@media screen and (max-width: 420px) {
+	.header-player {
+		padding-left: 8dvw;
+	}
+
+	.header-opponent {
+		padding-right: 8dvw;
+	}
+}

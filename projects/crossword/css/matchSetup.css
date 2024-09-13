@@ -1,0 +1,417 @@
+.match-setup-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	width: 85dvw;
+	max-width: 1200px;
+	height: 90dvh;
+
+	padding: 20px;
+	border: clamp(3px, 0.6dvh, 10px) solid gray;
+	border-radius: 40px;
+
+	overflow: hidden;
+
+	background-color: gainsboro;
+
+	transition: opacity 200ms ease-out;
+}
+
+.setup-components-container {
+	flex: 10;
+
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: clamp(3px, 0.6dvh, 10px) solid gray;
+}
+
+.setup-components {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+
+	border-radius: 20px;
+
+	background: #f0f0f0;
+
+	overflow-y: auto;
+}
+
+.upper-options {
+	flex: 1;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	max-height: 50%;
+}
+
+.game-mode-select-container {
+	flex: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+}
+
+.game-mode-select-container h2 {
+	font-size: 3rem;
+	margin-bottom: -12px;
+
+	transition: font-size 200ms linear;
+}
+
+.game-mode-select {
+	display: flex;
+
+	width: 95%;
+	max-height: 80%;
+	min-height: 100px;
+
+	border-radius: 10px;
+
+	background: white;
+}
+
+.game-mode-select h3 {
+	font-size: 2rem;
+	height: 30%;
+}
+
+.race-mode,
+.battle-mode {
+	flex: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	margin: 10px;
+	border-radius: 5px;
+
+	min-height: 80px;
+
+	border: 2px solid rgba(0, 68, 81, 0.25);
+
+	cursor: pointer;
+
+	transition: color 200ms ease-in-out, background-color 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+
+@media (hover) {
+	.race-mode:hover:not(.selected),
+	.battle-mode:hover:not(.selected) {
+		opacity: 1 !important;
+		color: rgb(0, 68, 81);
+		background-color: rgba(0, 213, 255, 0.05) !important;
+		transition: color 200ms ease-in-out, background-color 200ms ease-in-out, opacity 200ms ease-in-out;
+	}
+}
+
+.race-mode.selected,
+.battle-mode.selected {
+	color: rgb(0, 68, 81);
+	background-color: rgba(0, 213, 255, 0.25);
+	transition: color 200ms ease-in-out, background-color 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+
+.race-mode.deselected,
+.battle-mode.deselected {
+	opacity: 0.25;
+	transition: color 200ms ease-in-out, background-color 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+
+/* .race-mode {
+	margin-right: 5px;
+} */
+
+.race-mode-checkered-flag {
+	white-space: nowrap;
+	margin-bottom: -10px;
+	margin-top: -5px;
+}
+
+.race-mode-checkered-flag i {
+	position: relative;
+
+	font-size: 4rem;
+
+	margin-top: 10px;
+
+	&:first-child {
+		transform: rotate(-45deg) scaleX(-1);
+	}
+
+	&:last-child {
+		transform: rotate(45deg);
+	}
+}
+
+.battle-mode {
+	margin-left: 5px;
+}
+
+.battle-mode-crossed-swords {
+	translate: 0px 5px;
+	white-space: nowrap;
+	margin-bottom: -10px;
+	margin-top: -5px;
+}
+
+.battle-mode-crossed-swords svg {
+	position: relative;
+
+	&:first-child {
+		transform: translateX(50%);
+	}
+
+	&:last-child {
+		transform: translateX(-50%) scaleX(-1);
+	}
+}
+
+.lower-options {
+	flex: 1;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+
+	margin-bottom: 20px;
+}
+
+.lower-options h2 {
+	transition: font-size 200ms linear;
+}
+
+.play-button {
+	flex: 3;
+	align-self: center;
+
+	width: 100%;
+
+	padding: 20px;
+	border: none;
+	border-radius: 20px;
+
+	font-size: min(10dvh, 125px);
+	font-weight: bold;
+	text-align: center;
+
+	cursor: pointer;
+
+	color: white;
+	background: rgb(76, 175, 80);
+
+	white-space: nowrap;
+
+	transition: background-color 200ms ease-in-out, filter 200ms ease-in-out;
+}
+
+.play-button[disabled] {
+	filter: grayscale(1);
+	cursor: not-allowed;
+}
+
+@media (hover) {
+	.play-button:not([disabled]):hover {
+		background: rgb(69, 158, 72);
+	}
+}
+
+.play-button:not([disabled]):active {
+	transition: background-color 25ms ease-out;
+	background: rgb(56, 125, 56);
+}
+
+@media (min-aspect-ratio: 3/2) {
+	.match-setup-container {
+		flex-direction: row;
+
+		width: 90dvw;
+		max-width: 1200px;
+		height: 85dvh;
+		max-height: 700px;
+	}
+
+	.setup-components-container {
+		flex: 10;
+
+		margin-bottom: 0;
+		margin-right: 20px;
+		border-right: clamp(3px, 0.6dvh, 10px) solid gray;
+		border-bottom: none;
+		padding-right: 20px;
+		padding-bottom: 0px;
+	}
+
+	.play-button {
+		flex: 3;
+
+		width: 100%;
+		height: 100%;
+
+		font-size: min(7dvw, 125px);
+	}
+
+	.play-button > p {
+		display: none !important;
+	}
+}
+
+@media (max-aspect-ratio: 3/5) and (min-height: 62.5rem) {
+	.game-mode-select {
+		flex-direction: column;
+	}
+
+	.race-mode,
+	.battle-mode {
+		margin: 10px;
+		padding: 20px 0px 20px 0px;
+	}
+
+	.battle-mode {
+		margin-top: 0px;
+	}
+}
+
+@media (min-aspect-ratio: 8/7) and (max-height: 50rem) {
+	.game-mode-select h3 {
+		font-size: 0px;
+	}
+
+	.race-mode,
+	.battle-mode {
+		padding: 10px;
+	}
+
+	.race-mode-checkered-flag {
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+
+	.battle-mode-crossed-swords {
+		margin-bottom: 0px;
+	}
+}
+
+@media (max-height: 37.5rem) {
+	.game-mode-select-container h2 {
+		font-size: 1.5rem;
+		margin-bottom: 0px;
+	}
+
+	.lower-options h2 {
+		font-size: 1.5rem;
+	}
+}
+
+@media (max-aspect-ratio: 7/10) {
+	.lower-options {
+		flex-direction: column;
+
+		gap: 20px;
+	}
+
+	.box {
+		min-width: 10dvw;
+		min-height: 10dvw;
+
+		font-size: 6dvw !important;
+	}
+
+	.num-rows {
+		flex-direction: row !important;
+	}
+
+	.num-columns-select-container {
+		justify-content: flex-start !important;
+	}
+
+	.num-rows-select-container {
+		justify-content: flex-start !important;
+	}
+
+	.num-columns-select,
+	.num-rows-select {
+		max-height: 70px !important;
+	}
+
+	.num-rows > .box:not(:last-child) {
+		border-bottom: 1px solid black !important;
+		border-right: none !important;
+	}
+
+	.game-mode-select h3 {
+		font-size: 2.5rem;
+	}
+
+	.increment,
+	.decrement {
+		min-width: 60px !important;
+		min-height: 60px !important;
+
+		font-size: 2.5rem !important;
+
+		border-radius: 15px !important;
+	}
+}
+
+@media (max-aspect-ratio: 7/10) and (max-height: 60rem) {
+	.game-mode-select h3 {
+		font-size: 0px;
+	}
+
+	.race-mode,
+	.battle-mode {
+		padding: 10px;
+	}
+
+	.race-mode-checkered-flag {
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+
+	.battle-mode-crossed-swords {
+		margin-top: -3px;
+	}
+}
+
+@media (max-aspect-ratio: 7/10) and (min-height: 75rem) {
+	.race-mode-checkered-flag,
+	.battle-mode-crossed-swords {
+		transform: scale(1.5);
+		margin-top: 10px;
+		margin-bottom: 5px;
+	}
+}
+
+@media (max-aspect-ratio: 21/20) {
+	.play-button > i {
+		display: none;
+	}
+}
+
+@media (max-aspect-ratio: 14/15) {
+	.play-button > p {
+		display: none !important;
+	}
+
+	.play-button > i {
+		display: inline-block;
+	}
+}
