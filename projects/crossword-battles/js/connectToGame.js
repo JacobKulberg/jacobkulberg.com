@@ -168,6 +168,11 @@ async function joinGame(e, code = null, setDB = false) {
 	const lastWriteRef = ref(database, 'games/' + code + '/lastWrite');
 
 	try {
+		if ((await get(player2Ref)).val()) {
+			errorModal('Game is full');
+			return;
+		}
+
 		// Check if user is already in a game
 		if (await isInGame(code)) return;
 

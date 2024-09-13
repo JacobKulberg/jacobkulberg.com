@@ -8,7 +8,9 @@ $('.join-button').on('click tap', function (e) {
 });
 
 $('.create-button').on('click tap', function (e) {
+	e.preventDefault();
 	e.stopPropagation();
+	e.stopImmediatePropagation();
 
 	$('.join-or-create-container').addClass('invisible');
 	$('.match-setup-container').removeClass('invisible');

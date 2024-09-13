@@ -363,12 +363,12 @@ async function finishGame(result) {
 		window.set(window.ref(window.database, `games/${window.code}/finishedAt`), now);
 		window.set(window.ref(window.database, `games/${window.code}/lastWrite`), now);
 	} else {
+		window.set(window.ref(window.database, `games/${window.code}/lastWrite`), now);
+
 		if (result === 'dnf') now = -1;
 
 		setLoserTime = true;
-
 		window.set(window.ref(window.database, `games/${window.code}/loserTime`), now);
-		window.set(window.ref(window.database, `games/${window.code}/lastWrite`), now);
 	}
 }
 
