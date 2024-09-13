@@ -44,7 +44,7 @@ observer.observe(yourTime, { childList: true });
 observer.observe(oppTime, { childList: true });
 
 $('.quit').on('click tap', function () {
-	window.location.href = '/projects/crossword/';
+	window.location.href = '/projects/crossword-battles/';
 });
 
 $('.rematch').on('click tap', async function (e) {

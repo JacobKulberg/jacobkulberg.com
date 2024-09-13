@@ -128,8 +128,8 @@ function startGame() {
 		if (!snapshot.exists()) {
 			console.error('Game does not exist');
 
-			if (window.location.pathname !== '/projects/crossword/' && window.location.hash.slice(5) !== '?rematch') {
-				window.location.href = '/projects/crossword/';
+			if (window.location.pathname !== '/projects/crossword-battles/' && window.location.hash.slice(5) !== '?rematch') {
+				window.location.href = '/projects/crossword-battles/';
 			}
 
 			window.location.hash = window.location.hash.slice(0, 5);

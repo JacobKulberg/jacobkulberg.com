@@ -45,7 +45,7 @@ async function init() {
 		$('.join-game-button').on('click tap', (e) => joinGame(e));
 
 		// Join game from link
-		if (window.location.pathname === '/projects/crossword/game/') {
+		if (window.location.pathname === '/projects/crossword-battles/game/') {
 			if (window.location.hash) {
 				joinGameFromLink(window.location.hash.slice(1, 5));
 			} else {
@@ -122,7 +122,7 @@ async function createGame(e, gameMode = '', numRows = 0, numColumns = 0, overrid
 		console.log('Connected as Player 1');
 
 		//! Step 5
-		window.location.href = `/projects/crossword/game/#${code}?createGame`;
+		window.location.href = `/projects/crossword-battles/game/#${code}?createGame`;
 
 		return code;
 	} catch (err) {
@@ -179,7 +179,7 @@ async function joinGame(e, code = null, setDB = false) {
 		}
 
 		//! Step 5
-		window.location.href = `/projects/crossword/game/#${code}`;
+		window.location.href = `/projects/crossword-battles/game/#${code}`;
 	} catch (err) {
 		console.error('Error joining game:', err);
 	}
@@ -255,8 +255,8 @@ function isValidInput(gameMode, numRows, numColumns) {
 }
 
 function redirectToHome() {
-	if (window.location.pathname !== '/projects/crossword/' && window.location.hash.slice(5) !== '?rematch') {
-		window.location.href = '/projects/crossword/';
+	if (window.location.pathname !== '/projects/crossword-battles/' && window.location.hash.slice(5) !== '?rematch') {
+		window.location.href = '/projects/crossword-battles/';
 	}
 
 	window.location.hash = window.location.hash.slice(0, 5);
