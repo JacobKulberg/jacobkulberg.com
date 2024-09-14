@@ -386,3 +386,25 @@ async function updateClock() {
 	let seconds = Math.floor((time % 60000) / 1000);
 	$('.clock h1').text(`${minutes}:${seconds.toString().padStart(2, '0')}`);
 }
+
+$('.view-puzzle').on('click tap', function (e) {
+	e.preventDefault();
+	e.stopPropagation();
+
+	$('.crossword').css('z-index', '200');
+	$('.end-game-modal').css('opacity', 0);
+	$('.clues-container-keyboard').css('z-index', '200');
+	$('.clues-container-across').css('z-index', '200');
+	$('.clues-container-down').css('z-index', '200');
+
+	$(window).one('click tap', function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		$('.crossword').css('z-index', '');
+		$('.end-game-modal').css('opacity', 1);
+		$('.clues-container-keyboard').css('z-index', '');
+		$('.clues-container-across').css('z-index', '');
+		$('.clues-container-down').css('z-index', '');
+	});
+});

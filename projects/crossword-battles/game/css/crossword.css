@@ -159,6 +159,9 @@
 
 .clues-container-across,
 .clues-container-down {
+	background-color: white;
+	border-radius: 5px;
+
 	max-height: 100%;
 	width: 250px;
 

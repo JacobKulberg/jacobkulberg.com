@@ -214,3 +214,57 @@
 	filter: grayscale(1);
 	cursor: not-allowed;
 }
+
+.view-puzzle {
+	display: flex;
+
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 5px;
+
+	width: 41px;
+	height: 41px;
+
+	transition: filter 125ms ease-in;
+}
+
+.view-puzzle-cell {
+	width: 13px;
+	height: 13px;
+}
+
+.view-puzzle-cell:not(:last-child) {
+	border-bottom: 1px solid black;
+}
+
+.view-puzzle-row:not(:last-child) .view-puzzle-cell {
+	border-right: 1px solid black;
+}
+
+.view-puzzle-cell:last-child {
+	background-color: skyblue;
+}
+
+.view-puzzle-row:last-child .view-puzzle-cell:last-child {
+	background-color: rgba(255, 255, 0, calc(2 / 3));
+	border-bottom-right-radius: 4px;
+}
+
+.view-puzzle-row:first-child .view-puzzle-cell:last-child {
+	border-bottom-left-radius: 4px;
+}
+
+@media (hover) {
+	.view-puzzle:hover {
+		filter: brightness(0.8);
+	}
+}
+
+.view-puzzle:active {
+	filter: brightness(0.6);
+	transition: filter 50ms ease-in;
+}
