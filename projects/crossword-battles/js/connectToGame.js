@@ -169,7 +169,7 @@ async function joinGame(e, code = null, setDB = false) {
 
 	try {
 		if ((await get(player2Ref)).val()) {
-			errorModal('Game is full');
+			errorModal('Game is full!');
 			return;
 		}
 
@@ -207,8 +207,10 @@ async function isInGame(code) {
 				if (window.location.hash.slice(5) !== '?createGame') {
 					if (gameCode === code) {
 						console.warn(`User already in this game\nNot rejoining game: ${code}`);
+						errorModal('You are already in this game!');
 					} else {
-						console.warn(`User already in game: ${gameCode}\nNot joining game: ${code}`);
+						remove(ref(database, 'games/' + gameCode));
+						return false;
 					}
 				}
 
@@ -241,7 +243,7 @@ async function isValidGame(code, printError = true) {
 	if (!(await get(ref(database, 'games/' + code)).then((snapshot) => snapshot.exists()))) {
 		if (printError) {
 			console.error('Game does not exist');
-			errorModal('Game does not exist');
+			errorModal('Game does not exist!');
 		}
 
 		return false;
