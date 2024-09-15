@@ -37,7 +37,7 @@ body {
 }
 
 *.light {
-	--main-bg-color: #e3e3e3;
+	--main-bg-color: #ececec;
 	--primary-accent: #00aaff;
 	--secondary-accent: #e6bb00;
 	--link-hover-bg: rgba(0, 0, 0, 0.15);
