@@ -109,3 +109,41 @@
 		padding-right: 8dvw;
 	}
 }
+
+.forfeit {
+	position: absolute;
+	top: 105px;
+	left: 5px;
+
+	width: 50px;
+	height: 35px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: rgb(255, 88, 88);
+	border: 2px solid rgb(198, 43, 43);
+	border-radius: 5px;
+
+	color: white;
+
+	z-index: 2;
+
+	transition: background-color 125ms ease-in;
+}
+
+@media (hover) {
+	.forfeit:hover {
+		background-color: rgb(198, 43, 43);
+	}
+}
+
+.forfeit:active {
+	background-color: rgb(148, 32, 32);
+	transition: background-color 50ms ease-in;
+}
+
+.mobile .forfeit {
+	top: 80px;
+}

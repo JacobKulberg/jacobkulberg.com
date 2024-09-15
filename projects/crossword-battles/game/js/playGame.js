@@ -130,12 +130,18 @@ async function playGame(gridOrig, acrossCluesOrig, downCluesOrig, startedAtOrig)
 	let finishedAtRef = window.ref(window.database, `games/${window.code}/finishedAt`);
 	window.onValue(finishedAtRef, async (snapshot) => {
 		if (snapshot.exists() && !finished) {
-			let oppTime = snapshot.val() - startedAt;
-			let oppMinutes = Math.floor(oppTime / 60000);
-			let oppSeconds = Math.floor((oppTime % 60000) / 1000);
-			let oppMillis = Math.floor(oppTime % 1000);
+			let forfeit = (await window.get(window.ref(window.database, `games/${window.code}/forfeit`))).val();
 
-			$('.time-opponent h1 > div').text(`${oppMinutes}:${oppSeconds.toString().padStart(2, '0')}.${oppMillis.toString().padStart(3, '0')}`);
+			if (forfeit) {
+				$('.time-opponent h1 > div').text('DNF');
+			} else {
+				let oppTime = snapshot.val() - startedAt;
+				let oppMinutes = Math.floor(oppTime / 60000);
+				let oppSeconds = Math.floor((oppTime % 60000) / 1000);
+				let oppMillis = Math.floor(oppTime % 1000);
+
+				$('.time-opponent h1 > div').text(`${oppMinutes}:${oppSeconds.toString().padStart(2, '0')}.${oppMillis.toString().padStart(3, '0')}`);
+			}
 
 			setTimeout(function () {
 				finishGame('dnf');
@@ -407,4 +413,12 @@ $('.view-puzzle').on('click tap', function (e) {
 		$('.clues-container-across').css('z-index', '');
 		$('.clues-container-down').css('z-index', '');
 	});
+});
+
+$('.forfeit').on('click tap', function (e) {
+	e.preventDefault();
+	e.stopPropagation();
+
+	finishGame('dnf');
+	window.set(window.ref(window.database, `games/${window.code}/forfeit`), true);
 });
