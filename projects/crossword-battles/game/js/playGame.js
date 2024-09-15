@@ -391,6 +391,30 @@ async function updateClock() {
 	let minutes = Math.floor(time / 60000);
 	let seconds = Math.floor((time % 60000) / 1000);
 	$('.clock h1').text(`${minutes}:${seconds.toString().padStart(2, '0')}`);
+
+	if (time > 90000) {
+		activateCheatMode();
+	}
+}
+
+function activateCheatMode() {
+	window.cheatMode = true;
+
+	for (let i = 0; i < rows; i++) {
+		for (let j = 0; j < cols; j++) {
+			let cell = $('.crossword-row').eq(i).find('.crossword-cell').eq(j);
+			let value = cell.children('.crossword-cell-value').text();
+			let correctValue = grid[i][j];
+
+			if (value === correctValue) {
+				cell.removeClass('incorrect');
+				cell.addClass('correct');
+			} else {
+				cell.removeClass('correct');
+				cell.addClass('incorrect');
+			}
+		}
+	}
 }
 
 $('.view-puzzle').on('click tap', function (e) {

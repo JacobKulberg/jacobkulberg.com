@@ -149,7 +149,35 @@ function onChange(input) {
 		$('.input').val('');
 	}
 
-	$('.crossword-cell-selected .crossword-cell-value').text(letter.toUpperCase());
+	// if cell is marked as correct, don't change cell value
+	if (!$('.crossword-cell-selected').hasClass('correct')) $('.crossword-cell-selected .crossword-cell-value').text(letter.toUpperCase());
+
+	if (!$('.crossword-cell-selected').hasClass('correct') && window.cheatMode) {
+		let row = 0;
+		let col = 0;
+
+		for (let i = 0; i < $('.crossword-row').length; i++) {
+			if ($('.crossword-row').eq(i).find('.crossword-cell-selected').length > 0) {
+				row = i;
+				break;
+			}
+		}
+
+		for (let i = 0; i < $('.crossword-row').eq(row).find('.crossword-cell').length; i++) {
+			if ($('.crossword-row').eq(row).find('.crossword-cell').eq(i).hasClass('crossword-cell-selected')) {
+				col = i;
+				break;
+			}
+		}
+
+		if (letter.toUpperCase() === grid[row][col]) {
+			$('.crossword-cell-selected').removeClass('incorrect');
+			$('.crossword-cell-selected').addClass('correct');
+		} else {
+			$('.crossword-cell-selected').removeClass('correct');
+			$('.crossword-cell-selected').addClass('incorrect');
+		}
+	}
 
 	let row = 0;
 	let col = 0;
@@ -259,7 +287,11 @@ $(window).on('load', function () {
 			e.preventDefault();
 			e.stopPropagation();
 
-			if ($('.crossword-cell-selected .crossword-cell-value').text() !== '') {
+			// if puzzle is solved, don't allow backspace
+			if (isPuzzleSolved()) return;
+
+			// if cell is marked as correct, don't remove cell value
+			if (!$('.crossword-cell-selected').hasClass('correct') && $('.crossword-cell-selected .crossword-cell-value').text() !== '') {
 				$('.crossword-cell-selected .crossword-cell-value').text('');
 				return;
 			}
@@ -306,7 +338,12 @@ $(window).on('load', function () {
 
 			selectCell(row, col, direction);
 
-			$('.crossword-cell-selected .crossword-cell-value').text('');
+			// if cell is marked as correct, don't remove cell value
+			setTimeout(() => {
+				if (!$('.crossword-cell-selected').hasClass('correct')) {
+					$('.crossword-cell-selected .crossword-cell-value').text('');
+				}
+			}, 0);
 		} else if (e.which === 37) {
 			e.preventDefault();
 			e.stopPropagation();

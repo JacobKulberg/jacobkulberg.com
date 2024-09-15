@@ -217,3 +217,11 @@
 	font-size: 5dvmin;
 	margin-bottom: 20px;
 }
+
+.crossword-cell.correct .crossword-cell-value {
+	color: blue;
+}
+
+.crossword-cell.incorrect .crossword-cell-value {
+	color: red;
+}
