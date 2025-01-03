@@ -331,15 +331,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 					if (guessedLetterCount == 3) solvedX = `solved3=${parseInt((document.cookie.match(/^(?:.*;)?\s*solved3\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]) + 1}; path=/; expires=` + expirationDate.toUTCString();
 					if (guessedLetterCount == 4) solvedX = `solved4=${parseInt((document.cookie.match(/^(?:.*;)?\s*solved4\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]) + 1}; path=/; expires=` + expirationDate.toUTCString();
 					document.cookie = solvedX;
-					try {
-						chart.updateOptions({
-							series: [
-								{
-									data: [(document.cookie.match(/^(?:.*;)?\s*solved1\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1], (document.cookie.match(/^(?:.*;)?\s*solved2\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1], (document.cookie.match(/^(?:.*;)?\s*solved3\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1], (document.cookie.match(/^(?:.*;)?\s*solved4\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1], parseInt((document.cookie.match(/^(?:.*;)?\s*numPlayed\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]) - parseInt((document.cookie.match(/^(?:.*;)?\s*numWon\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1])],
-								},
-							],
-						});
-					} catch (e) {}
+					chart.updateOptions({
+						series: [
+							{
+								data: [(document.cookie.match(/^(?:.*;)?\s*solved1\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1], (document.cookie.match(/^(?:.*;)?\s*solved2\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1], (document.cookie.match(/^(?:.*;)?\s*solved3\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1], (document.cookie.match(/^(?:.*;)?\s*solved4\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1], parseInt((document.cookie.match(/^(?:.*;)?\s*numPlayed\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1]) - parseInt((document.cookie.match(/^(?:.*;)?\s*numWon\s*=\s*([^;]+)(?:.*)?$/) || [, null])[1])],
+							},
+						],
+					});
 				}
 				confetti.start();
 				letterEl.classList.remove('animate__flipInX');
