@@ -160,6 +160,7 @@ body {
 	text-shadow: 0 0 7px #000;
 	z-index: 2;
 	transition: text-shadow 300ms ease, color 300ms ease;
+	margin: 0px 10px;
 }
 
 .scoreboard > .team.home > .name,
