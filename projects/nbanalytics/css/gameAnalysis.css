@@ -1,0 +1,441 @@
+.game-analysis-view {
+	min-height: 0px;
+	width: 100dvw;
+
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(max(calc(50vw - 25px), 55vmin), 1fr));
+}
+
+.quarterly-score {
+	height: 225px;
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	transform: scale(1.75);
+
+	grid-column: 1 / -1;
+
+	pointer-events: none;
+}
+
+.quarterly-score table {
+	margin: 0 5dvw;
+
+	border-collapse: collapse;
+
+	font-weight: bold;
+}
+
+.quarterly-score table tr * {
+	padding: 5px 0px;
+}
+
+.quarterly-score table tr:first-child {
+	border-bottom: 1px solid white;
+}
+
+.quarterly-score table *:not(:last-child) {
+	padding-right: 20px;
+}
+
+.quarterly-score table tr *:first-child {
+	padding-left: 10px;
+}
+
+.quarterly-score table tr *:last-child {
+	padding: 0px 10px 0px 20px;
+	border-left: 1px solid white;
+}
+
+.quarterly-score table * {
+	color: white;
+}
+
+.quarterly-score .away-team-score,
+.quarterly-score .home-team-score {
+	text-align: center;
+}
+
+@media (max-width: 750px) {
+	.quarterly-score {
+		height: 100px;
+		transform: scale(1);
+	}
+}
+
+.game-analysis-view h1 {
+	font-size: max(2.5vw, 3.5vh);
+	text-decoration: underline;
+	text-decoration-color: #d4a017;
+	text-align: center;
+
+	margin: 25px 0px 3px;
+}
+
+.game-analysis-view > h1 {
+	grid-column: 1 / -1;
+}
+
+.team-leaders {
+	width: 100%;
+	height: max(25vh, 150px);
+
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+
+	margin-bottom: 3vw;
+}
+
+.team-leaders .leader {
+	width: 33%;
+
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.team-leaders .leader div:has(img):not(:first-of-type) {
+	display: none;
+}
+
+.team-leaders .leader div:first-child:has(img) {
+	position: relative;
+}
+
+.team-leaders .leader img:first-child {
+	min-height: 80px;
+	height: 13vh;
+
+	border-radius: 40%;
+
+	-webkit-filter: drop-shadow(1px 1px 0 white) drop-shadow(1px -1px 0 white) drop-shadow(-1px -1px 0 white) drop-shadow(-1px 1px 0 white);
+	filter: drop-shadow(1px 1px 0 white) drop-shadow(1px -1px 0 white) drop-shadow(-1px -1px 0 white) drop-shadow(-1px 1px 0 white);
+}
+
+.team-leaders .leader img:last-child {
+	position: absolute;
+	bottom: -0.2vw;
+	right: max(10px, 1vmin);
+
+	min-height: 20px;
+	height: 5.5vh;
+
+	-webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(-1px 1px 0 black);
+	filter: drop-shadow(1px 1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(-1px 1px 0 black);
+}
+
+.team-leaders .leader div:not(:first-child) {
+	width: 70%;
+
+	text-align: center;
+	font-weight: bold;
+
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+
+	font-size: 1.5vmax;
+
+	text-shadow: 0px 0px 7px black;
+}
+
+.team-leaders .leader div:nth-child(2) {
+	margin-top: 5px;
+	padding: 0px 7px;
+}
+
+.team-leaders .leader div:last-child {
+	color: #d4a017;
+	font-size: max(1.75vw, 2vh);
+}
+
+.cumulative-score,
+.win-probability {
+	padding: 0px 3vw;
+}
+
+.cumulative-score-graph,
+.win-probability-graph {
+	transition: opacity 300ms ease;
+}
+
+.cumulative-score-spacer {
+	height: 4vh;
+	width: 100%;
+}
+
+.game-analysis-view.single-column .cumulative-score-spacer {
+	height: 0px;
+}
+
+.win-probability-percent-container {
+	width: 100%;
+	height: 8vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+}
+
+.win-probability-percent-img {
+	height: 100%;
+
+	-webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(-1px 1px 0 black);
+	filter: drop-shadow(1px 1px 0 black) drop-shadow(1px -1px 0 black) drop-shadow(-1px -1px 0 black) drop-shadow(-1px 1px 0 black);
+}
+
+.win-probability-percent {
+	font-size: max(3vw, 5vh);
+	font-weight: bold;
+}
+
+.game-analysis-view:not(.single-column) .shot-chart-toggles-container:not(.wide) {
+	display: none;
+}
+
+.shot-chart-toggles-container-container {
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.shot-chart-toggles-container:not(.wide) {
+	width: 50%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	padding: 0px 0px 2vmax;
+
+	grid-column: 1 / -1;
+
+	font-weight: bold;
+	font-size: 2.5vmax;
+}
+
+.shot-chart-toggles-container:not(.wide) .abbr {
+	text-align: center;
+	text-decoration: underline;
+
+	font-size: 3vmax;
+}
+
+.shot-chart-toggles-container:not(.wide) .shot-chart-toggles {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75vmax;
+}
+
+.shot-chart-toggles-container:not(.wide) .toggle {
+	display: flex;
+	align-items: center;
+	gap: 1.25vmax;
+}
+
+.shot-chart-toggles-container:not(.wide) input {
+	height: 3.5vmax;
+	width: 3.5vmax;
+}
+
+.shot-chart-container {
+	grid-column: 1 / -1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.shot-chart-legend-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2vmax;
+
+	padding: 1.5vh;
+	margin-bottom: 1vh;
+
+	grid-column: 1 / -1;
+}
+
+.game-analysis-view.single-column .shot-chart-legend-container {
+	border: 2px dashed white;
+}
+
+.legend {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5vmax;
+
+	font-size: max(1.5vw, 2vh);
+	font-weight: bold;
+}
+
+.legend div {
+	width: max(2.25vw, 2.5vh);
+	height: max(2.25vw, 2.5vh);
+
+	background-color: #403d71;
+	border: 0.15vmax solid white;
+}
+
+.legend .made {
+	border-radius: 100%;
+}
+
+.shot-chart-court-container {
+	position: relative;
+
+	width: 47vmax;
+	height: 25vmax;
+
+	justify-self: center;
+
+	grid-column: 1 / -1;
+
+	background-image: url('/assets/images/shot_chart_court.svg');
+	background-size: cover;
+	background-position: center;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.shot-chart {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 100%;
+}
+
+.shot-chart-canvas {
+	width: 100%;
+	height: 100%;
+}
+
+.shot-chart-court-logo {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	translate: -50% -50%;
+
+	height: 5vmax;
+	aspect-ratio: 1;
+}
+
+.shot-chart-court-logo img {
+	width: 100%;
+	height: 100%;
+}
+
+.shot-chart-toggles-container.wide {
+	min-width: 12.5vmax;
+	min-height: 80%;
+
+	background-color: #403d71;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.shot-chart-toggles-container.wide img {
+	height: 7vmax;
+	aspect-ratio: 1;
+
+	padding-bottom: 5px;
+	margin-bottom: 15px;
+}
+
+.shot-chart-toggles-container.away.wide {
+	border-radius: 30px 0px 0px 30px;
+	border-right: none !important;
+}
+
+.shot-chart-toggles-container.home.wide {
+	border-radius: 0px 30px 30px 0px;
+	border-left: none !important;
+}
+
+.shot-chart-toggles-container.wide input {
+	height: 1.75vmax;
+	width: 1.75vmax;
+}
+
+.shot-chart-toggles-container.wide .toggle {
+	font-size: 1.5vmax;
+	font-weight: bold;
+
+	display: flex;
+	align-items: center;
+	gap: 1vmax;
+}
+
+.shot-chart-toggles {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1vmax;
+}
+
+.game-analysis-view.single-column .shot-chart-toggles-container.wide {
+	display: none;
+}
+
+.team-stats-comparison-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+
+	font-weight: bold;
+	font-size: max(1.75vw, 3vh);
+}
+
+.team-stats-comparison-container > span {
+	text-decoration: underline;
+}
+
+.team-stats-comparison-container .progress-bar-container {
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2vmax;
+
+	margin-bottom: 3vmax;
+}
+
+.team-stats-comparison-container .progress-bar-container span {
+	min-width: 10%;
+
+	font-size: max(2vw, 3.5vh);
+}
+
+.team-stats-comparison-container .progress-bar-container span:first-child {
+	text-align: right;
+}
+
+.team-stats-comparison-container .progress-bar-container .progress-bar {
+	min-width: 60%;
+	height: 5vh;
+
+	border-radius: 2.5vh;
+}

@@ -1,0 +1,148 @@
+.game-team-view {
+	width: 101vw;
+
+	padding-bottom: 2vh;
+}
+
+.game-team-view .team-summary {
+	height: max(12vh, 9vw);
+	width: 100%;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	margin: 0px 1vw;
+
+	.team-logo {
+		height: 100%;
+	}
+
+	.team-stats {
+		display: flex;
+		align-content: center;
+		gap: 2vmax;
+
+		margin: 0px 4vmax 0px 2vmax;
+
+		overflow-y: hidden;
+
+		height: 100%;
+		width: 100%;
+
+		font-weight: bold;
+
+		.team-summary-item {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			white-space: nowrap;
+
+			width: 100%;
+
+			margin: 0px 1vw;
+
+			.team-summary-item-stat {
+				font-size: 3vmax;
+				line-height: 3.5vmax;
+			}
+
+			.team-summary-item-label {
+				font-size: max(1.5vh, 1.25vw);
+				line-height: max(1.5vh, 1.25vw);
+				margin-bottom: 1vh;
+				color: darkgray;
+			}
+
+			.team-summary-item-extra {
+				font-size: max(2vh, 1.5vw);
+				line-height: max(2vh, 1.5vw);
+			}
+		}
+	}
+}
+
+.game-team-view .player-summaries {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: flex-start;
+	gap: 1.5vh;
+
+	margin: 0px 1vw;
+	padding-bottom: 2vh;
+
+	position: relative;
+
+	overflow-x: auto;
+	overflow-y: hidden;
+
+	.player-summary {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 2vw;
+
+		height: max(8vh, 6vw);
+		width: 100%;
+
+		position: relative;
+
+		.player-summary-headshot {
+			height: 100%;
+
+			border-radius: 40%;
+
+			-webkit-filter: drop-shadow(1px 1px 0 white) drop-shadow(1px -1px 0 white) drop-shadow(-1px -1px 0 white) drop-shadow(-1px 1px 0 white);
+			filter: drop-shadow(1px 1px 0 white) drop-shadow(1px -1px 0 white) drop-shadow(-1px -1px 0 white) drop-shadow(-1px 1px 0 white);
+		}
+
+		.player-summary-info {
+			height: 100%;
+
+			margin-top: 2vh;
+
+			display: inline-flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+		}
+
+		.player-summary-name {
+			position: sticky;
+			left: 2vw;
+
+			font-size: max(1.75vh, 1.25vw);
+			text-decoration: underline;
+		}
+
+		.player-summary-stats {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			font-weight: bold;
+		}
+
+		.player-summary-stat {
+			width: 6vmax;
+			white-space: nowrap;
+		}
+
+		.player-summary-stat-value {
+			font-size: max(3vh, 2.5vw);
+			line-height: max(3vh, 2.5vw);
+		}
+
+		.player-summary-stat-label {
+			font-size: max(1.5vh, 1.15vw);
+			line-height: max(1.5vh, 1.15vw);
+			color: darkgray;
+		}
+
+		.player-summary-dnp {
+			font-size: max(1.75vh, 1vw);
+			color: darkgray;
+		}
+	}
+}

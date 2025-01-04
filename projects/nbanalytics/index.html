@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Game Select</title>
+
+		<!-- jQuery -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<!-- moment.js -->
+		<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.31/moment-timezone-with-data.js"></script>
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto+Condensed&display=swap" rel="stylesheet" />
+
+		<link rel="icon" href="/projects/nbanalytics/assets/images/favicon.ico" type="image/x-icon" />
+
+		<link rel="stylesheet" href="css/games.css" />
+	</head>
+	<body>
+		<!-- custom date selector -->
+		<div class="set-date">
+			<label class="custom-date-label">Set Date:</label>
+			<input class="custom-date" type="date" />
+		</div>
+
+		<!-- day slider -->
+		<div class="day-selector"></div>
+
+		<!-- game list -->
+		<div class="games-container">
+			<div class="games"></div>
+		</div>
+		<div class="no-games">No games scheduled for today!</div>
+
+		<script src="js/constants.js"></script>
+		<script src="js/daySelect.js" type="module"></script>
+		<script src="js/games.js" type="module"></script>
+	</body>
+</html>

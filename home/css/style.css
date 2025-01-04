@@ -274,7 +274,8 @@ header hr {
 #lettle,
 #banana-bonanza,
 #chess-ai,
-#crossword-battles {
+#crossword-battles,
+#nbanalytics {
 	flex: 1;
 	width: 50vw !important;
 	height: 50vw !important;
@@ -295,6 +296,15 @@ header hr {
 #crossword-battles {
 	transform: scale(0.65);
 	border-radius: 10px;
+}
+
+#nbanalytics {
+	transform: scale(0.8);
+	aspect-ratio: 624 / 582 !important;
+	max-height: 24vmax !important;
+	max-width: auto !important;
+	height: auto !important;
+	width: auto !important;
 }
 
 .service-container {

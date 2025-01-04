@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Game View</title>
+
+		<!-- jQuery -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<!-- cannon.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js" integrity="sha512-avLcnGxl5mqAX/wIKERdb1gFNkOLHh2W5JNCfJm5OugpEPBz7LNXJJ3BDjjwO00AxEY1MqdNjtEmiYhKC0ld7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<!-- moment.js -->
+		<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.31/moment-timezone-with-data.js"></script>
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<!-- Chart.js -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto+Condensed&display=swap" rel="stylesheet" />
+
+		<link rel="icon" href="/projects/nbanalytics/assets/images/favicon.ico" type="image/x-icon" />
+
+		<link rel="stylesheet" href="../css/gameView.css" />
+		<link rel="stylesheet" href="../css/gamePlayByPlay.css" />
+		<link rel="stylesheet" href="../css/gameAnalysis.css" />
+		<link rel="stylesheet" href="../css/gameTeamStats.css" />
+	</head>
+	<body>
+		<div id="court">
+			<div class="play-text"></div>
+		</div>
+
+		<div class="scoreboard">
+			<div class="skip-replay">
+				<i class="fa-solid fa-forward"></i>
+			</div>
+			<div class="team away">
+				<img class="logo" draggable="false" />
+				<div class="name">
+					<div class="name-text"></div>
+					<div class="record"></div>
+				</div>
+				<div class="score"></div>
+			</div>
+			<div class="info">
+				<div class="live-status">
+					<div class="dot"></div>
+					<div class="text"></div>
+				</div>
+				<div class="time"></div>
+			</div>
+			<div class="team home">
+				<div class="score"></div>
+				<div class="name">
+					<div class="name-text"></div>
+					<div class="record"></div>
+				</div>
+				<img class="logo" draggable="false" />
+			</div>
+		</div>
+
+		<div class="game-options-container">
+			<div class="game-options">
+				<div class="game-play-by-play option">Play-By-Play</div>
+				<div class="game-analysis option">Analysis</div>
+				<div class="game-team away option">Away</div>
+				<div class="game-team home option">Home</div>
+			</div>
+		</div>
+
+		<div class="game-views">
+			<div class="game-play-by-play-view game-view"></div>
+			<div class="game-analysis-view game-view">
+				<div class="quarterly-score">
+					<table>
+						<tr>
+							<th></th>
+						</tr>
+						<tr>
+							<td class="away-team-abbr"></td>
+						</tr>
+						<tr>
+							<td class="home-team-abbr"></td>
+						</tr>
+					</table>
+				</div>
+
+				<h1>Game Leaders</h1>
+
+				<div class="team-leaders away">
+					<div class="leader points"></div>
+					<div class="leader rebounds"></div>
+					<div class="leader assists"></div>
+				</div>
+
+				<div class="team-leaders home">
+					<div class="leader points"></div>
+					<div class="leader rebounds"></div>
+					<div class="leader assists"></div>
+				</div>
+
+				<div class="cumulative-score">
+					<h1>Cumulative Score</h1>
+
+					<div class="cumulative-score-spacer"></div>
+					<canvas class="cumulative-score-graph"></canvas>
+				</div>
+
+				<div class="win-probability">
+					<h1>Win Probability</h1>
+					<div class="win-probability-percent-container">
+						<img class="win-probability-percent-img" />
+						<span class="win-probability-percent"></span>
+					</div>
+
+					<canvas class="win-probability-graph"></canvas>
+				</div>
+
+				<h1>Shot Chart</h1>
+
+				<div class="shot-chart-container">
+					<div class="shot-chart-toggles-container-container">
+						<div class="shot-chart-toggles-container away">
+							<div class="abbr"></div>
+							<div class="shot-chart-toggles">
+								<div class="toggle made">
+									<input type="checkbox" checked />
+									<span>Made</span>
+								</div>
+								<div class="toggle missed">
+									<input type="checkbox" checked />
+									<span>Missed</span>
+								</div>
+							</div>
+						</div>
+						<div class="shot-chart-toggles-container home">
+							<div class="abbr"></div>
+							<div class="shot-chart-toggles">
+								<div class="toggle made">
+									<input type="checkbox" checked />
+									<span>Made</span>
+								</div>
+								<div class="toggle missed">
+									<input type="checkbox" checked />
+									<span>Missed</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="shot-chart-legend-container">
+						<div class="legend">
+							<div class="made"></div>
+							<span>Made</span>
+						</div>
+						<div class="legend">
+							<div class="missed"></div>
+							<span>Missed</span>
+						</div>
+					</div>
+
+					<div class="shot-chart-court-container">
+						<div class="shot-chart-court-logo">
+							<img />
+						</div>
+
+						<div class="shot-chart">
+							<div class="shot-chart-toggles-container away wide">
+								<img />
+								<div class="shot-chart-toggles">
+									<div class="toggle made">
+										<input type="checkbox" checked />
+										<span>Made</span>
+									</div>
+									<div class="toggle missed">
+										<input type="checkbox" checked />
+										<span>Missed</span>
+									</div>
+								</div>
+							</div>
+							<canvas class="shot-chart-canvas"></canvas>
+							<div class="shot-chart-toggles-container home wide">
+								<img />
+								<div class="shot-chart-toggles">
+									<div class="toggle made">
+										<input type="checkbox" checked />
+										<span>Made</span>
+									</div>
+									<div class="toggle missed">
+										<input type="checkbox" checked />
+										<span>Missed</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<h1>Team Comparison</h1>
+				<div class="team-stats-comparison-container first"></div>
+				<div class="team-stats-comparison-container second"></div>
+			</div>
+			<div class="game-team-view game-view away">
+				<div class="team-summary">
+					<img class="team-logo"></img>
+					<div class="team-stats"></div>
+				</div>
+				<div class="player-summaries"></div>
+			</div>
+			<div class="game-team-view game-view home">
+				<div class="team-summary">
+					<img class="team-logo"></img>
+					<div class="team-stats"></div>
+				</div>
+				<div class="player-summaries"></div>
+			</div>
+
+			<div class="game-view-scroll-up">
+				<i class="fa-solid fa-arrow-up"></i>
+			</div>
+
+			<div class="loading">
+				<img src="../assets/images/glass_filled.png" class="glass-filled" />
+				<img src="../assets/images/glass.png" />
+				<img src="../assets/images/ball.png" class="spin" />
+			</div>
+		</div>
+
+		<div class="game-not-started">
+			<span>Starting soon...</span>
+		</div>
+
+		<script src="../js/constants.js"></script>
+		<script src="../js/court.js" type="module"></script>
+		<script src="../js/gameView.js" type="module"></script>
+		<script src="../js/gameAnalysis.js" type="module"></script>
+		<script src="../js/gameTeamStats.js" type="module"></script>
+		<script src="../js/gamePlayByPlay.js" type="module"></script>
+	</body>
+</html>
