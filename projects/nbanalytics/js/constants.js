@@ -455,7 +455,7 @@ function getPlayerName(playerID) {
 	}
 
 	return new Promise((resolve, reject) => {
-		fetch(`http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/athletes/${playerID}`)
+		fetch(`https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/athletes/${playerID}`)
 			.then((response) => {
 				if (!response.ok) {
 					throw new Error(`Error fetching player name! Status: ${response.status}`);
