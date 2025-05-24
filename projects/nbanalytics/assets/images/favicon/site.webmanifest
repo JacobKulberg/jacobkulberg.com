@@ -1,21 +1,21 @@
 {
-  "name": "NBAnalytics",
-  "short_name": "NBAnalytics",
-  "icons": [
-    {
-      "src": "/projects/nbanalytics/assets/images/favicon/web-app-manifest-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/projects/nbanalytics/assets/images/favicon/web-app-manifest-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "theme_color": "#09375d",
-  "background_color": "#09375d",
-  "display": "standalone"
+	"name": "NBAnalytics",
+	"short_name": "NBAnalytics",
+	"icons": [
+		{
+			"src": "/projects/nbanalytics/assets/images/favicon/web-app-manifest-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "/projects/nbanalytics/assets/images/favicon/web-app-manifest-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"theme_color": "#020026",
+	"background_color": "#020026",
+	"display": "browser"
 }
