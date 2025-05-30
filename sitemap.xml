@@ -2,39 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <!-- Main domain -->
     <url>
-        <loc>https://www.jacobkulberg.me/</loc>
+        <loc>https://www.jacobkulberg.com/</loc>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
 
     <!-- Subdomains -->
     <url>
-        <loc>https://www.jacobkulberg.me/projects/lettle/</loc>
+        <loc>https://www.jacobkulberg.com/projects/lettle/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.jacobkulberg.me/projects/banana-bonanza/</loc>
+        <loc>https://www.jacobkulberg.com/projects/banana-bonanza/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.jacobkulberg.me/projects/chess-ai/</loc>
+        <loc>https://www.jacobkulberg.com/projects/chess-ai/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.jacobkulberg.me/projects/crossword-battles/</loc>
+        <loc>https://www.jacobkulberg.com/projects/crossword-battles/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.jacobkulberg.me/projects/nbanalytics/</loc>
+        <loc>https://www.jacobkulberg.com/projects/nbanalytics/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://www.jacobkulberg.me/services/techtime/</loc>
+        <loc>https://www.jacobkulberg.com/services/techtime/</loc>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>

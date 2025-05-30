@@ -233,7 +233,7 @@ $('#share').on('mousedown', function (e) {
 	if (typeof window.ontouchstart != 'undefined' && e.type == 'mousedown') return;
 
 	$('#share').one('mouseup', function () {
-		let shareText = `I found ${$('#current-banana-count').text()} banana${$('#current-banana-count').text() !== '1' ? 's' : ''} in Banana Bonanza! Can you beat my score? https://jacobkulberg.me/projects/banana-bonanza/`;
+		let shareText = `I found ${$('#current-banana-count').text()} banana${$('#current-banana-count').text() !== '1' ? 's' : ''} in Banana Bonanza! Can you beat my score? https://jacobkulberg.com/projects/banana-bonanza/`;
 
 		copyTextToClipboard(shareText);
 	});
@@ -245,7 +245,7 @@ $('#share').on('mousedown', function (e) {
 
 $('#share').on('touchstart', function () {
 	$('#share').one('touchend', function () {
-		let shareText = `I found ${$('#current-banana-count').text()} banana${$('#current-banana-count').text() !== '1' ? 's' : ''} in Banana Bonanza! Can you beat my score? https://jacobkulberg.me/projects/banana-bonanza/`;
+		let shareText = `I found ${$('#current-banana-count').text()} banana${$('#current-banana-count').text() !== '1' ? 's' : ''} in Banana Bonanza! Can you beat my score? https://jacobkulberg.com/projects/banana-bonanza/`;
 
 		if (navigator.canShare) {
 			navigator.share({
