@@ -5,9 +5,13 @@ $(document).ready(function () {
 
 	function updateHeaderOpacity() {
 		if ($(window).scrollTop() > 0) {
-			$('#header').css('opacity', 1);
+			$('#header').removeClass('invisible');
 		} else {
-			$('#header').css('opacity', 0);
+			$('#header').addClass('invisible');
 		}
 	}
+
+	$('#header').on('click', function () {
+		window.location.href = '#';
+	});
 });
