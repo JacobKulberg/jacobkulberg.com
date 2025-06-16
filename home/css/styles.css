@@ -151,6 +151,8 @@ h6 {
 
 	background: linear-gradient(90deg, var(--location-color-1) 10%, var(--location-color-2) 90%);
 
+	cursor: default;
+
 	transition: margin-top 300ms ease, background 300ms ease, height 300ms ease, --location-color-1 300ms ease, --location-color-2 300ms ease;
 }
 
