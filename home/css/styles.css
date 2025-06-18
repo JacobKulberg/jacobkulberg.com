@@ -35,13 +35,18 @@ body {
 }
 
 main {
-	width: 960px;
-	height: 200vh;
+	width: 90%;
+	max-width: 960px;
 }
 
 h1 {
 	color: var(--primary-color);
 	font-size: var(--header-1-font-size);
+}
+
+h2 {
+	font-size: var(--header-2-font-size);
+	color: var(--primary-color);
 }
 
 h3 {
@@ -107,12 +112,14 @@ h6 {
 	}
 }
 
-main > div {
+.main-section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 
 	padding-top: 3rem;
+
+	min-height: 17.5rem;
 }
 
 @property --location-color-1 {
@@ -125,6 +132,40 @@ main > div {
 	syntax: '<color>';
 	initial-value: transparent;
 	inherits: false;
+}
+
+i {
+	color: var(--primary-color);
+}
+
+#home {
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#home .socials {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+#home .socials i {
+	font-size: 2.6rem;
+	cursor: pointer;
+	transition: color 300ms ease, transform 300ms ease;
+}
+
+@media (hover) {
+	#home .socials i:hover {
+		color: var(--primary-color);
+		transform: scale(1.1);
+	}
+}
+
+#home .main-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #home .location-container {
@@ -172,7 +213,6 @@ main > div {
 }
 
 #home .location i {
-	color: var(--primary-color);
 	font-size: 0.83rem;
 
 	margin-right: 10px;
