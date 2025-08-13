@@ -1,3 +1,7 @@
+/*************/
+/** GENERAL **/
+/*************/
+
 * {
 	margin: 0;
 	padding: 0;
@@ -74,6 +78,24 @@ h6 {
 	pointer-events: none;
 }
 
+.main-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	padding-top: 3rem;
+
+	min-height: 17.5rem;
+}
+
+.main-section h2:first-child {
+	margin: 2rem 0 1rem;
+}
+
+/**************/
+/*** HEADER ***/
+/**************/
+
 #header {
 	width: 100%;
 	height: 5rem;
@@ -112,15 +134,9 @@ h6 {
 	}
 }
 
-.main-section {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
-	padding-top: 3rem;
-
-	min-height: 17.5rem;
-}
+/************/
+/*** HOME ***/
+/************/
 
 @property --location-color-1 {
 	syntax: '<color>';
@@ -175,7 +191,7 @@ i {
 
 	border-radius: 25px;
 
-	transition: margin-top 300ms ease, background 300ms ease, --location-color-1 300ms ease, --location-color-2 300ms ease;
+	transition: margin-top 300ms ease, background 300ms ease, height 300ms ease, --location-color-1 300ms ease, --location-color-2 300ms ease;
 }
 
 #home .location {
@@ -216,4 +232,29 @@ i {
 	font-size: 0.83rem;
 
 	margin-right: 10px;
+}
+
+/****************/
+/*** ABOUT ME ***/
+/****************/
+
+.headshot-container {
+	position: relative;
+	height: 20rem;
+}
+
+.headshot-container img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 20%;
+}
+
+.headshot-container::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-color: rgba(0, 0, 255, 0.05);
+	mix-blend-mode: color;
+	border-radius: 20%;
 }
