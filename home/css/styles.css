@@ -12,6 +12,8 @@
 }
 
 :root {
+	font-size: clamp(60%, 2vw, 100%);
+
 	--primary-color: #b9c9ff;
 	--secondary-color: #cecece;
 	--background-color: #0c1425;
@@ -195,7 +197,7 @@ i {
 }
 
 #home .location {
-	height: 35px;
+	height: clamp(30px, 4vw, 35px);
 
 	display: flex;
 	justify-content: center;
@@ -211,6 +213,10 @@ i {
 	cursor: default;
 
 	transition: margin-top 300ms ease, background 300ms ease, height 300ms ease, --location-color-1 300ms ease, --location-color-2 300ms ease;
+}
+
+#home .location h6 {
+	font-size: clamp(0.8rem, 1.35vh, 1.5rem);
 }
 
 @media (hover) {
@@ -241,6 +247,7 @@ i {
 .headshot-container {
 	position: relative;
 	height: 20rem;
+	width: 20rem;
 }
 
 .headshot-container img {
