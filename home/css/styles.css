@@ -9,6 +9,8 @@
 
 	color: white;
 	font-family: 'Poppins', sans-serif;
+
+	user-select: none;
 }
 
 :root {
@@ -17,6 +19,7 @@
 	--primary-color: #b9c9ff;
 	--secondary-color: #cecece;
 	--background-color: #0c1425;
+	--background-secondary-color: #1f2b46;
 
 	--primary-color-rgb: 185, 201, 255;
 
@@ -43,6 +46,10 @@ body {
 main {
 	width: 90%;
 	max-width: 960px;
+}
+
+p {
+	font-size: max(2vh, var(--header-3-font-size));
 }
 
 h1 {
@@ -90,8 +97,12 @@ h6 {
 	min-height: 17.5rem;
 }
 
+.main-section:not(:first-of-type) {
+	padding-bottom: 2rem;
+}
+
 .main-section h2:first-child {
-	margin: 2rem 0 1rem;
+	margin: 1rem 0;
 }
 
 /**************/
@@ -112,6 +123,8 @@ h6 {
 	box-shadow: 0px 0px 10px black;
 
 	transition: opacity 100ms ease;
+
+	z-index: 1;
 }
 
 #header .name {
@@ -244,10 +257,16 @@ i {
 /*** ABOUT ME ***/
 /****************/
 
+#about-me > div {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+}
+
 .headshot-container {
 	position: relative;
-	height: 20rem;
-	width: 20rem;
+	height: 18rem;
+	width: 18rem;
 }
 
 .headshot-container img {
@@ -264,4 +283,44 @@ i {
 	background-color: rgba(0, 0, 255, 0.05);
 	mix-blend-mode: color;
 	border-radius: 20%;
+}
+
+#about-me .main-content-container {
+	width: calc(min(90vw, 960px) - 16rem - 1rem);
+}
+
+.info-boxes {
+	width: 100%;
+
+	display: flex;
+	gap: 1rem;
+	justify-content: space-between;
+}
+
+.info-box {
+	margin: 0.5rem;
+
+	width: 13rem;
+	height: 8rem;
+
+	background-color: var(--background-secondary-color);
+
+	border-radius: 1rem;
+}
+
+#about-me p {
+	margin-top: 1rem;
+	border-left: 3px solid var(--primary-color);
+	padding-left: 1rem;
+}
+
+@media (max-width: 960px) {
+	#about-me > div {
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	#about-me .main-content-container {
+		width: min(90vw, 960px);
+	}
 }
