@@ -210,7 +210,6 @@ i {
 
 @media (hover) {
 	#home .socials i:hover {
-		color: var(--primary-color);
 		transform: scale(1.1);
 	}
 }
@@ -375,9 +374,22 @@ i {
 	}
 }
 
+.project a {
+	text-align: center;
+	text-decoration: none;
+}
+
 .project img {
 	width: 60%;
 	border-radius: 0.6rem;
+	cursor: pointer;
+	transition: transform 300ms ease;
+}
+
+@media (hover) {
+	.project img:hover {
+		transform: scale(1.035);
+	}
 }
 
 .project .title,
@@ -393,7 +405,7 @@ i {
 
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.5rem;
+	gap: 0.75rem;
 }
 
 .project .technologies span {
@@ -421,9 +433,50 @@ i {
 	height: 1.15rem;
 	width: 1.15rem;
 	margin-right: 0.4rem;
-	border-radius: 0;
+	border-radius: 0.175rem;
 }
 
 .project .description {
 	font-weight: normal;
+}
+
+.project .links {
+	display: flex;
+	gap: 0.75rem;
+	margin-top: 0.5rem;
+	width: 100%;
+}
+
+.project .links a {
+	color: var(--primary-color);
+	font-weight: 600;
+	text-decoration: none;
+
+	border: 1px solid var(--primary-color);
+	border-radius: 1rem;
+
+	padding: 0.25rem 0.65rem;
+
+	transition: background-color 300ms ease, color 300ms ease;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.35rem;
+}
+
+.project .links a i {
+	font-size: 1.25rem;
+	transition: color 300ms ease;
+}
+
+@media (hover) {
+	.project .links a:hover {
+		background-color: var(--primary-color);
+		color: var(--background-color);
+	}
+
+	.project .links a:hover i {
+		color: var(--background-color);
+	}
 }
