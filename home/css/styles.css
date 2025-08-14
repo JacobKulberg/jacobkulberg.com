@@ -105,8 +105,16 @@ h6 {
 	padding-top: 3.5rem;
 }
 
-.main-section h2:first-child {
+.main-section > h2:first-child {
 	margin: 1rem 0;
+}
+
+.main-section > h2 {
+	position: sticky;
+
+	z-index: 1;
+
+	top: 1rem;
 }
 
 @property --highlight-color-1 {
