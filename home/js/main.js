@@ -4,7 +4,7 @@ $(document).ready(function () {
 	updateHeaderOpacity();
 
 	function updateHeaderOpacity() {
-		if ($(window).scrollTop() > 250) {
+		if ($(window).scrollTop() > $('#header').height() + $('#home').height()) {
 			$('#header').removeClass('invisible');
 		} else {
 			$('#header').addClass('invisible');
