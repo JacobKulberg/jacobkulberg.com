@@ -386,11 +386,13 @@ i {
 
 	background-color: var(--background-secondary-color);
 
-	transition: transform 300ms ease;
+	transition: box-shadow 300ms ease, transform 300ms ease;
 }
 
 @media (hover) {
 	.project:hover {
+		box-shadow: 0px 0px 10px black;
+
 		transform: scale(1.03);
 	}
 }
@@ -400,18 +402,20 @@ i {
 	text-decoration: none;
 }
 
-.project img {
+.project > a > img {
 	width: 60%;
 
 	border-radius: 0.6rem;
 
 	cursor: pointer;
 
-	transition: transform 300ms ease;
+	transition: box-shadow 300ms ease, transform 300ms ease;
 }
 
 @media (hover) {
-	.project img:hover {
+	.project > a > img:hover {
+		box-shadow: 0px 0px 10px black;
+
 		transform: scale(1.035);
 	}
 }
@@ -444,13 +448,15 @@ i {
 
 	background: linear-gradient(90deg, var(--highlight-color-1) 10%, var(--highlight-color-2) 90%);
 
-	transition: background 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease, transform 300ms ease;
+	transition: background 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease, bos-shadow 300ms ease, transform 300ms ease;
 }
 
 @media (hover) {
 	.project .technologies span:hover {
 		--highlight-color-1: transparent;
 		--highlight-color-2: #b9c9ff45;
+
+		box-shadow: 0px 0px 5px black;
 
 		transform: scale(1.08);
 	}
