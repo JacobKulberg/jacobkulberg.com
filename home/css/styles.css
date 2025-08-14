@@ -222,7 +222,7 @@ i {
 #home .socials i {
 	cursor: pointer;
 
-	transition: color 300ms ease, transform 300ms ease;
+	transition: transform 300ms ease;
 
 	font-size: 3.25rem;
 }
@@ -372,6 +372,73 @@ i {
 	}
 }
 
+/************************/
+/*** TECHNICAL SKILLS ***/
+/************************/
+
+.skills-group {
+	align-self: flex-start;
+
+	width: 80%;
+
+	padding: 1rem;
+	margin-left: 5%;
+
+	border-radius: 1rem;
+
+	background-color: var(--background-secondary-color);
+
+	text-align: center;
+}
+
+.skills-group:nth-child(odd) {
+	align-self: flex-end !important;
+	margin-right: 5%;
+}
+
+.skills-group:not(:first-of-type) {
+	margin-top: 1rem;
+}
+
+.skills-group h3 {
+	text-align: left;
+}
+
+.skill {
+	display: inline-flex;
+	align-items: center;
+
+	padding: 0.25rem 0.75rem;
+	margin: 0.75rem 0.25rem 0;
+
+	border: 1px solid var(--primary-color);
+	border-radius: 1.15rem;
+
+	background: linear-gradient(90deg, var(--highlight-color-2) 10%, var(--highlight-color-1) 90%);
+
+	transition: background 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+.skill img {
+	width: 1.15rem;
+	height: 1.15rem;
+
+	margin-right: 0.5rem;
+
+	border-radius: 0.25rem;
+}
+
+@media (hover) {
+	.skill:hover {
+		--highlight-color-1: transparent;
+		--highlight-color-2: #b9c9ff45;
+
+		box-shadow: 0px 0px 5px black;
+
+		transform: scale(1.08);
+	}
+}
+
 /****************/
 /*** PROJECTS ***/
 /****************/
@@ -454,7 +521,7 @@ i {
 	border: 1px solid var(--primary-color);
 	border-radius: 1.15rem;
 
-	background: linear-gradient(90deg, var(--highlight-color-1) 10%, var(--highlight-color-2) 90%);
+	background: linear-gradient(90deg, var(--highlight-color-2) 10%, var(--highlight-color-1) 90%);
 
 	transition: background 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease, bos-shadow 300ms ease, transform 300ms ease;
 }
