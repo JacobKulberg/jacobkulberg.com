@@ -11,7 +11,7 @@ $(document).ready(function () {
 		}
 	}
 
-	$('#header').on('click', function () {
+	$('#header .name').on('click', function () {
 		window.location.href = '#';
 	});
 });
