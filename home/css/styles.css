@@ -95,14 +95,22 @@ h6 {
 	flex-direction: column;
 
 	min-height: 17.5rem;
+
+	margin-bottom: 1rem;
 }
 
-.main-section:not(:first-of-type):not(:nth-of-type(2)) {
-	padding-top: 3.5rem;
+.main-section:not(:first-of-type) {
+	padding-bottom: 2rem;
 }
 
 .main-section > h2:first-child {
 	margin: 1rem 0;
+}
+
+.main-section > h2:first-child > a {
+	color: inherit;
+
+	text-decoration: none;
 }
 
 .main-section > h2 {
@@ -438,6 +446,7 @@ a:has(.info-box) {
 	width: 80%;
 
 	padding: 1rem;
+	margin-top: 1rem;
 	margin-left: 5%;
 
 	border-radius: 1rem;
@@ -522,6 +531,8 @@ a:has(.info-box) {
 
 .project-container {
 	display: grid;
+
+	margin-top: 1rem;
 	grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
 
 	gap: 1rem;
@@ -538,7 +549,7 @@ a:has(.info-box) {
 
 	background-color: var(--background-secondary-color);
 
-	transition: box-shadow 300ms ease, transform 300ms ease;
+	transition: box-shadow 300ms ease, transform 300ms ease, translate 600ms ease, opacity 600ms ease;
 }
 
 @media (hover) {
@@ -676,4 +687,14 @@ a:has(.info-box) {
 	.project .links a:hover i {
 		color: var(--background-color);
 	}
+}
+
+.project.animate {
+	opacity: 0;
+	translate: -20px -20px;
+}
+
+.project.animate.visible {
+	opacity: 1;
+	translate: 0;
 }
