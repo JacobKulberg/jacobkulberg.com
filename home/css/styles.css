@@ -357,7 +357,7 @@ a:has(.info-box) {
 	flex-direction: column;
 	justify-content: center;
 
-	width: min(max(18vw, 16vh), 13rem);
+	width: min(max(18vw, 16vh), min(13rem, 28vw));
 	height: 8rem;
 
 	margin: 0.5rem;
