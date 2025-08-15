@@ -81,8 +81,69 @@ $(document).ready(function () {
 				}
 			});
 		},
-		{ root: null, threshold: 0.3 }
+		{ root: null, threshold: 0.25 }
 	);
 
 	observer.observe($skillsSection.get(0));
+});
+
+//* ABOUT ME SECTION ANIMATIONS *//
+$(document).ready(function () {
+	const $about = $('#about-me');
+	if ($about.length === 0) return;
+
+	const $headshot = $about.find('.headshot-container img');
+	const $para = $about.find('.main-content-container > .p');
+	const $infoLinks = $about.find('.info-boxes > a');
+
+	if ($headshot.length) $headshot.addClass('animate');
+	if ($para.length) $para.addClass('animate');
+	$infoLinks.each(function () {
+		const $box = $(this).find('.info-box');
+		if ($box.length) $box.addClass('animate');
+	});
+
+	const reveal = () => {
+		if ($headshot.length) $headshot.addClass('visible');
+		if ($para.length) $para.addClass('visible');
+
+		$infoLinks.each(function (i) {
+			const $box = $(this).find('.info-box');
+			if (!$box.length) return;
+			setTimeout(() => $box.addClass('visible'), i * 120);
+		});
+	};
+
+	const hide = () => {
+		[$headshot, $para].forEach(($el) => {
+			if (!$el || !$el.length) return;
+
+			$el.css('transition', 'unset');
+			$el.removeClass('visible');
+			$el.css('transition', '');
+		});
+		$infoLinks.each(function () {
+			const $box = $(this).find('.info-box');
+			if (!$box.length) return;
+
+			$box.css('transition', 'unset');
+			$box.removeClass('visible');
+			$box.css('transition', '');
+		});
+	};
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					reveal();
+				} else {
+					hide();
+				}
+			});
+		},
+		{ root: null, threshold: 0.25 }
+	);
+
+	observer.observe($about.get(0));
 });
