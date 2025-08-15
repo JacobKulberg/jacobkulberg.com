@@ -59,25 +59,37 @@ $(document).ready(function () {
 	const $workButton = $('#work-button');
 	const $educationButton = $('#education-button');
 
-	$workButton.on('click', function () {
+	$workButton.on('click', enableWork);
+	$('.info-box.work').on('click', enableWork);
+
+	$educationButton.on('click', enableEducation);
+	$('.info-box.education').on('click', enableEducation);
+
+	function enableWork() {
 		if (!$workButton.hasClass('active')) {
 			$workButton.addClass('active');
 			$educationButton.removeClass('active');
 
-			$('.work').removeClass('invisible');
-			$('.education').addClass('invisible');
-		}
-	});
+			$('#experience .education').addClass('invisible');
 
-	$educationButton.on('click', function () {
+			setTimeout(() => {
+				$('#experience .work').removeClass('invisible');
+			}, 150);
+		}
+	}
+
+	function enableEducation() {
 		if (!$educationButton.hasClass('active')) {
 			$educationButton.addClass('active');
 			$workButton.removeClass('active');
 
-			$('.education').removeClass('invisible');
-			$('.work').addClass('invisible');
+			$('#experience .work').addClass('invisible');
+
+			setTimeout(() => {
+				$('#experience .education').removeClass('invisible');
+			}, 150);
 		}
-	});
+	}
 });
 
 //* SKILLS SECTION SLIDE-IN ANIMATIONS *//
