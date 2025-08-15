@@ -54,6 +54,32 @@ $(document).ready(async function () {
 	}
 });
 
+//* WORK/EDUCATION TOGGLE *//
+$(document).ready(function () {
+	const $workButton = $('#work-button');
+	const $educationButton = $('#education-button');
+
+	$workButton.on('click', function () {
+		if (!$workButton.hasClass('active')) {
+			$workButton.addClass('active');
+			$educationButton.removeClass('active');
+
+			$('.work').removeClass('invisible');
+			$('.education').addClass('invisible');
+		}
+	});
+
+	$educationButton.on('click', function () {
+		if (!$educationButton.hasClass('active')) {
+			$educationButton.addClass('active');
+			$workButton.removeClass('active');
+
+			$('.education').removeClass('invisible');
+			$('.work').addClass('invisible');
+		}
+	});
+});
+
 //* SKILLS SECTION SLIDE-IN ANIMATIONS *//
 $(document).ready(function () {
 	const $skillsSection = $('#skills');
@@ -81,7 +107,7 @@ $(document).ready(function () {
 				}
 			});
 		},
-		{ root: null, threshold: 0.1 }
+		{ root: null, threshold: 0.3 }
 	);
 
 	observer.observe($skillsSection.get(0));
@@ -193,7 +219,7 @@ $(document).ready(function () {
 				}
 			});
 		},
-		{ threshold: 0.1 }
+		{ threshold: 0 }
 	);
 
 	$cards.each(function () {

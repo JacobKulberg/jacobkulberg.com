@@ -99,6 +99,10 @@ h6 {
 	margin-bottom: 1rem;
 }
 
+.main-section:nth-of-type(2) > div:first-of-type {
+	margin-top: 1rem;
+}
+
 .main-section:not(:first-of-type) {
 	padding-bottom: 2rem;
 }
@@ -697,4 +701,220 @@ a:has(.info-box) {
 .project.animate.visible {
 	opacity: 1;
 	translate: 0;
+}
+
+/******************/
+/*** EXPERIENCE ***/
+/******************/
+
+.work-education-toggle {
+	display: flex;
+	justify-content: center;
+
+	height: 5rem;
+
+	padding: 1rem;
+	margin-top: 1rem;
+
+	border-radius: 2rem;
+
+	background-color: var(--background-secondary-color);
+
+	gap: 1rem;
+}
+
+.work-education-toggle button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 12rem;
+
+	line-height: 1.55rem;
+
+	padding: 0.5rem 1rem;
+
+	border: 1px solid var(--primary-color);
+	border-radius: 1rem;
+
+	color: var(--secondary-color);
+	background-color: var(--background-secondary-color);
+
+	cursor: pointer;
+
+	transition: background-color 300ms ease, color 300ms ease, border-width 100ms ease, font-size 200ms ease;
+
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+@media (hover) {
+	.work-education-toggle button:hover {
+		border-width: 3px;
+
+		font-size: 1.15rem;
+	}
+}
+
+.work-education-toggle button.active {
+	border-width: 3px;
+
+	color: var(--background-color);
+	background-color: var(--primary-color);
+
+	cursor: default;
+
+	font-size: 1.15rem;
+}
+
+.experience-container {
+	position: relative;
+
+	width: 80%;
+}
+
+.experience-container .work,
+.experience-container .education {
+	position: absolute;
+
+	width: 100%;
+
+	padding: 1rem;
+	margin-top: 1rem;
+
+	border-radius: 2rem;
+
+	background-color: var(--background-secondary-color);
+
+	transition: opacity 300ms ease;
+}
+
+.experience-container .work-item {
+	display: flex;
+	flex-direction: row;
+
+	gap: 1rem;
+}
+
+.experience-container .work-item:not(:first-of-type) {
+	margin-top: 1rem;
+}
+
+.experience-container .work-item .icon {
+	position: relative;
+	left: 2.5rem;
+
+	width: 0px;
+
+	margin-top: 5rem;
+
+	transition: border-color 300ms ease;
+
+	pointer-events: none;
+}
+
+.experience-container .work-item:not(:last-of-type) .icon {
+	border: 1px solid var(--secondary-color);
+}
+
+.experience-container .work-item .icon img {
+	position: absolute;
+	top: -5rem;
+	left: -2.5rem;
+
+	width: 5rem;
+	height: 5rem;
+
+	padding: 0.2rem;
+
+	border: 2px solid var(--secondary-color);
+	border-radius: 100%;
+
+	transition: border-color 300ms ease;
+
+	pointer-events: all;
+}
+
+@media (hover) {
+	.experience-container .work-item .icon:has(img:hover),
+	.experience-container .work-item .icon img:hover {
+		border-color: var(--primary-color);
+
+		cursor: pointer;
+	}
+}
+
+.experience-container .work-item > div:not(.icon) {
+	margin-left: 6rem;
+}
+
+.experience-container .technologies {
+	display: flex;
+	flex-wrap: wrap;
+
+	padding: 0 0.5rem;
+	margin: 0.5rem 0;
+
+	gap: 0.75rem;
+}
+
+.experience-container .technologies span {
+	display: flex;
+	align-items: center;
+
+	padding: 0.25rem 0.75rem;
+
+	border: 1px solid var(--primary-color);
+	border-radius: 1.15rem;
+
+	background: linear-gradient(90deg, var(--highlight-color-2) 10%, var(--highlight-color-1) 90%);
+
+	transition: background 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease, bos-shadow 300ms ease, transform 300ms ease;
+}
+
+@media (hover) {
+	.experience-container .technologies span:hover {
+		--highlight-color-1: transparent;
+		--highlight-color-2: #b9c9ff45;
+
+		box-shadow: 0px 0px 5px black;
+
+		transform: scale(1.08);
+	}
+}
+
+.experience-container .technologies span img {
+	width: 1.15rem;
+	height: 1.15rem;
+
+	margin-right: 0.4rem;
+
+	border-radius: 0.175rem;
+}
+
+.experience-container .work-item .date {
+	margin-bottom: -0.2rem;
+
+	color: var(--secondary-color);
+
+	font-size: 0.9rem;
+}
+
+.experience-container .work-item .company {
+	font-size: 1.35rem;
+}
+
+.experience-container .work-item .position {
+	margin-top: -0.2rem;
+
+	color: var(--secondary-color);
+
+	font-size: 0.9rem;
+}
+
+.experience-container .work-item .description {
+	margin-top: 0.5rem;
+	margin-left: 1.5rem;
+
+	font-size: 0.8rem;
 }
