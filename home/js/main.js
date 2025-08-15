@@ -52,4 +52,37 @@ $(document).ready(async function () {
 		console.error(err);
 		$('#github-contributions').text('Failed to load');
 	}
-})();
+});
+
+//* SKILLS SECTION SLIDE-IN ANIMATIONS *//
+$(document).ready(function () {
+	const $skillsSection = $('#skills');
+	if ($skillsSection.length === 0) return;
+
+	const $groups = $skillsSection.find('.skills-group');
+	if ($groups.length === 0) return;
+
+	const $first = $groups.eq(0);
+	const $second = $groups.eq(1);
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					$first.addClass('visible');
+					$second.addClass('visible');
+				} else {
+					$first.css('transition', 'unset');
+					$second.css('transition', 'unset');
+					$first.removeClass('visible');
+					$second.removeClass('visible');
+					$first.css('transition', '');
+					$second.css('transition', '');
+				}
+			});
+		},
+		{ root: null, threshold: 0.3 }
+	);
+
+	observer.observe($skillsSection.get(0));
+});

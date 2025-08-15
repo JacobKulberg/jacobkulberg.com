@@ -97,10 +97,6 @@ h6 {
 	min-height: 17.5rem;
 }
 
-.main-section:not(:first-of-type) {
-	padding-bottom: 3rem 0 2rem;
-}
-
 .main-section:not(:first-of-type):not(:nth-of-type(2)) {
 	padding-top: 3.5rem;
 }
@@ -336,6 +332,7 @@ i {
 .info-boxes {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 
 	width: 100%;
 
@@ -352,7 +349,7 @@ a:has(.info-box) {
 	flex-direction: column;
 	justify-content: center;
 
-	width: 13rem;
+	width: min(max(18vw, 16vh), 13rem);
 	height: 8rem;
 
 	margin: 0.5rem;
@@ -465,6 +462,27 @@ a:has(.info-box) {
 
 		transform: scale(1.08);
 	}
+}
+
+.skills-group.animate {
+	opacity: 1;
+	transition: transform 600ms ease, opacity 600ms ease;
+	transform: translateX(0);
+}
+
+.skills-group.animate.slide-right {
+	opacity: 0;
+	transform: translateX(60px);
+}
+
+.skills-group.animate.slide-left {
+	opacity: 0;
+	transform: translateX(-60px);
+}
+
+.skills-group.animate.visible {
+	opacity: 1;
+	transform: translateX(0);
 }
 
 /****************/
