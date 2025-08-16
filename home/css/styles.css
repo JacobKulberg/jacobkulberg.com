@@ -251,6 +251,10 @@ i {
 	flex-direction: column;
 }
 
+#home h5 {
+	font-size: clamp(1.2rem, 1.5vh, 1.5rem);
+}
+
 #home .location-container {
 	height: 35px;
 
@@ -281,7 +285,7 @@ i {
 }
 
 #home .location h6 {
-	font-size: clamp(0.8rem, 1.35vh, 1.5rem);
+	font-size: clamp(0.8rem, 1.4vh, 1.8rem);
 }
 
 @media (hover) {
@@ -302,7 +306,7 @@ i {
 #home .location i {
 	margin-right: 10px;
 
-	font-size: 0.83rem;
+	font-size: clamp(0.83rem, 1.5vh, 1.17rem);
 }
 
 /****************/
@@ -553,7 +557,7 @@ a:has(.info-box) {
 	flex-direction: column;
 
 	padding: 1rem;
-	padding-bottom: 3.75rem;
+	padding-bottom: 4.5rem;
 
 	border-radius: 1.6rem;
 
@@ -624,6 +628,10 @@ a:has(.info-box) {
 	font-size: 0.85rem;
 }
 
+.project .subtitle {
+	font-size: 1.05rem;
+}
+
 .project .technologies {
 	display: flex;
 	flex-wrap: wrap;
@@ -669,6 +677,9 @@ a:has(.info-box) {
 }
 
 .project .description {
+	margin-top: 0.25rem;
+
+	font-size: clamp(0.95rem, 1.5vh, 1.1rem);
 	font-weight: normal;
 }
 
@@ -700,7 +711,7 @@ a:has(.info-box) {
 
 	transition: background-color 300ms ease, color 300ms ease;
 
-	font-weight: 600;
+	font-weight: bold;
 	text-decoration: none;
 
 	gap: 0.35rem;
@@ -779,7 +790,7 @@ a:has(.info-box) {
 	transition: background-color 300ms ease, color 300ms ease, border-width 100ms ease, font-size 200ms ease;
 
 	font-size: 1rem;
-	font-weight: 600;
+	font-weight: bold;
 }
 
 @media (hover) {
@@ -955,13 +966,14 @@ a:has(.info-box) {
 	color: var(--secondary-color);
 
 	font-size: 0.9rem;
+	font-weight: bold;
 }
 
 .experience-container .item .description {
 	margin-top: 0.5rem;
 	margin-left: 1.5rem;
 
-	font-size: 0.8rem;
+	font-size: 0.95rem;
 }
 
 .work-education-toggle.animate {
