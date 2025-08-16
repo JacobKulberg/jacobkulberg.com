@@ -85,7 +85,7 @@ h6 {
 }
 
 .invisible {
-	opacity: 0;
+	opacity: 0 !important;
 	pointer-events: none !important;
 }
 
@@ -962,6 +962,30 @@ a:has(.info-box) {
 	margin-left: 1.5rem;
 
 	font-size: 0.8rem;
+}
+
+.work-education-toggle.animate {
+	opacity: 0;
+	transition: translate 600ms ease, opacity 300ms ease;
+	translate: 0 24px;
+}
+
+.work-education-toggle.animate.visible {
+	opacity: 1;
+	translate: 0;
+}
+
+.experience-container .work.animate,
+.experience-container .education.animate {
+	opacity: 0;
+	transition: translate 600ms ease, opacity 300ms ease;
+	translate: 0 24px;
+}
+
+.experience-container .work.animate.visible,
+.experience-container .education.animate.visible {
+	opacity: 1;
+	translate: 0;
 }
 
 /******************/

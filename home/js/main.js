@@ -102,39 +102,6 @@ $(document).ready(function () {
 	}
 });
 
-//* SKILLS SECTION SLIDE-IN ANIMATIONS *//
-$(document).ready(function () {
-	const $skillsSection = $('#skills');
-	if ($skillsSection.length === 0) return;
-
-	const $groups = $skillsSection.find('.skills-group');
-	if ($groups.length === 0) return;
-
-	const $first = $groups.eq(0);
-	const $second = $groups.eq(1);
-
-	const observer = new IntersectionObserver(
-		(entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					$first.addClass('visible');
-					$second.addClass('visible');
-				} else {
-					$first.css('transition', 'unset');
-					$second.css('transition', 'unset');
-					$first.removeClass('visible');
-					$second.removeClass('visible');
-					$first.css('transition', '');
-					$second.css('transition', '');
-				}
-			});
-		},
-		{ root: null, threshold: 0.3 }
-	);
-
-	observer.observe($skillsSection.get(0));
-});
-
 //* ABOUT ME SECTION ANIMATIONS *//
 $(document).ready(function () {
 	const $about = $('#about-me');
@@ -196,6 +163,39 @@ $(document).ready(function () {
 	observer.observe($about.get(0));
 });
 
+//* SKILLS SECTION SLIDE-IN ANIMATIONS *//
+$(document).ready(function () {
+	const $skillsSection = $('#skills');
+	if ($skillsSection.length === 0) return;
+
+	const $groups = $skillsSection.find('.skills-group');
+	if ($groups.length === 0) return;
+
+	const $first = $groups.eq(0);
+	const $second = $groups.eq(1);
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					$first.addClass('visible');
+					$second.addClass('visible');
+				} else {
+					$first.css('transition', 'unset');
+					$second.css('transition', 'unset');
+					$first.removeClass('visible');
+					$second.removeClass('visible');
+					$first.css('transition', '');
+					$second.css('transition', '');
+				}
+			});
+		},
+		{ root: null, threshold: 0.3 }
+	);
+
+	observer.observe($skillsSection.get(0));
+});
+
 //* PROJECTS SECTION ANIMATIONS *//
 $(document).ready(function () {
 	const $projectsSection = $('#projects');
@@ -247,4 +247,33 @@ $(document).ready(function () {
 	$cards.each(function () {
 		observer.observe(this);
 	});
+});
+
+//* EXPERIENCE SECTION ANIMATIONS *//
+$(document).ready(function () {
+	const $experience = $('#experience');
+	if ($experience.length === 0) return;
+
+	const $toggle = $experience.find('.work-education-toggle');
+	const $work = $experience.find('.experience-container .work');
+	const $edu = $experience.find('.experience-container .education');
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					$toggle.addClass('visible');
+					$work.addClass('visible');
+					$edu.addClass('visible');
+				} else {
+					$toggle.removeClass('visible');
+					$work.removeClass('visible');
+					$edu.removeClass('visible');
+				}
+			});
+		},
+		{ threshold: 0 }
+	);
+
+	observer.observe($experience.get(0));
 });
