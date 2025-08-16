@@ -452,6 +452,10 @@ a:has(.info-box) {
 /*** TECHNICAL SKILLS ***/
 /************************/
 
+#skills {
+	overflow-x: clip;
+}
+
 .skills-group {
 	align-self: flex-start;
 
