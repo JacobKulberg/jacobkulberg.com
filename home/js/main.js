@@ -56,6 +56,8 @@ $(document).ready(async function () {
 
 //* WORK/EDUCATION TOGGLE *//
 $(document).ready(function () {
+	let loading = false;
+
 	const $workButton = $('#work-button');
 	const $educationButton = $('#education-button');
 
@@ -72,7 +74,9 @@ $(document).ready(function () {
 	});
 
 	function enableWork() {
-		if (!$workButton.hasClass('active')) {
+		if (!loading && !$workButton.hasClass('active')) {
+			loading = true;
+
 			$workButton.addClass('active');
 			$educationButton.removeClass('active');
 
@@ -80,14 +84,17 @@ $(document).ready(function () {
 
 			setTimeout(() => {
 				$('#experience .work').removeClass('invisible');
+				loading = false;
 			}, 150);
-		}
 
-		$('#experience').css('height', $('.experience-container .work').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
+			$('#experience').css('height', $('.experience-container .work').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
+		}
 	}
 
 	function enableEducation() {
-		if (!$educationButton.hasClass('active')) {
+		if (!loading && !$educationButton.hasClass('active')) {
+			loading = true;
+
 			$educationButton.addClass('active');
 			$workButton.removeClass('active');
 
@@ -95,10 +102,11 @@ $(document).ready(function () {
 
 			setTimeout(() => {
 				$('#experience .education').removeClass('invisible');
+				loading = false;
 			}, 150);
-		}
 
-		$('#experience').css('height', $('.experience-container .education').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
+			$('#experience').css('height', $('.experience-container .education').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
+		}
 	}
 });
 
