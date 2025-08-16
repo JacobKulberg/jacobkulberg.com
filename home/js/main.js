@@ -65,6 +65,12 @@ $(document).ready(function () {
 	$educationButton.on('click', enableEducation);
 	$('.info-box.education').on('click', enableEducation);
 
+	$('#experience').css('height', $('.experience-container .work').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
+
+	$(window).on('resize orientationchange', () => {
+		$('#experience').css('height', $('.experience-container .work').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
+	});
+
 	function enableWork() {
 		if (!$workButton.hasClass('active')) {
 			$workButton.addClass('active');
@@ -76,6 +82,8 @@ $(document).ready(function () {
 				$('#experience .work').removeClass('invisible');
 			}, 150);
 		}
+
+		$('#experience').css('height', $('.experience-container .work').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
 	}
 
 	function enableEducation() {
@@ -89,6 +97,8 @@ $(document).ready(function () {
 				$('#experience .education').removeClass('invisible');
 			}, 150);
 		}
+
+		$('#experience').css('height', $('.experience-container .education').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
 	}
 });
 
@@ -180,7 +190,7 @@ $(document).ready(function () {
 				}
 			});
 		},
-		{ root: null, threshold: 0.1 }
+		{ root: null, threshold: 0 }
 	);
 
 	observer.observe($about.get(0));
