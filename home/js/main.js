@@ -252,9 +252,15 @@ $(document).ready(function () {
 					$work.addClass('visible');
 					$edu.addClass('visible');
 				} else {
+					$toggle.css('transition', 'unset');
+					$work.css('transition', 'unset');
+					$edu.css('transition', 'unset');
 					$toggle.removeClass('visible');
 					$work.removeClass('visible');
 					$edu.removeClass('visible');
+					$toggle.css('transition', '');
+					$work.css('transition', '');
+					$edu.css('transition', '');
 				}
 			});
 		},
@@ -262,4 +268,33 @@ $(document).ready(function () {
 	);
 
 	observer.observe($experience.get(0));
+});
+
+//* CONTACT SECTION ANIMATIONS *//
+$(document).ready(function () {
+	const $contactSection = $('#contact-me');
+	if ($contactSection.length === 0) return;
+
+	const $contacts = $contactSection.find('.contact');
+	if ($contacts.length === 0) return;
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					$contacts.addClass('visible');
+				} else {
+					$contacts.each(function () {
+						const $el = $(this);
+						$el.css('transition', 'unset');
+						$el.removeClass('visible');
+						$el.css('transition', '');
+					});
+				}
+			});
+		},
+		{ root: null, threshold: 0 }
+	);
+
+	observer.observe($contactSection.get(0));
 });

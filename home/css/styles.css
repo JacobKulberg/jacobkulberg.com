@@ -1019,7 +1019,7 @@ a:has(.info-box) {
 
 	background-color: var(--background-secondary-color);
 
-	transition: box-shadow 300ms ease, transform 300ms ease;
+	transition: box-shadow 300ms ease, transform 300ms ease, translate 600ms ease, opacity 600ms ease;
 
 	text-decoration: none;
 }
@@ -1051,4 +1051,14 @@ a:has(.info-box) {
 	display: inline;
 
 	font-size: 1.5rem;
+}
+
+.contact.animate {
+	opacity: 0;
+	translate: 0 24px;
+}
+
+.contact.animate.visible {
+	opacity: 1;
+	translate: 0;
 }
