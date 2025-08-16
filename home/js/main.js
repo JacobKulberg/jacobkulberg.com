@@ -213,35 +213,13 @@ $(document).ready(function () {
 	const $cards = $container.find('.project');
 	if ($cards.length === 0) return;
 
-	function getCols() {
-		let cols = 2;
-		const el = $container.get(0);
-		if (!el) return cols;
-		const style = getComputedStyle(el);
-		const template = style.getPropertyValue('grid-template-columns');
-		if (template) {
-			const count = template.split(' ').filter((t) => t.trim().length).length;
-			if (count > 0) cols = count;
-		}
-		return cols;
-	}
-
-	let cols = getCols();
-	$(window).on('resize', () => {
-		cols = getCols();
-	});
-
 	const observer = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {
 				const $el = $(entry.target);
-				const i = $cards.index($el);
-				const row = Math.floor(i / cols);
-				const col = i % cols;
-				const delay = (row + col) * 120;
 
 				if (entry.isIntersecting) {
-					setTimeout(() => $el.addClass('visible'), delay);
+					$el.addClass('visible');
 				} else {
 					$el.css('transition', 'unset');
 					$el.removeClass('visible');
