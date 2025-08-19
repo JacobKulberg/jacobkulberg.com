@@ -457,24 +457,16 @@ a:has(.info-box) {
 }
 
 .skills-group {
-	align-self: flex-start;
-
 	width: 80%;
 
 	padding: 1rem;
 	margin-top: 1rem;
-	margin-left: 5%;
 
 	border-radius: 1rem;
 
 	background-color: var(--background-secondary-color);
 
 	text-align: center;
-}
-
-.skills-group:nth-child(odd) {
-	align-self: flex-end !important;
-	margin-right: 5%;
 }
 
 .skills-group:not(:first-of-type) {
