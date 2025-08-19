@@ -160,7 +160,8 @@ $(document).ready(function () {
 	};
 
 	const observer = new IntersectionObserver(
-		(entries) => {
+		async (entries) => {
+			await new Promise((resolve) => setTimeout(resolve, 100));
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					reveal();
@@ -187,7 +188,8 @@ $(document).ready(function () {
 	const $second = $groups.eq(1);
 
 	const observer = new IntersectionObserver(
-		(entries) => {
+		async (entries) => {
+			await new Promise((resolve) => setTimeout(resolve, 100));
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					$first.addClass('visible');
@@ -218,7 +220,8 @@ $(document).ready(function () {
 	if ($cards.length === 0) return;
 
 	const observer = new IntersectionObserver(
-		(entries) => {
+		async (entries) => {
+			await new Promise((resolve) => setTimeout(resolve, 75));
 			entries.forEach((entry) => {
 				const $el = $(entry.target);
 
@@ -249,7 +252,8 @@ $(document).ready(function () {
 	const $edu = $experience.find('.experience-container .education');
 
 	const observer = new IntersectionObserver(
-		(entries) => {
+		async (entries) => {
+			await new Promise((resolve) => setTimeout(resolve, 150));
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					$toggle.addClass('visible');
@@ -283,7 +287,8 @@ $(document).ready(function () {
 	if ($contacts.length === 0) return;
 
 	const observer = new IntersectionObserver(
-		(entries) => {
+		async (entries) => {
+			await new Promise((resolve) => setTimeout(resolve, 150));
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
 					$contacts.addClass('visible');
