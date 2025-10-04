@@ -241,6 +241,7 @@ async function createGames() {
 
 		let gameEvent = document.createElement('div');
 		$(gameEvent).addClass('game-event');
+		if (game.season.slug == 'preseason') $(gameEvent).text('Preseason');
 		$(gameEvent).text(gameEvents[game.competitions[0].notes[0]?.headline.toLowerCase()]);
 		$(gameInfo).append(gameEvent);
 
