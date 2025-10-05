@@ -398,7 +398,7 @@ function getPlayerHeadshot(playerID) {
 				resolve(`https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/${playerID}.png`);
 			})
 			.fail(() => {
-				resolve('/assets/images/silhouette.png');
+				resolve('/projects/nbanalytics/assets/images/silhouette.png');
 			});
 	});
 }
