@@ -69,7 +69,7 @@ $(document).ready(function () {
 
 	$('#experience').css('height', $('.experience-container .work').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
 
-	$(window).on('resize orientationchange', () => {
+	$(window).on('resize orientationchange load', () => {
 		if ($workButton.hasClass('active')) {
 			$('#experience').css('height', $('.experience-container .work').height() + $('#experience > h2').outerHeight() + $('#experience > .work-education-toggle').outerHeight() + $('#contact-me > h2').outerHeight() + 48 + 'px');
 		} else {
