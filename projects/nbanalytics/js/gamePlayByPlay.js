@@ -18,6 +18,13 @@ async function updatePlayByPlay(gameData, currentPlay) {
 
 		if (playObject === null) continue;
 
+		if ([98, 100, 101, 104, 107, 157, 165].includes(parseInt(play.type.id))) {
+			let freeThrowPlays = plays.slice(i, plays.length).filter((p) => [97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 157, 165, 166].includes(parseInt(p.type.id)) && p.participants?.[0]?.athlete.id === play.participants?.[0]?.athlete.id);
+			if (freeThrowPlays.length > 1) continue;
+
+			playObject.permanent = true;
+		}
+
 		if (!playObject.permanent && i != plays.length - 1) continue;
 
 		applyReplacements(playObject);
