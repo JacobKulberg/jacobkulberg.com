@@ -88,9 +88,7 @@ $(async () => {
 	};
 
 	updateCourtRunner();
-	setTimeout(() => {
-		setInterval(updateCourtRunner, 2500);
-	}, 1250);
+	setInterval(updateCourtRunner, 2500);
 
 	let courtData = await getSpecificGameData(gameID);
 	let homeTeamLogo = teamLogos[courtData.header.competitions[0].competitors[0].team.id];

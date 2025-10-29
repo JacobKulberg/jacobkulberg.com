@@ -121,6 +121,8 @@ async function updateTeamLeaders(gameData, currentPlay) {
 		}
 	});
 
+	await new Promise(requestAnimationFrame);
+
 	$('.team-leaders.away').css('background', `linear-gradient(90deg, #${awayColor}91 0%, #${awayColor}1A 97%, transparent 100%)`);
 	$('.team-leaders.home').css('background', `linear-gradient(90deg, transparent 0%, #${homeColor}1A 3%, #${homeColor}91 100%)`);
 
