@@ -2,9 +2,15 @@ import { date } from './daySelect.js';
 
 let games;
 let t1, t2;
+let currentOperation = null;
 
 async function createGames() {
+	let operationID = Date.now();
+	currentOperation = operationID;
+
 	games = await getAllGames(date);
+
+	if (currentOperation != operationID) return;
 
 	// move finished games to end, latest to earliest
 	let finishedGames = [];
@@ -19,6 +25,8 @@ async function createGames() {
 	});
 	games = games.concat(finishedGames);
 
+	if (currentOperation != operationID) return;
+
 	// move postponed games to back
 	for (let i = games.length - 1; i >= 0; i--) {
 		if (games[i].status.type.name == 'STATUS_POSTPONED') {
@@ -32,31 +40,29 @@ async function createGames() {
 		$('.no-games').css('opacity', '0');
 	}
 	setTimeout(() => {
+		if (currentOperation != operationID) return;
 		$('.no-games').css('transition', 'opacity 300ms ease-in');
 	}, 300);
 
 	setTimeout(() => {
+		if (currentOperation != operationID) return;
 		$('.games').css('opacity', '1');
-		setTimeout(() => {
-			$('body').css('pointer-events', '');
-		}, 100);
 	}, 500);
 
 	await games.forEach(async (game) => {
+		if (currentOperation != operationID) return;
+
 		let gameDiv = document.createElement('div');
 		$(gameDiv).addClass('game');
 		$(gameDiv).attr('id', game.id);
 
 		$(gameDiv).on('click', function (e) {
-			$('body').css('pointer-events', 'none');
 			if (e.pointerType === 'mouse') {
 				window.location.href = `/projects/nbanalytics/game/?id=${game.id}`;
-				$('body').css('pointer-events', '');
 			} else {
 				$(gameDiv).addClass('game-hovered');
 				setTimeout(() => {
 					window.location.href = `/projects/nbanalytics/game/?id=${game.id}`;
-					$('body').css('pointer-events', '');
 					setTimeout(() => {
 						$(gameDiv).removeClass('game-hovered');
 					}, 10);
@@ -244,6 +250,8 @@ async function createGames() {
 		if (game.season.slug == 'preseason') $(gameEvent).text('Preseason');
 		$(gameEvent).text(gameEvents[game.competitions[0].notes[0]?.headline.toLowerCase()]);
 		$(gameInfo).append(gameEvent);
+
+		if (currentOperation != operationID) return;
 
 		$('.games').append(gameDiv);
 

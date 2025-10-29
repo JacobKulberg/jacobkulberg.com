@@ -107,8 +107,6 @@ function centerDay(currentDay) {
 				$('.day').removeAttr('selected');
 				$(this).attr('selected', true);
 
-				$('body').css('pointer-events', 'none');
-
 				date = $(this).attr('value');
 				history.pushState(null, null, `?date=${date}`);
 
@@ -142,8 +140,6 @@ function centerDay(currentDay) {
 
 				$('.day').removeAttr('selected');
 				$(this).attr('selected', true);
-
-				$('body').css('pointer-events', 'none');
 
 				date = $(this).attr('value');
 				history.pushState(null, null, `?date=${date}`);
@@ -182,8 +178,6 @@ function changeDay(e, dateEl) {
 	$('.day').removeAttr('selected');
 	$(dateEl).attr('selected', true);
 
-	$('body').css('pointer-events', 'none');
-
 	date = $(dateEl).attr('value');
 	history.pushState(null, null, `?date=${date}`);
 
@@ -191,6 +185,7 @@ function changeDay(e, dateEl) {
 	centerDay(dateEl);
 
 	$('.games').css('opacity', 0);
+
 	$('body').css('min-height', `${$('body').outerHeight(true)}px`);
 	setTimeout(async () => {
 		$('.games').empty();
