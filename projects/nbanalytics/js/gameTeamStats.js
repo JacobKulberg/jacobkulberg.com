@@ -164,6 +164,10 @@ async function updatePlayerStats(gameData, currentPlay) {
 
 			playerSummaryName.text(athlete.athlete.displayName);
 
+			if (athlete.active && !gameData.header.competitions[0].status.type.completed) {
+				playerSummaryName.addClass('active-player');
+			}
+
 			let labels = ['MIN', 'FGM', '3PM', 'FTM', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TO', 'PF', '+/-', 'PTS'];
 			let stats = athlete.stats;
 
@@ -259,6 +263,10 @@ async function updatePlayerStats(gameData, currentPlay) {
 			await waitForImageLoad(playerSummaryHeadshot[0]); // Wait for the image to load
 
 			playerSummaryName.text(athlete.athlete.displayName);
+
+			if (athlete.active && !gameData.header.competitions[0].status.type.completed) {
+				playerSummaryName.addClass('active-player');
+			}
 
 			let labels = ['MIN', 'FGM', '3PM', 'FTM', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TO', 'PF', '+/-', 'PTS'];
 			let stats = athlete.stats;

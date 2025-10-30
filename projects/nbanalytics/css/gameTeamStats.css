@@ -146,3 +146,12 @@
 		}
 	}
 }
+
+.active-player:after {
+	display: inline-block;
+	content: '\f434';
+	font-family: var(--fa-style-family-classic);
+	font-weight: 900;
+	color: orange;
+	margin-left: 0.5vw;
+}
