@@ -604,6 +604,15 @@ $(window)
 		} else {
 			$('.game-view-scroll-up').css('display', 'flex');
 		}
+
+		let scrollTop = $(window).scrollTop();
+		if (scrollTop < $('#court').outerHeight(true)) {
+			$('.game-view-go-back').css('opacity', '1');
+			$('.game-view-go-back').css('pointer-events', 'all');
+		} else {
+			$('.game-view-go-back').css('opacity', '0');
+			$('.game-view-go-back').css('pointer-events', 'none');
+		}
 	})
 	.on('popstate', () => {
 		let hash = window.location.hash;
