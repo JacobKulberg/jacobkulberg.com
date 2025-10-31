@@ -344,17 +344,7 @@ async function createGames() {
 		}
 	});
 }
-await createGames();
 window.createGames = createGames;
-
-adjustTextSizes();
-let intervalID = setInterval(() => {
-	adjustTextSizes();
-}, 100);
-
-setTimeout(() => {
-	clearInterval(intervalID);
-}, 500);
 
 function adjustTeamNameTextSize(text, maxWidth, element) {
 	const $span = $('<span></span>').text(text).css('visibility', 'hidden').appendTo('body');
@@ -410,7 +400,6 @@ function adjustTextSizes() {
 	});
 }
 window.adjustTextSizes = adjustTextSizes;
-
 $(window).on('resize orientationchange', adjustTextSizes);
 
 async function updateGameData() {
@@ -597,10 +586,6 @@ async function updateGameData() {
 	}
 }
 
-setInterval(() => {
-	updateGameData();
-}, 1000);
-
 function getAllLeaders(gameData) {
 	let leaders = [];
 
@@ -625,7 +610,7 @@ function getAllLeaders(gameData) {
 
 function getFavoriteTeams() {
 	let raw = Cookies.get('nbanalytics-favorite-team');
-	if (!raw) return;
+	if (!raw) return [];
 
 	let favorites = [];
 	try {
@@ -641,3 +626,18 @@ function getFavoriteTeams() {
 
 	return favorites;
 }
+
+await createGames();
+
+adjustTextSizes();
+let intervalID = setInterval(() => {
+	adjustTextSizes();
+}, 100);
+
+setTimeout(() => {
+	clearInterval(intervalID);
+}, 500);
+
+setInterval(() => {
+	updateGameData();
+}, 1000);
