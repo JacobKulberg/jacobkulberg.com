@@ -320,6 +320,7 @@ h1 {
 
 .team-name-text.favorite {
 	color: #d4a017 !important;
+	text-shadow: 0 0 10px #000 !important;
 }
 
 .team-name-text,
