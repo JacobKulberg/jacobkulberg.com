@@ -34,6 +34,9 @@
 		<meta name="apple-mobile-web-app-title" content="NBAnalytics" />
 		<link rel="manifest" href="/projects/nbanalytics/assets/images/favicon/site.webmanifest" />
 
+		<!-- js-cookie -->
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
 		<link rel="stylesheet" href="../css/gameView.css" />
 		<link rel="stylesheet" href="../css/gamePlayByPlay.css" />
 		<link rel="stylesheet" href="../css/gameAnalysis.css" />
@@ -51,7 +54,10 @@
 			<div class="team away">
 				<img class="logo" draggable="false" />
 				<div class="name">
-					<div class="name-text"></div>
+					<div class="name-container">
+						<div class="name-text"></div>
+						<div class="favorite"><i class="fa-regular fa-star"></i></div>
+					</div>
 					<div class="record"></div>
 				</div>
 				<div class="score"></div>
@@ -66,7 +72,10 @@
 			<div class="team home">
 				<div class="score"></div>
 				<div class="name">
-					<div class="name-text"></div>
+					<div class="name-container">
+						<div class="favorite"><i class="fa-regular fa-star"></i></div>
+						<div class="name-text"></div>
+					</div>
 					<div class="record"></div>
 				</div>
 				<img class="logo" draggable="false" />

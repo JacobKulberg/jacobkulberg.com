@@ -133,7 +133,7 @@ body {
 	right: 0;
 }
 
-.scoreboard > .team > .name {
+.scoreboard > .team .name {
 	font-size: max(max(3.5vw, 2vh), 15px);
 	font-weight: bold;
 	width: 100%;
@@ -145,13 +145,37 @@ body {
 	line-height: max(3vh, 5vw);
 }
 
-.scoreboard > .team > .name > .record {
+.scoreboard > .team .name > .record {
 	font-size: clamp(12px, max(1.75vw, 1.5vh), 40px);
 	font-weight: bold;
 	line-height: 1vh;
 	text-shadow: 0 0 7px #000;
 	z-index: 2;
 	transition: text-shadow 300ms ease, color 300ms ease;
+}
+
+.scoreboard > .team .name > .name-container {
+	display: flex;
+	align-items: center;
+	gap: 1vmin;
+}
+
+.scoreboard > .team.home .name > .name-container {
+	justify-content: flex-end;
+}
+
+.scoreboard > .team .favorite {
+	z-index: 3;
+}
+
+.scoreboard > .team .favorite > i {
+	color: #d4a017;
+}
+
+@media (hover) {
+	.scoreboard > .team .favorite {
+		cursor: pointer;
+	}
 }
 
 .scoreboard > .team > .score {
@@ -163,12 +187,12 @@ body {
 	margin: 0px 10px;
 }
 
-.scoreboard > .team.home > .name,
+.scoreboard > .team.home .name,
 .scoreboard > .team.away > .score {
 	text-align: right;
 }
 
-.scoreboard > .team.away > .name,
+.scoreboard > .team.away .name,
 .scoreboard > .team.home > .score {
 	text-align: left;
 }

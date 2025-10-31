@@ -12,7 +12,11 @@ async function createGames() {
 
 	if (currentOperation != operationID) return;
 
-	// move finished games to end, latest to earliest
+	// move finished games to end, and put favorite-team games first
+	let favSet = new Set((getFavoriteTeams() || []).map((v) => parseInt(v)));
+	let isFavoriteGame = (g) => favSet.has(parseInt(g.competitions[0].competitors[0].team.id)) || favSet.has(parseInt(g.competitions[0].competitors[1].team.id));
+
+	// split finished vs not finished
 	let finishedGames = [];
 	for (let i = 0; i < games.length; i++) {
 		if (games[i].status.type.completed) {
@@ -20,10 +24,13 @@ async function createGames() {
 			i--;
 		}
 	}
-	finishedGames.sort((a, b) => {
-		return new Date(a.date) - new Date(b.date);
-	});
-	games = games.concat(finishedGames);
+
+	games.sort((a, b) => Number(isFavoriteGame(b)) - Number(isFavoriteGame(a)));
+
+	let finishedFavorites = finishedGames.filter(isFavoriteGame).sort((a, b) => new Date(a.date) - new Date(b.date));
+	let finishedOthers = finishedGames.filter((g) => !isFavoriteGame(g)).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+	games = games.concat(finishedFavorites, finishedOthers);
 
 	if (currentOperation != operationID) return;
 
@@ -75,7 +82,7 @@ async function createGames() {
 		$(gameDiv).append(gameScores);
 
 		let awayTeam = document.createElement('div');
-		$(awayTeam).addClass('team-home');
+		$(awayTeam).addClass('team-home'); // TODO: fix this class name lol
 		if (areColorsSimilar(teamColors[game.competitions[0].competitors[1].team.id], teamColors[game.competitions[0].competitors[0].team.id])) {
 			$(awayTeam).css('background', `linear-gradient(90deg, #${teamColorsAlt[game.competitions[0].competitors[1].team.id]} 0%, transparent 100%)`);
 		} else {
@@ -126,11 +133,13 @@ async function createGames() {
 
 		let awayTeamNameText = document.createElement('div');
 		$(awayTeamNameText).addClass('team-name-text');
+		if (getFavoriteTeams().includes(parseInt(game.competitions[0].competitors[1].team.id))) $(awayTeamNameText).addClass('favorite');
 		$(awayTeamNameText).text(game.competitions[0].competitors[1].team.shortDisplayName);
 		$(awayTeamName).append(awayTeamNameText);
 
 		let homeTeamNameText = document.createElement('div');
 		$(homeTeamNameText).addClass('team-name-text');
+		if (getFavoriteTeams().includes(parseInt(game.competitions[0].competitors[0].team.id))) $(homeTeamNameText).addClass('favorite');
 		$(homeTeamNameText).text(game.competitions[0].competitors[0].team.shortDisplayName);
 		$(homeTeamName).append(homeTeamNameText);
 
@@ -612,4 +621,23 @@ function getAllLeaders(gameData) {
 	});
 
 	return leaders;
+}
+
+function getFavoriteTeams() {
+	let raw = Cookies.get('nbanalytics-favorite-team');
+	if (!raw) return;
+
+	let favorites = [];
+	try {
+		let parsed = JSON.parse(raw);
+		favorites = Array.isArray(parsed) ? parsed : [parsed];
+	} catch {
+		favorites = raw
+			.split(',')
+			.map((s) => s.trim())
+			.filter(Boolean)
+			.map((v) => Number(v) || v);
+	}
+
+	return favorites;
 }

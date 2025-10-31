@@ -310,6 +310,10 @@ h1 {
 	line-height: 1;
 }
 
+.team-name-text.favorite {
+	color: #d4a017 !important;
+}
+
 .team-name-text,
 .team-score,
 .team-record-sub {

@@ -235,12 +235,12 @@ function setScoreboard() {
 	$('.scoreboard > .team.away > .logo').attr('src', awayLogo);
 	$('.scoreboard > .team.home > .logo').attr('src', homeLogo);
 
-	$('.scoreboard > .team.away > .name > .name-text').text(teamNamesShort[gameData.header.competitions[0].competitors[1].team.id]);
-	$('.scoreboard > .team.home > .name > .name-text').text(teamNamesShort[gameData.header.competitions[0].competitors[0].team.id]);
+	$('.scoreboard > .team.away .name .name-text').text(teamNamesShort[gameData.header.competitions[0].competitors[1].team.id]);
+	$('.scoreboard > .team.home .name .name-text').text(teamNamesShort[gameData.header.competitions[0].competitors[0].team.id]);
 
 	let intervalID = setInterval(() => {
-		adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[1].team.id], $('.scoreboard > .team.away > .name').width(), '.scoreboard > .team.away > .name > .name-text');
-		adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[0].team.id], $('.scoreboard > .team.home > .name').width(), '.scoreboard > .team.home > .name > .name-text');
+		adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[1].team.id], $('.scoreboard > .team.away .name').width() - $('.scoreboard > .team .favorite').width(), '.scoreboard > .team.away .name .name-text');
+		adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[0].team.id], $('.scoreboard > .team.home .name').width() - $('.scoreboard > .team .favorite').width(), '.scoreboard > .team.home .name .name-text');
 	}, 100);
 
 	setTimeout(() => {
@@ -414,8 +414,8 @@ function updateScoreboard() {
 
 	setTimeout(() => {
 		let intervalID = setInterval(() => {
-			adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[1].team.id], $('.scoreboard > .team.away > .name').width(), '.scoreboard > .team.away > .name > .name-text');
-			adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[0].team.id], $('.scoreboard > .team.home > .name').width(), '.scoreboard > .team.home > .name > .name-text');
+			adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[1].team.id], $('.scoreboard > .team.away .name').width() - $('.scoreboard > .team .favorite').width(), '.scoreboard > .team.away .name .name-text');
+			adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[0].team.id], $('.scoreboard > .team.home .name').width() - $('.scoreboard > .team .favorite').width(), '.scoreboard > .team.home .name .name-text');
 		}, 10);
 
 		setTimeout(() => {
@@ -456,8 +456,8 @@ function adjustTeamNameTextSize(text, maxWidth, element) {
 
 function updateStats() {
 	if (gameData.header.competitions[0].competitors[0].record && gameData.header.competitions[0].competitors[1].record) {
-		$('.scoreboard > .team.away > .name > .record').text(`(${gameData.header.competitions[0].competitors[1].record?.[0].summary})`);
-		$('.scoreboard > .team.home > .name > .record').text(`(${gameData.header.competitions[0].competitors[0].record?.[0].summary})`);
+		$('.scoreboard > .team.away .name > .record').text(`(${gameData.header.competitions[0].competitors[1].record?.[0].summary})`);
+		$('.scoreboard > .team.home .name > .record').text(`(${gameData.header.competitions[0].competitors[0].record?.[0].summary})`);
 	}
 }
 
@@ -482,8 +482,8 @@ $(window).on('resize orientationchange', () => {
 	if (windowWidth == $(window).width()) return;
 	windowWidth = $(window).width();
 
-	adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[1].team.id], $('.scoreboard > .team.away > .name').width(), '.scoreboard > .team.away > .name > .name-text');
-	adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[0].team.id], $('.scoreboard > .team.home > .name').width(), '.scoreboard > .team.home > .name > .name-text');
+	adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[1].team.id], $('.scoreboard > .team.away .name').width() - $('.scoreboard > .team .favorite').width(), '.scoreboard > .team.away .name .name-text');
+	adjustTeamNameTextSize(teamNamesShort[gameData.header.competitions[0].competitors[0].team.id], $('.scoreboard > .team.home .name').width() - $('.scoreboard > .team .favorite').width(), '.scoreboard > .team.home .name .name-text');
 });
 
 $('.game-options > .option').on('click', scrollToTop);
@@ -638,3 +638,64 @@ $(window)
 			$('.game-team-view.home').addClass('active');
 		}
 	});
+
+$('.scoreboard > .team .favorite').on('click', function () {
+	let star = $(this).children('i');
+	let teamID = Number($(this).closest('.team').hasClass('away') ? gameData.header.competitions[0].competitors[1].team.id : gameData.header.competitions[0].competitors[0].team.id);
+
+	let favorites = [];
+	let raw = Cookies.get('nbanalytics-favorite-team');
+	if (raw) {
+		try {
+			let parsed = JSON.parse(raw);
+			favorites = Array.isArray(parsed) ? parsed : [parsed];
+		} catch {
+			favorites = raw
+				.split(',')
+				.map((s) => s.trim())
+				.filter(Boolean)
+				.map((v) => Number(v) || v);
+		}
+	}
+
+	if (star.hasClass('fa-regular')) {
+		if (!favorites.some((id) => Number(id) === teamID)) favorites.push(teamID);
+		star.removeClass('fa-regular').addClass('fa-solid');
+	} else {
+		favorites = favorites.filter((id) => Number(id) !== teamID);
+		star.removeClass('fa-solid').addClass('fa-regular');
+	}
+
+	if (favorites.length) {
+		Cookies.set('nbanalytics-favorite-team', JSON.stringify(favorites), { expires: 365 });
+	} else {
+		Cookies.remove('nbanalytics-favorite-team');
+	}
+});
+
+$(function () {
+	let raw = Cookies.get('nbanalytics-favorite-team');
+	if (!raw) return;
+
+	let favorites = [];
+	try {
+		let parsed = JSON.parse(raw);
+		favorites = Array.isArray(parsed) ? parsed : [parsed];
+	} catch {
+		favorites = raw
+			.split(',')
+			.map((s) => s.trim())
+			.filter(Boolean)
+			.map((v) => Number(v) || v);
+	}
+
+	if (!favorites.length) return;
+
+	$('.scoreboard > .team').each(function () {
+		let teamID = Number($(this).hasClass('away') ? gameData.header.competitions[0].competitors[1].team.id : gameData.header.competitions[0].competitors[0].team.id);
+
+		if (favorites.some((id) => Number(id) === teamID)) {
+			$(this).find('.favorite i').removeClass('fa-regular').addClass('fa-solid');
+		}
+	});
+});
