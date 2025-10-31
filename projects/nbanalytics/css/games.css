@@ -39,7 +39,15 @@ h1 {
 	top: 0;
 	background-color: #020026;
 	z-index: 2;
-	border-bottom: solid 2px #7e7ae6;
+}
+
+.day-selector-border {
+	position: fixed;
+	top: max(100px, 7vmax);
+	height: 2px;
+	width: 100vw;
+	background-color: #7e7ae6;
+	z-index: 2;
 }
 
 .day {
