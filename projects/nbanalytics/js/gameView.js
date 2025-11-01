@@ -597,6 +597,7 @@ function updateGameNotStartedText(dateString) {
 	}
 }
 
+let lastScrollTop = 0;
 $(window)
 	.on('scroll', async () => {
 		if ((await $('#court').outerHeight(true)) + 500 >= window.scrollY) {
@@ -606,12 +607,28 @@ $(window)
 		}
 
 		let scrollTop = $(window).scrollTop();
+		if (scrollTop <= 5 || isScrolling) {
+			$('.game-view-go-back').css('opacity', '0');
+			$('.game-view-go-back').css('pointer-events', 'none');
+			return;
+		}
+
+		if (scrollTop >= lastScrollTop) {
+			$('.game-view-go-back').css('opacity', '0');
+			$('.game-view-go-back').css('pointer-events', 'none');
+		} else {
+			$('.game-view-go-back').css('opacity', '1');
+			$('.game-view-go-back').css('pointer-events', 'all');
+		}
+		if (Math.abs(scrollTop - lastScrollTop) >= 10) {
+			lastScrollTop = scrollTop;
+		}
+
+		if (gameData.header.competitions[0].status.type.shortDetail.includes('Final')) return;
+
 		if (scrollTop < $('#court').outerHeight(true)) {
 			$('.game-view-go-back').css('opacity', '1');
 			$('.game-view-go-back').css('pointer-events', 'all');
-		} else {
-			$('.game-view-go-back').css('opacity', '0');
-			$('.game-view-go-back').css('pointer-events', 'none');
 		}
 	})
 	.on('popstate', () => {

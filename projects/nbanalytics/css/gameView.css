@@ -405,7 +405,7 @@ body {
 
 	background-color: #403d71;
 	border-radius: 10px;
-	transition: background-color 200ms ease-in-out, opacity 200ms ease-in-out;
+	transition: background-color 200ms linear, opacity 200ms linear;
 
 	display: flex;
 	justify-content: center;
@@ -415,17 +415,20 @@ body {
 	margin-right: 5px;
 
 	text-decoration: none;
+
+	opacity: 0;
+	pointer-events: none;
 }
 
 @media (hover) {
 	.game-view-go-back:hover {
-		background-color: rgba(126, 122, 230, 0.75);
-		transition: background-color 100ms ease-in-out;
+		background-color: rgba(113, 110, 204);
+		transition: background-color 100ms linear;
 	}
 }
 
 .game-view-go-back:active {
-	background-color: rgba(126, 122, 230, 0.4);
+	background-color: rgba(89, 87, 160);
 }
 
 .loading {
