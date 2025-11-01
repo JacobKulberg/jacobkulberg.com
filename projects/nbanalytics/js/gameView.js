@@ -56,7 +56,7 @@ if (window.location.hash == '#play-by-play') {
 	$('.game-team.home').css('text-shadow', `0 0 7px #${homeColor}`);
 }
 
-let currentPlay = gameData.plays?.length - 1 || -1;
+let currentPlay = -1; // gameData.plays?.length - 1 || -1;
 
 let updateCourtRunner;
 $(async () => {
@@ -604,31 +604,6 @@ $(window)
 			$('.game-view-scroll-up').css('display', 'none');
 		} else {
 			$('.game-view-scroll-up').css('display', 'flex');
-		}
-
-		let scrollTop = $(window).scrollTop();
-		if (scrollTop <= 5 || isScrolling) {
-			$('.game-view-go-back').css('opacity', '0');
-			$('.game-view-go-back').css('pointer-events', 'none');
-			return;
-		}
-
-		if (scrollTop >= lastScrollTop) {
-			$('.game-view-go-back').css('opacity', '0');
-			$('.game-view-go-back').css('pointer-events', 'none');
-		} else {
-			$('.game-view-go-back').css('opacity', '1');
-			$('.game-view-go-back').css('pointer-events', 'all');
-		}
-		if (Math.abs(scrollTop - lastScrollTop) >= 10) {
-			lastScrollTop = scrollTop;
-		}
-
-		if (gameData.header.competitions[0].status.type.shortDetail.includes('Final')) return;
-
-		if (scrollTop < $('#court').outerHeight(true)) {
-			$('.game-view-go-back').css('opacity', '1');
-			$('.game-view-go-back').css('pointer-events', 'all');
 		}
 	})
 	.on('popstate', () => {
