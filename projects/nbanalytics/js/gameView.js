@@ -56,7 +56,7 @@ if (window.location.hash == '#play-by-play') {
 	$('.game-team.home').css('text-shadow', `0 0 7px #${homeColor}`);
 }
 
-let currentPlay = -1; // gameData.plays?.length - 1 || -1;
+let currentPlay = gameData.plays?.length - 1 || -1;
 
 let updateCourtRunner;
 $(async () => {
@@ -601,9 +601,11 @@ let lastScrollTop = 0;
 $(window)
 	.on('scroll', async () => {
 		if ((await $('#court').outerHeight(true)) + 500 >= window.scrollY) {
-			$('.game-view-scroll-up').css('display', 'none');
+			$('.game-view-scroll-up').css('opacity', '0');
+			$('.game-view-scroll-up').css('pointer-events', 'none');
 		} else {
-			$('.game-view-scroll-up').css('display', 'flex');
+			$('.game-view-scroll-up').css('opacity', '1');
+			$('.game-view-scroll-up').css('pointer-events', 'all');
 		}
 	})
 	.on('popstate', () => {
