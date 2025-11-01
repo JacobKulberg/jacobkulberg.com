@@ -716,3 +716,10 @@ $(function () {
 		}
 	});
 });
+
+// set up back button
+$(function () {
+	let tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	let startDateLocal = moment(gameData.header.competitions[0].date).tz(tz).format('YYYYMMDD');
+	$('.game-view-go-back').attr('href', `../?date=${startDateLocal}`);
+});
