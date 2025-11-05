@@ -609,6 +609,18 @@ a:has(.info-box) {
 	font-size: 1.5rem;
 }
 
+.project .title a {
+	color: inherit;
+
+	text-decoration: none;
+}
+
+@media (hover) {
+	.project .title a:hover {
+		text-decoration: underline;
+	}
+}
+
 .project .title span {
 	float: right;
 
