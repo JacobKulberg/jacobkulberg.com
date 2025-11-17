@@ -168,7 +168,7 @@ async function updatePlayerStats(gameData, currentPlay) {
 				playerSummaryName.addClass('active-player');
 			}
 
-			let labels = ['MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TO', 'FGM', 'FG%', '3PM', '3P%', 'FTM', 'FT%', 'PF', '+/-'];
+			let labels = ['PTS', 'FGM', '3PM', 'FTM', 'REB', 'AST', 'TO', 'STL', 'BLK', 'OREB', 'DREB', 'PF', 'MIN', '+/-'];
 			let stats = athlete.stats;
 
 			let reorderedLabels = ['MIN', 'PTS', 'REB', 'AST', 'STL', 'BLK', '+/-', 'FGM', '3PM', 'FTM', 'OREB', 'DREB', 'TO', 'PF'];
@@ -268,7 +268,7 @@ async function updatePlayerStats(gameData, currentPlay) {
 				playerSummaryName.addClass('active-player');
 			}
 
-			let labels = ['MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TO', 'FGM', 'FG%', '3PM', '3P%', 'FTM', 'FT%', 'PF', '+/-'];
+			let labels = ['PTS', 'FGM', '3PM', 'FTM', 'REB', 'AST', 'TO', 'STL', 'BLK', 'OREB', 'DREB', 'PF', 'MIN', '+/-'];
 			let stats = athlete.stats;
 
 			let reorderedLabels = ['MIN', 'PTS', 'REB', 'AST', 'STL', 'BLK', '+/-', 'FGM', '3PM', 'FTM', 'OREB', 'DREB', 'TO', 'PF'];
