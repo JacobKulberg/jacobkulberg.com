@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Tee Time Sniper</title>
+
+		<!-- GOOGLE ANALYTICS -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-DHM5FG1M2D"></script>
+
+		<!-- GOOGLE FONTS -->
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet" />
+
+		<!-- FONT AWESOME -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+		<!-- CUSTOM CSS -->
+		<link rel="stylesheet" href="./css/styles.css" />
+
+		<!-- jQUERY -->
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+		<!-- FAVICON -->
+		<link rel="icon" type="image/png" href="./assets/favicon.ico" />
+		<link rel="apple-touch-icon" href="./assets/favicon.ico" />
+	</head>
+	<body>
+		<main>
+			<h1>Tee Time Sniper</h1>
+			<h5>Personal Project</h5>
+			<br />
+
+			<img src="../../home/assets/images/projects/tee-time-sniper.png" alt="Tee Time Sniper" draggable="false" />
+
+			<h2>Overview</h2>
+			<p>Tee Time Sniper is an automated reservation tool that submits requests to a reservation portal at precise release times. After setting the preferred options the night before and keeping the device running, the system sends the necessary HTTP requests at the exact moment new times become available.</p>
+			<br />
+
+			<h2>Why I Built It</h2>
+			<p>Many tee-time reservation systems open new times early in the morning and fill up nearly instantaneously. I wanted a reliable and accurate way to submit a request at the correct moment without having to be awake and manually refreshing the page.</p>
+			<br />
+
+			<h2>How It Works</h2>
+
+			<h3>Timed Execution</h3>
+			<p>A scheduler triggers the program at 6am. The program runs on a device that remains powered and connected overnight. The timing logic ensures the request is sent at the exact second needed.</p>
+			<br />
+
+			<h3>Configuration</h3>
+			<p>The night before, I choose the date, time range, number of players, and other options. These preferences are stored and used when the scheduler activates the system.</p>
+			<br />
+
+			<h3>HTTP Request Automation</h3>
+			<p>The system interacts with the reservation portal by constructing and sending custom HTTP requests. It handles authentication, session information, and the specific request formats required by the portal.</p>
+			<br />
+
+			<h3>Monitoring and Reliability</h3>
+			<p>The program includes logging, timeout handling, and basic retry logic. This allows it to operate consistently even if network conditions fluctuate or device time desyncs. E-mail notifications report whether the request succeeded.</p>
+			<br />
+
+			<h2>Snipe When Available</h2>
+			<p>Tee Time Sniper can also run in an active mode that monitors availability and submits a request if someone cancels their tee time and a new opening appears.</p>
+			<br />
+
+			<h2>Architecture</h2>
+			<ul>
+				<li>
+					<span>Scheduler</span>
+				</li>
+
+				<li>
+					<span>→</span>
+					<span>Authentication</span>
+				</li>
+
+				<li>
+					<span>→</span>
+					<span>Build Custom HTTP Request</span>
+				</li>
+
+				<li>
+					<span>→</span>
+					<span>Request Execution</span>
+				</li>
+
+				<li>
+					<span>→</span>
+					<span>Logging and Notifications</span>
+				</li>
+			</ul>
+
+			<br />
+
+			<h2>What I Learned</h2>
+			<p>Building Tee Time Sniper gave me experience with precise timing behavior, session and token handling, request construction, and systems that run unattended for extended periods. It also required making the program resilient to modest changes in the portal’s structure and response patterns.</p>
+			<br />
+
+			<h2>Code</h2>
+			<p>The codebase is not public because this type of automation only works well when very few people use it, and making it widely available would reduce its effectiveness.</p>
+		</main>
+	</body>
+</html>
