@@ -968,6 +968,12 @@ a:has(.info-box) {
 	text-decoration: none;
 }
 
+@media (hover) {
+	.experience-container .item .company a:hover {
+		text-decoration: underline;
+	}
+}
+
 .experience-container .item .position {
 	margin-top: -0.2rem;
 
