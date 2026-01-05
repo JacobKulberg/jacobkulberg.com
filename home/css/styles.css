@@ -883,7 +883,9 @@ a:has(.info-box) {
 	border: 2px solid var(--secondary-color);
 	border-radius: 100%;
 
-	transition: border-color 300ms ease, transform 300ms ease, padding 100ms ease;
+	background-color: var(--background-secondary-color);
+
+	transition: border-color 300ms ease, transform 300ms ease, padding 150ms ease;
 
 	pointer-events: all;
 }
