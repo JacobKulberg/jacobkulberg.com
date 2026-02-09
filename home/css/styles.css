@@ -262,7 +262,12 @@ i {
 
 	border-radius: 25px;
 
-	transition: margin-top 300ms ease, background 300ms ease, height 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease;
+	transition:
+		margin-top 300ms ease,
+		background 300ms ease,
+		height 300ms ease,
+		--highlight-color-1 300ms ease,
+		--highlight-color-2 300ms ease;
 }
 
 #home .location {
@@ -281,7 +286,12 @@ i {
 
 	cursor: default;
 
-	transition: margin-top 300ms ease, background 300ms ease, height 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease;
+	transition:
+		margin-top 300ms ease,
+		background 300ms ease,
+		height 300ms ease,
+		--highlight-color-1 300ms ease,
+		--highlight-color-2 300ms ease;
 }
 
 #home .location h6 {
@@ -378,7 +388,9 @@ a:has(.info-box) {
 
 	background-color: var(--background-secondary-color);
 
-	transition: box-shadow 300ms ease, transform 300ms ease;
+	transition:
+		box-shadow 300ms ease,
+		transform 300ms ease;
 }
 
 .info-box i {
@@ -419,12 +431,19 @@ a:has(.info-box) {
 
 #about-me .animate {
 	opacity: 1;
-	transition: translate 600ms ease, transform 600ms ease, opacity 600ms ease;
+	transition:
+		translate 600ms ease,
+		transform 600ms ease,
+		opacity 600ms ease;
 	transform: none;
 }
 
 #about-me .info-box.animate {
-	transition: translate 600ms ease, transform 300ms ease, box-shadow 300ms ease, opacity 600ms ease;
+	transition:
+		translate 600ms ease,
+		transform 300ms ease,
+		box-shadow 300ms ease,
+		opacity 600ms ease;
 }
 
 #about-me .headshot {
@@ -489,7 +508,12 @@ a:has(.info-box) {
 
 	background: linear-gradient(90deg, var(--highlight-color-2) 10%, var(--highlight-color-1) 90%);
 
-	transition: background 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+	transition:
+		background 300ms ease,
+		--highlight-color-1 300ms ease,
+		--highlight-color-2 300ms ease,
+		box-shadow 300ms ease,
+		transform 300ms ease;
 }
 
 .skill img {
@@ -514,7 +538,9 @@ a:has(.info-box) {
 
 .skills-group.animate {
 	opacity: 1;
-	transition: transform 600ms ease, opacity 600ms ease;
+	transition:
+		transform 600ms ease,
+		opacity 600ms ease;
 	transform: translateX(0);
 }
 
@@ -559,7 +585,11 @@ a:has(.info-box) {
 
 	background-color: var(--background-secondary-color);
 
-	transition: box-shadow 300ms ease, transform 300ms ease, translate 600ms ease, opacity 600ms ease;
+	transition:
+		box-shadow 300ms ease,
+		transform 300ms ease,
+		translate 600ms ease,
+		opacity 600ms ease;
 }
 
 @media (hover) {
@@ -585,7 +615,9 @@ a:has(.info-box) {
 
 	cursor: pointer;
 
-	transition: box-shadow 300ms ease, transform 300ms ease;
+	transition:
+		box-shadow 300ms ease,
+		transform 300ms ease;
 
 	pointer-events: all;
 }
@@ -661,7 +693,12 @@ a:has(.info-box) {
 
 	background: linear-gradient(90deg, var(--highlight-color-2) 10%, var(--highlight-color-1) 90%);
 
-	transition: background 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease, bos-shadow 300ms ease, transform 300ms ease;
+	transition:
+		background 300ms ease,
+		--highlight-color-1 300ms ease,
+		--highlight-color-2 300ms ease,
+		bos-shadow 300ms ease,
+		transform 300ms ease;
 }
 
 @media (hover) {
@@ -717,7 +754,9 @@ a:has(.info-box) {
 
 	color: var(--primary-color);
 
-	transition: background-color 300ms ease, color 300ms ease;
+	transition:
+		background-color 300ms ease,
+		color 300ms ease;
 
 	font-weight: bold;
 	text-decoration: none;
@@ -744,12 +783,12 @@ a:has(.info-box) {
 
 .project.animate {
 	opacity: 0;
-	translate: -20px -20px;
+	transform: scale(0.9);
 }
 
 .project.animate.visible {
 	opacity: 1;
-	translate: 0;
+	transform: scale(1);
 }
 
 /******************/
@@ -795,7 +834,11 @@ a:has(.info-box) {
 
 	cursor: pointer;
 
-	transition: background-color 300ms ease, color 300ms ease, border-width 100ms ease, font-size 200ms ease;
+	transition:
+		background-color 300ms ease,
+		color 300ms ease,
+		border-width 100ms ease,
+		font-size 200ms ease;
 
 	font-size: 1rem;
 	font-weight: bold;
@@ -885,7 +928,10 @@ a:has(.info-box) {
 
 	background-color: var(--background-secondary-color);
 
-	transition: border-color 300ms ease, transform 300ms ease, padding 150ms ease;
+	transition:
+		border-color 300ms ease,
+		transform 300ms ease,
+		padding 150ms ease;
 
 	pointer-events: all;
 }
@@ -929,7 +975,12 @@ a:has(.info-box) {
 
 	background: linear-gradient(90deg, var(--highlight-color-2) 10%, var(--highlight-color-1) 90%);
 
-	transition: background 300ms ease, --highlight-color-1 300ms ease, --highlight-color-2 300ms ease, bos-shadow 300ms ease, transform 300ms ease;
+	transition:
+		background 300ms ease,
+		--highlight-color-1 300ms ease,
+		--highlight-color-2 300ms ease,
+		bos-shadow 300ms ease,
+		transform 300ms ease;
 }
 
 @media (hover) {
@@ -994,7 +1045,9 @@ a:has(.info-box) {
 
 .work-education-toggle.animate {
 	opacity: 0;
-	transition: translate 600ms ease, opacity 300ms ease;
+	transition:
+		translate 600ms ease,
+		opacity 300ms ease;
 	translate: 0 24px;
 }
 
@@ -1006,7 +1059,9 @@ a:has(.info-box) {
 .experience-container .work.animate,
 .experience-container .education.animate {
 	opacity: 0;
-	transition: translate 600ms ease, opacity 300ms ease;
+	transition:
+		translate 600ms ease,
+		opacity 300ms ease;
 	translate: 0 24px;
 }
 
@@ -1047,7 +1102,11 @@ a:has(.info-box) {
 
 	background-color: var(--background-secondary-color);
 
-	transition: box-shadow 300ms ease, transform 300ms ease, translate 600ms ease, opacity 600ms ease;
+	transition:
+		box-shadow 300ms ease,
+		transform 300ms ease,
+		translate 600ms ease,
+		opacity 600ms ease;
 
 	text-decoration: none;
 }
