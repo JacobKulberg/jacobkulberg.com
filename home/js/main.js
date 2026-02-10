@@ -215,9 +215,12 @@ $(document).ready(function () {
 	const $projectsSection = $('#projects');
 	if ($projectsSection.length === 0) return;
 
+	const $toggle = $projectsSection.find('.featured-all-toggle').first();
 	const $container = $projectsSection.find('.project-container').first();
 	const $cards = $container.find('.project');
 	if ($cards.length === 0) return;
+
+	const $elements = $toggle.length ? $cards.add($toggle) : $cards;
 
 	const observer = new IntersectionObserver(
 		async (entries) => {
@@ -237,9 +240,100 @@ $(document).ready(function () {
 		{ threshold: 0 }
 	);
 
-	$cards.each(function () {
+	$elements.each(function () {
 		observer.observe(this);
 	});
+});
+
+//* PROJECTS FEATURED/ALL TOGGLE *//
+$(document).ready(function () {
+	let loading = false;
+
+	const $projectsSection = $('#projects');
+	if ($projectsSection.length === 0) return;
+
+	const $featuredButton = $('#featured-button');
+	const $allButton = $('#all-button');
+	const $cards = $projectsSection.find('.project-container .project');
+
+	if ($featuredButton.length === 0 || $allButton.length === 0 || $cards.length === 0) return;
+
+	function applyFeaturedFilter() {
+		$cards.each(function () {
+			const $card = $(this);
+			const isFeatured = $card.hasClass('featured');
+			$card.toggleClass('filtered-out', !isFeatured);
+		});
+	}
+
+	function applyAllFilter() {
+		$cards.removeClass('filtered-out');
+	}
+
+	function syncVisibleToViewport() {
+		$cards.not('.filtered-out').each(function () {
+			const rect = this.getBoundingClientRect();
+			const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+			$(this).toggleClass('visible', inView);
+		});
+	}
+
+	function reloadProjects(applyFilter) {
+		const $shownBefore = $cards.not('.filtered-out');
+		$shownBefore.css('transition', 'opacity 150ms ease, transform 150ms ease');
+		$shownBefore.removeClass('visible');
+
+		setTimeout(() => {
+			applyFilter();
+
+			const $shownNow = $cards.not('.filtered-out');
+			$shownNow.css('transition', 'opacity 250ms ease, transform 250ms ease');
+			$shownNow.removeClass('visible');
+
+			$shownNow.each(function () {
+				void this.offsetHeight;
+			});
+
+			window.requestAnimationFrame(() => {
+				syncVisibleToViewport();
+			});
+
+			setTimeout(() => {
+				$cards.css('transition', '');
+				loading = false;
+			}, 275);
+		}, 160);
+	}
+
+	function enableFeatured() {
+		if (loading || $featuredButton.hasClass('active')) return;
+		loading = true;
+
+		$featuredButton.addClass('active');
+		$allButton.removeClass('active');
+
+		reloadProjects(applyFeaturedFilter);
+	}
+
+	function enableAll() {
+		if (loading || $allButton.hasClass('active')) return;
+		loading = true;
+
+		$allButton.addClass('active');
+		$featuredButton.removeClass('active');
+
+		reloadProjects(applyAllFilter);
+	}
+
+	$featuredButton.on('click', enableFeatured);
+	$allButton.on('click', enableAll);
+
+	// Initial state (matches the HTML default button class)
+	if ($allButton.hasClass('active')) {
+		applyAllFilter();
+	} else {
+		applyFeaturedFilter();
+	}
 });
 
 //* EXPERIENCE SECTION ANIMATIONS *//

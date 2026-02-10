@@ -596,7 +596,7 @@ a:has(.info-box) {
 	.project:hover {
 		box-shadow: 0px 0px 10px black;
 
-		transform: scale(1.03);
+		transform: scale(1.03) !important;
 	}
 }
 
@@ -786,9 +786,90 @@ a:has(.info-box) {
 	transform: scale(0.9);
 }
 
+.project.filtered-out {
+	display: none;
+}
+
 .project.animate.visible {
 	opacity: 1;
 	transform: scale(1);
+}
+
+.featured-all-toggle {
+	display: flex;
+	justify-content: center;
+
+	height: 5rem;
+
+	padding: 1rem;
+	margin-top: 1rem;
+
+	border-radius: 2rem;
+
+	background-color: var(--background-secondary-color);
+
+	gap: 1rem;
+}
+
+.featured-all-toggle button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 12rem;
+
+	line-height: 1.55rem;
+
+	padding: 0.5rem 1rem;
+
+	border: 1px solid var(--primary-color);
+	border-radius: 1rem;
+
+	color: var(--secondary-color);
+	background-color: var(--background-secondary-color);
+
+	cursor: pointer;
+
+	transition:
+		background-color 300ms ease,
+		color 300ms ease,
+		border-width 100ms ease,
+		font-size 200ms ease;
+
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.featured-all-toggle.animate {
+	opacity: 0;
+	transition:
+		transform 300ms ease,
+		opacity 300ms ease;
+	transform: scale(0.9);
+}
+
+.featured-all-toggle.animate.visible {
+	opacity: 1;
+	transform: scale(1);
+}
+
+@media (hover) {
+	.featured-all-toggle button:hover {
+		border-width: 3px;
+
+		font-size: 1.15rem;
+	}
+}
+
+.featured-all-toggle button.active {
+	border-width: 3px;
+
+	color: var(--background-color);
+	background-color: var(--primary-color);
+
+	cursor: default;
+
+	font-size: 1.15rem;
 }
 
 /******************/
