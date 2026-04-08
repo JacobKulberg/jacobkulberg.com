@@ -1,5 +1,48 @@
 let aiMoveTimeout = null;
 
+function updateEvalBar(whiteScore) {
+	let scoreText;
+	let isMate = false;
+
+	if (whiteScore >= INF) {
+		scoreText = '1-0';
+		isMate = true;
+	} else if (whiteScore <= -INF) {
+		scoreText = '0-1';
+		isMate = true;
+	} else if (whiteScore > MATE - MAX_DEPTH) {
+		let movesToMate = Math.ceil((MATE - whiteScore) / 2);
+		scoreText = `M${movesToMate}`;
+		isMate = true;
+	} else if (whiteScore < -(MATE - MAX_DEPTH)) {
+		let movesToMate = Math.ceil((MATE + whiteScore) / 2);
+		scoreText = `M${movesToMate}`;
+		isMate = true;
+	} else {
+		let pawns = Math.abs(whiteScore / 100);
+		scoreText = pawns.toFixed(1);
+	}
+
+	let whitePercent;
+	if (isMate) {
+		whitePercent = whiteScore > 0 ? 100 : 0;
+	} else {
+		whitePercent = 50 + 50 * (2 / (1 + Math.exp(-0.005 * whiteScore)) - 1);
+		whitePercent = Math.max(3, Math.min(97, whitePercent));
+	}
+
+	let blackPercent = 100 - whitePercent;
+	$('#eval-bar-black').css('height', blackPercent + '%');
+
+	if (whiteScore >= 0) {
+		$('#eval-bar-score-white').text(scoreText).show();
+		$('#eval-bar-score-black').hide();
+	} else {
+		$('#eval-bar-score-black').text(scoreText).show();
+		$('#eval-bar-score-white').hide();
+	}
+}
+
 $('#fen-button').on('click', function (e) {
 	if (e.which && e.which != 1) return;
 	if (aiMoveTimeout !== null) return;
@@ -467,7 +510,10 @@ async function aiMove() {
 	let fen = generateFEN();
 	parseFEN(fen);
 
+	let searchSide = board.side;
 	let bestAIMove = await searchPosition();
+
+	let whiteScore = searchSide == COLORS.WHITE ? search.bestScore : -search.bestScore;
 
 	let allLegalMoves = getAllMovesArr().filter((move) => isLegalMove(move));
 	if (allLegalMoves.length == 0) {
@@ -482,6 +528,14 @@ async function aiMove() {
 	let previousBoard = [...board.pieces];
 
 	makeMove(bestAIMove);
+
+	let adjustedWhiteScore = whiteScore;
+	if (whiteScore > MATE - MAX_DEPTH) {
+		adjustedWhiteScore = whiteScore + 1;
+	} else if (whiteScore < -(MATE - MAX_DEPTH)) {
+		adjustedWhiteScore = whiteScore - 1;
+	}
+	updateEvalBar(adjustedWhiteScore);
 
 	setTimeout(() => {
 		$('.square').removeClass('hovered-square-off previously-moved-square');
@@ -537,6 +591,8 @@ function endGame(status, description) {
 	}, 1000);
 
 	if (status == END_GAME_STATUS.CHECKMATE) {
+		updateEvalBar(board.side == COLORS.BLACK ? INF : -INF);
+
 		let playerWon = board.side == $('#ai-play-as').val();
 
 		if (playerWon) {
@@ -561,6 +617,7 @@ function resetGame() {
 		$('#end-game-container').css('display', 'none');
 
 		parseFEN(STARTING_FEN);
+		updateEvalBar(0);
 
 		$('.square').removeClass('previously-moved-square');
 		$('.square').removeClass('hovered-square-off');
@@ -829,6 +886,7 @@ function flipBoard() {
 
 	$('#board').toggleClass('flipped');
 	$('.square').toggleClass('flipped');
+	$('#eval-bar').toggleClass('flipped');
 
 	$('.board-rank').remove();
 	$('.board-file').remove();

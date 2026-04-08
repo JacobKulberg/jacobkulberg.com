@@ -244,6 +244,7 @@ async function searchPosition() {
 	return new Promise((res) => {
 		let bestMove = NO_MOVE;
 		let bestScore = -INF;
+		let completedScore = 0;
 
 		clearForSearch();
 
@@ -254,6 +255,7 @@ async function searchPosition() {
 				break;
 			}
 
+			completedScore = bestScore;
 			bestMove = probePVTable();
 
 			// console.log(`Depth: ${currentDepth}\nBest Move: ${getMoveString(bestMove)}\nScore: ${bestScore}\nNodes: ${search.nodes}\nTime: ${$.now() - search.start}ms`);
@@ -270,6 +272,7 @@ async function searchPosition() {
 		}
 
 		search.best = bestMove;
+		search.bestScore = completedScore;
 		search.thinking = false;
 
 		res(search.best);

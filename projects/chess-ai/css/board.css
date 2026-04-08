@@ -133,7 +133,6 @@ body {
 }
 
 #board {
-	display: absolute;
 	width: 82.5dvmin;
 	height: 82.5dvmin;
 	background-color: white;
@@ -302,6 +301,68 @@ img + .legal-circle {
 }
 
 .flipped {
+	transform: rotate(180deg);
+}
+
+#board-wrapper {
+	display: flex;
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+#eval-bar {
+	width: 3.5dvmin;
+	height: 82.5dvmin;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+}
+
+#eval-bar.flipped {
+	flex-direction: column-reverse;
+}
+
+#eval-bar-black {
+	background-color: #403d39;
+	width: 100%;
+	height: 50%;
+	transition: height 500ms ease-in-out;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	min-height: 0;
+}
+
+#eval-bar-white {
+	background-color: #e8e4de;
+	width: 100%;
+	flex: 1;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	min-height: 0;
+}
+
+#eval-bar-score-black,
+#eval-bar-score-white {
+	font-size: 1.3dvmin;
+	font-weight: 800;
+	padding: 0.7dvmin 0;
+	line-height: 1;
+}
+
+#eval-bar-score-black {
+	color: #e8e4de;
+	display: none;
+}
+
+#eval-bar-score-white {
+	color: #403d39;
+}
+
+#eval-bar.flipped #eval-bar-score-black,
+#eval-bar.flipped #eval-bar-score-white {
 	transform: rotate(180deg);
 }
 
