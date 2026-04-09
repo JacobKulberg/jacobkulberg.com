@@ -1,4 +1,5 @@
 let aiMoveTimeout = null;
+const engine = new Worker('js/worker.js');
 
 function updateEvalBar(whiteScore) {
 	let scoreText;
@@ -508,12 +509,14 @@ async function aiMove() {
 	aiMoveTimeout = null;
 
 	let fen = generateFEN();
-	parseFEN(fen);
-
 	let searchSide = board.side;
-	let bestAIMove = await searchPosition();
 
-	let whiteScore = searchSide == COLORS.WHITE ? search.bestScore : -search.bestScore;
+	const { bestMove: bestAIMove, bestScore } = await new Promise((resolve) => {
+		engine.onmessage = (e) => resolve(e.data);
+		engine.postMessage({ fen, depth: search.depth, time: search.time });
+	});
+
+	let whiteScore = searchSide == COLORS.WHITE ? bestScore : -bestScore;
 
 	let allLegalMoves = getAllMovesArr().filter((move) => isLegalMove(move));
 	if (allLegalMoves.length == 0) {

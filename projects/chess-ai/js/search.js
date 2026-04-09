@@ -33,7 +33,7 @@ function pickNextMove(moveNum) {
 }
 
 function refreshTimeout() {
-	if ($.now() - search.start > search.time) {
+	if (Date.now() - search.start > search.time) {
 		search.stop = true;
 	}
 }
@@ -236,7 +236,7 @@ function clearForSearch() {
 	search.nodes = 0;
 	search.fh = 0;
 	search.fhf = 0;
-	search.start = $.now();
+	search.start = Date.now();
 	search.stop = false;
 }
 
