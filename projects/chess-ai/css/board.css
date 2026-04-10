@@ -321,6 +321,15 @@ img + .legal-circle {
 
 #eval-bar.flipped {
 	flex-direction: column-reverse;
+	transform: none;
+}
+
+#eval-bar.flipped #eval-bar-black {
+	align-items: flex-end;
+}
+
+#eval-bar.flipped #eval-bar-white {
+	align-items: flex-start;
 }
 
 #eval-bar-black {
@@ -361,10 +370,6 @@ img + .legal-circle {
 	color: #403d39;
 }
 
-#eval-bar.flipped #eval-bar-score-black,
-#eval-bar.flipped #eval-bar-score-white {
-	transform: rotate(180deg);
-}
 
 #end-game-container {
 	width: 100%;
