@@ -29,9 +29,11 @@ if [[ ! -d ~/uf-scheduler/site/.git ]]; then
   git -C ~/uf-scheduler/site sparse-checkout set .github/uf-scheduler
 fi
 
-# Symlinks, so unit changes arrive with the repo
+# Copies, not symlinks: `systemctl disable` deletes linked unit files, which
+# would leave nothing to re-enable (rerun this script to pick up unit changes)
 for unit in uf-scheduler-scrape.service uf-scheduler-scrape.timer; do
-  ln -sf ~/uf-scheduler/site/.github/uf-scheduler/pi/$unit ~/.config/systemd/user/$unit
+  rm -f ~/.config/systemd/user/$unit
+  cp ~/uf-scheduler/site/.github/uf-scheduler/pi/$unit ~/.config/systemd/user/$unit
 done
 
 # User services keep running while logged out
