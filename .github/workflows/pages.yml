@@ -1,0 +1,84 @@
+name: Deploy site
+
+# Builds and deploys the site to GitHub Pages. Besides deploying pushes, it
+# runs hourly to refresh UF Scheduler's course data (projects/uf-scheduler/data),
+# which is generated here and never committed.
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "23 * * * *" # hourly, off the top of the hour when Actions is busiest
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; a queued run replaces any other waiting run
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      login_expired: ${{ steps.scrape.outputs.login_expired }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # RateMyProfessors ratings are re-checked weekly per instructor, so the
+      # cache carries them between runs
+      - name: Restore ratings cache
+        uses: actions/cache@v4
+        with:
+          path: .cache/rmp.json
+          key: rmp-${{ github.run_id }}
+          restore-keys: rmp-
+
+      # UF only shows meeting times to logged-in users. UF_COOKIE is the
+      # Cookie header of a logged-in one.uf.edu session (repo secret).
+      - name: Refresh UF Scheduler course data
+        id: scrape
+        env:
+          UF_COOKIE: ${{ secrets.UF_COOKIE }}
+        run: >
+          python3 .github/uf-scheduler/scrape.py
+          --out projects/uf-scheduler/data
+          --rmp-cache .cache/rmp.json
+          --fallback-url https://www.jacobkulberg.com/projects/uf-scheduler/data
+
+      - uses: actions/configure-pages@v5
+
+      # Same Jekyll build GitHub Pages runs when deploying from a branch
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  # Runs after the deploy (which kept the last good meeting times), so an
+  # expired login still deploys but fails the run, and GitHub emails about it
+  uf-login:
+    needs: [build, deploy]
+    if: needs.build.outputs.login_expired == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "::error::UF Scheduler: the one.uf.edu login in the UF_COOKIE secret is missing or expired, so meeting times weren't refreshed. Update the secret with a fresh cookie."
+          exit 1
