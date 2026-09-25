@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="./">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#14181C">
+  <style>
+    html, body { margin: 0; background: #14181C; color-scheme: dark; }
+  </style>
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A blackjack basic-strategy trainer, dealt on a table you set the rules for.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Blackjack Trainer">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Blackjack Trainer</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <script>
+    // Opened straight from disk, the browser refuses fetch() on file:// URLs,
+    // so answer the engine's asset requests from local_assets.js instead.
+    if (location.protocol === 'file:') {
+      const root = new URL('.', document.baseURI).href;
+      const assets = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'local_assets.js';
+        script.onload = () => resolve(window.localAssets);
+        script.onerror = reject;
+        document.head.append(script);
+      });
+      const fetchFromNetwork = window.fetch.bind(window);
+      window.fetch = async (input, init) => {
+        const url = new URL(input instanceof Request ? input.url : input, document.baseURI).href;
+        if (!url.startsWith(root)) return fetchFromNetwork(input, init);
+        const encoded = (await assets)[decodeURIComponent(url.slice(root.length))];
+        if (encoded === undefined) return new Response(null, { status: 404 });
+        return new Response(Uint8Array.from(atob(encoded), (c) => c.charCodeAt(0)));
+      };
+    }
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

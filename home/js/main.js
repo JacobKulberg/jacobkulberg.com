@@ -16,6 +16,18 @@ $(document).ready(function () {
 	});
 });
 
+//* LOCAL FILE LINKS *//
+// Opened straight from disk, "/projects/x/" points at the filesystem root and a folder opens as a
+// file listing, so point site links at each page's index.html relative to this one instead.
+$(document).ready(function () {
+	if (window.location.protocol !== 'file:') return;
+
+	$('a[href^="/"]:not([href^="//"])').each(function () {
+		const href = $(this).attr('href');
+		$(this).attr('href', '.' + href + (href.endsWith('/') ? 'index.html' : ''));
+	});
+});
+
 //* GITHUB CONTRIBUTIONS *//
 $(document).ready(async function () {
 	const username = 'JacobKulberg';
