@@ -1,14 +1,16 @@
 name: Deploy site
 
-# Builds and deploys the site to GitHub Pages. Besides deploying pushes, it
-# runs hourly to refresh UF Scheduler's course data (projects/uf-scheduler/data),
-# which is generated here and never committed.
+# Builds and deploys the site to GitHub Pages, on pushes and hourly so UF
+# Scheduler's course data stays current. That data is scraped on the Raspberry
+# Pi (.github/uf-scheduler/pi), because UF only shows meeting times to a
+# logged-in session and it only works from home; the Pi pushes it to the
+# uf-data branch, and it's copied in here, never committed to main.
 
 on:
   push:
     branches: [main]
   schedule:
-    - cron: "23 * * * *" # hourly, off the top of the hour when Actions is busiest
+    - cron: "15 * * * *" # hourly, after the Pi's scrape at :02
   workflow_dispatch:
 
 permissions:
@@ -24,31 +26,18 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 15
     outputs:
-      login_expired: ${{ steps.scrape.outputs.login_expired }}
+      stale: ${{ steps.uf-data.outputs.stale }}
+      login_expired: ${{ steps.uf-data.outputs.login_expired }}
     steps:
       - uses: actions/checkout@v4
 
-      # RateMyProfessors ratings are re-checked weekly per instructor, so the
-      # cache carries them between runs
-      - name: Restore ratings cache
-        uses: actions/cache@v4
-        with:
-          path: .cache/rmp.json
-          key: rmp-${{ github.run_id }}
-          restore-keys: rmp-
-
-      # UF only shows meeting times to logged-in users. UF_COOKIE is the
-      # Cookie header of a logged-in one.uf.edu session (repo secret).
-      - name: Refresh UF Scheduler course data
-        id: scrape
-        env:
-          UF_COOKIE: ${{ secrets.UF_COOKIE }}
+      - name: Add UF Scheduler course data
+        id: uf-data
         run: >
-          python3 .github/uf-scheduler/scrape.py
+          python3 .github/uf-scheduler/fetch_data.py
           --out projects/uf-scheduler/data
-          --rmp-cache .cache/rmp.json
           --fallback-url https://www.jacobkulberg.com/projects/uf-scheduler/data
 
       - uses: actions/configure-pages@v5
@@ -72,13 +61,15 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
-  # Runs after the deploy (which kept the last good meeting times), so an
-  # expired login still deploys but fails the run, and GitHub emails about it
-  uf-login:
+  # Runs after the deploy, so a problem with the Pi's data still deploys the
+  # rest of the site but fails the run, and GitHub emails about it
+  uf-scheduler-data:
     needs: [build, deploy]
-    if: needs.build.outputs.login_expired == 'true'
+    if: needs.build.outputs.stale == 'true' || needs.build.outputs.login_expired == 'true'
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo "::error::UF Scheduler: the one.uf.edu login in the UF_COOKIE secret is missing or expired, so meeting times weren't refreshed. Update the secret with a fresh cookie."
-          exit 1
+      - if: needs.build.outputs.stale == 'true'
+        run: echo "::error::UF Scheduler's course data is more than 3 hours old. Check the uf-scheduler-scrape timer on the Pi (Pi dashboard, or journalctl --user -u uf-scheduler-scrape)."
+      - if: needs.build.outputs.login_expired == 'true'
+        run: echo "::error::The Pi's one.uf.edu login has expired, so meeting times aren't being refreshed. Paste a fresh cookie in the Pi dashboard."
+      - run: exit 1

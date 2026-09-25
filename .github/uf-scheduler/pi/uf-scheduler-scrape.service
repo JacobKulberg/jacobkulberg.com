@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh UF Scheduler course data for jacobkulberg.com
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/uf-scheduler/site/.github/uf-scheduler/pi/run.py
+TimeoutStartSec=1h
+# Keep the Pi responsive while scraping
+Nice=10

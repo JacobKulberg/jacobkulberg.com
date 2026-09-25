@@ -431,6 +431,7 @@ def main():
         "updated": now.isoformat(),
         "counts": counts,
         "timed": timed,
+        "login_ok": logged_in,
     }
     with open(os.path.join(args.out, "terms.js"), "w") as f:
         f.write(f"window.__UF_TERMS__={json.dumps(manifest)};\n")
