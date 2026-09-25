@@ -20,9 +20,11 @@ mkdir -p ~/.config/uf-scheduler ~/.config/systemd/user
 chmod 700 ~/.config/uf-scheduler
 
 # The first run clones the repo; after that run.py keeps it up to date
+# (core.sshCommand makes every later fetch in the clone use the deploy key)
 if [[ ! -d ~/uf-scheduler/site/.git ]]; then
-  GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new" \
-    git clone -q --depth 1 --filter=blob:none --sparse \
+  ssh_cmd="ssh -i $key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+  GIT_SSH_COMMAND="$ssh_cmd" git clone -q --depth 1 --filter=blob:none --sparse \
+    -c core.sshCommand="$ssh_cmd" \
     git@github.com:JacobKulberg/jacobkulberg.com.git ~/uf-scheduler/site
   git -C ~/uf-scheduler/site sparse-checkout set .github/uf-scheduler
 fi
