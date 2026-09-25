@@ -17,6 +17,20 @@
   <base href="./">
 
   <meta charset="UTF-8">
+  <script>
+    // Drawn at no more than two device pixels to the point. A phone's third
+    // is more than twice the pixels to fill every frame, and an iPhone in
+    // Safari dealt smoothest at two — which at arm's length reads as sharp.
+    (() => {
+      const own = Object.getOwnPropertyDescriptor(window, 'devicePixelRatio') ??
+          Object.getOwnPropertyDescriptor(Window.prototype, 'devicePixelRatio');
+      if (!own?.get) return;
+      Object.defineProperty(window, 'devicePixelRatio', {
+        get: () => Math.min(own.get.call(window), 2),
+        configurable: true,
+      });
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#14181C">
   <style>
