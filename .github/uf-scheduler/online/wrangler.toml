@@ -1,0 +1,20 @@
+# UF Scheduler's live "N online" count (worker.js). Deploy: npx wrangler deploy
+name = "uf-scheduler-online"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+# Same origin as the app, so it connects to ./online with no CORS or extra
+# hostname; nothing else is served under this path
+workers_dev = false
+routes = [
+  { pattern = "www.jacobkulberg.com/projects/uf-scheduler/online", zone_name = "jacobkulberg.com" },
+]
+
+[[durable_objects.bindings]]
+name = "ONLINE"
+class_name = "Online"
+
+# SQLite-backed, which the Workers free plan requires
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Online"]
