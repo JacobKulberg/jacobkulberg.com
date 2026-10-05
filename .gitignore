@@ -4,3 +4,5 @@
 /projects/uf-scheduler/data/
 /.cache/
 __pycache__/
+# Wrangler's local cache, from deploying the UF Scheduler online-count Worker
+.wrangler/
