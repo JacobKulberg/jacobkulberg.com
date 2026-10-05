@@ -6,6 +6,11 @@
 // the hibernation API and pings get an automatic "pong", so the object sleeps
 // (and costs nothing) between arrivals and departures.
 //
+// Each hour's peak count is kept in the object's SQLite table hourly_peak
+// (hour in UTC, e.g. "2026-10-05T14:00Z"), and copied to the KV namespace
+// uf-scheduler-online-peaks (key = hour, value = peak) so the dashboard's KV
+// browser shows it.
+//
 // Deploy, from this folder: npx wrangler deploy
 
 import { DurableObject } from "cloudflare:workers";
@@ -42,6 +47,9 @@ export class Online extends DurableObject {
     super(ctx, env);
     ctx.setWebSocketAutoResponse(
       new WebSocketRequestResponsePair("ping", "pong"),
+    );
+    ctx.storage.sql.exec(
+      "CREATE TABLE IF NOT EXISTS hourly_peak (hour TEXT PRIMARY KEY, peak INTEGER NOT NULL)",
     );
   }
 
@@ -102,5 +110,22 @@ export class Online extends DurableObject {
         ws.send(message);
       } catch {}
     }
+    this.recordPeak(sockets.length);
+  }
+
+  // Only writes when the count beats this hour's peak so far
+  recordPeak(count) {
+    const hour = new Date().toISOString().slice(0, 13) + ":00Z";
+    const raised = this.ctx.storage.sql
+      .exec(
+        `INSERT INTO hourly_peak (hour, peak) VALUES (?, ?)
+         ON CONFLICT (hour) DO UPDATE SET peak = excluded.peak
+         WHERE excluded.peak > hourly_peak.peak
+         RETURNING peak`,
+        hour,
+        count,
+      )
+      .toArray().length;
+    if (raised) this.env.PEAKS.put(hour, String(count)).catch(() => {});
   }
 }

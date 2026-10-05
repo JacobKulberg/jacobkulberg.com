@@ -10,6 +10,11 @@ routes = [
   { pattern = "www.jacobkulberg.com/projects/uf-scheduler/online", zone_name = "jacobkulberg.com" },
 ]
 
+# Copy of each hour's peak count, browsable in the dashboard under KV
+[[kv_namespaces]]
+binding = "PEAKS"
+id = "ab4f054cf7c64b09817cb88ff6ff6297"
+
 [[durable_objects.bindings]]
 name = "ONLINE"
 class_name = "Online"
