@@ -12,7 +12,11 @@ on GitHub. Each run:
   3. Publishes the data directory as the single commit on the repo's uf-data
      branch (force-pushed, so the branch never grows). The site's deploy
      workflow picks it up from there.
-  4. Writes ~/.local/state/uf-scheduler/status.json for the Pi dashboard.
+  4. Writes ~/.local/state/uf-scheduler/status.json for the Pi dashboard,
+     including when the current UF login started working (login_since) and
+     how long the previous one lasted (last_login_hours).
+
+scrape.py saves any session cookie UF renews back to the cookie file.
 
 Run by uf-scheduler-scrape.service (see install.sh). Standard library only.
 """
@@ -74,7 +78,7 @@ def scrape():
         cookie = f.read().strip()
     os.makedirs(DATA, exist_ok=True)
     out_dir = os.path.join(DATA, "data")
-    env = {**os.environ, "UF_COOKIE": cookie}
+    env = {**os.environ, "UF_COOKIE": cookie, "UF_COOKIE_OUT": COOKIE}
     env.pop("GITHUB_OUTPUT", None)
     proc = subprocess.run(
         [sys.executable, os.path.join(SITE, SCRAPER),
@@ -113,6 +117,32 @@ def read_manifest(out_dir):
     return json.loads(text[text.index("=") + 1 :].rstrip().rstrip(";"))
 
 
+def read_status():
+    try:
+        with open(os.path.join(STATE, "status.json")) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def track_login(status, previous):
+    """Carry login_since over from the last run, and when the login stops
+    working, record how long it lasted. A run that errored out says nothing
+    about the login, so it doesn't end it."""
+    for key in ("login_since", "last_ok", "last_login_hours"):
+        if key in previous:
+            status[key] = previous[key]
+    if status.get("login_ok"):
+        if previous.get("login_ok") is False or "login_since" not in status:
+            status["login_since"] = status["last_run"]
+        status["last_ok"] = status["last_run"]
+    elif status.get("login_ok") is False and "login_since" in status:
+        since = dt.datetime.fromisoformat(status.pop("login_since"))
+        last_ok = dt.datetime.fromisoformat(status.get("last_ok", since.isoformat()))
+        status["last_login_hours"] = round((last_ok - since).total_seconds() / 3600, 1)
+        print(f"UF login lasted about {status['last_login_hours']}h", flush=True)
+
+
 def write_status(status):
     os.makedirs(STATE, exist_ok=True)
     fd, tmp = tempfile.mkstemp(dir=STATE)
@@ -123,6 +153,7 @@ def write_status(status):
 
 def main():
     started = time.time()
+    previous = read_status()
     status = {"last_run": dt.datetime.now().astimezone().isoformat(timespec="seconds")}
     try:
         update_site()
@@ -145,6 +176,7 @@ def main():
         status["state"] = "error"
         status["message"] = (getattr(e, "stderr", None) or str(e)).strip()[-500:]
         print(f"ERROR: {status['message']}", flush=True)
+    track_login(status, previous)
     status["duration_s"] = round(time.time() - started)
     write_status(status)
     return 0 if status["state"] != "error" else 1

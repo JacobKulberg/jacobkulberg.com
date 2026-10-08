@@ -15,7 +15,10 @@ Ports the scrapers from https://github.com/andychen482/UF-Scheduler-Backend-New
 
 UF only includes meeting times for logged-in users, so the UF_COOKIE
 environment variable should hold the Cookie header of a logged-in one.uf.edu
-session. It is only ever sent to one.uf.edu and never logged. If no times come
+session. It is only ever sent to one.uf.edu and never logged. Cookies UF sets
+in its responses are kept for the rest of the run, and if UF_COOKIE_OUT names a
+file, the updated Cookie header is saved there after a logged-in run so a
+renewed session isn't lost. If no times come
 back (no cookie, or the session expired), the published copy of each term is
 kept when it has times, and "login_expired=true" is written to $GITHUB_OUTPUT.
 
@@ -33,6 +36,7 @@ import gzip
 import json
 import os
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -74,13 +78,17 @@ def log(msg):
     print(msg, flush=True)
 
 
-def http(url, data=None, headers=None, timeout=60):
-    """GET (or POST when data is given), retrying on 429/5xx and network errors."""
+def http(url, data=None, headers=None, timeout=60, on_response=None):
+    """GET (or POST when data is given), retrying on 429/5xx and network errors.
+
+    on_response, if given, is called with each successful response's headers."""
     headers = {"User-Agent": USER_AGENT, "Accept-Encoding": "gzip", **(headers or {})}
     for attempt in range(MAX_RETRIES + 1):
         req = urllib.request.Request(url, data=data, headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=timeout) as res:
+                if on_response:
+                    on_response(res.headers)
                 body = res.read()
                 if res.headers.get("Content-Encoding") == "gzip":
                     body = gzip.decompress(body)
@@ -124,14 +132,55 @@ def candidate_terms(today):
     return out
 
 
+def parse_cookie_header(header):
+    jar = {}
+    for part in header.split(";"):
+        name, sep, value = part.strip().partition("=")
+        if sep and name:
+            jar[name] = value
+    return jar
+
+
+# one.uf.edu cookies, starting from UF_COOKIE and updated from its responses
+uf_cookies = parse_cookie_header(os.environ.get("UF_COOKIE", ""))
+uf_cookies_changed = False
+uf_cookies_lock = threading.Lock()
+
+
+def uf_cookie_header():
+    with uf_cookies_lock:
+        return "; ".join(f"{k}={v}" for k, v in uf_cookies.items())
+
+
 def uf_headers():
-    cookie = os.environ.get("UF_COOKIE", "").strip()
+    cookie = uf_cookie_header()
     return {"Cookie": cookie} if cookie else {}
+
+
+def keep_uf_cookies(headers):
+    global uf_cookies_changed
+    for set_cookie in headers.get_all("Set-Cookie") or []:
+        name, sep, value = set_cookie.split(";", 1)[0].strip().partition("=")
+        if not sep or not name:
+            continue
+        with uf_cookies_lock:
+            if uf_cookies.get(name) != value:
+                uf_cookies[name] = value
+                uf_cookies_changed = True
+
+
+def save_uf_cookies(path):
+    """Write the current Cookie header to path (mode 600), replacing it atomically."""
+    tmp = f"{path}.tmp"
+    fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    with os.fdopen(fd, "w") as f:
+        f.write(uf_cookie_header() + "\n")
+    os.replace(tmp, path)
 
 
 def soc_page(term, yy, cursor):
     code = f"2{yy:02d}{TERM_CODES[term]}"
-    body = http(SOC_URL.format(code=code, cursor=cursor), headers=uf_headers())
+    body = http(SOC_URL.format(code=code, cursor=cursor), headers=uf_headers(), on_response=keep_uf_cookies)
     data = json.loads(body)
     if not isinstance(data, list) or not data:
         raise ValueError(f"Unexpected response for {term} {yy}: {body[:200]!r}")
@@ -386,6 +435,12 @@ def main():
     logged_in = any(timed_sections(c) for c in scraped.values() if c)
     if not logged_in and any(scraped.values()):
         log("::warning::No meeting times from UF. The UF_COOKIE login is missing or expired.")
+    # Only save while logged in: once the session has expired, UF answers
+    # with a new anonymous one, which shouldn't replace the old cookie
+    cookie_out = os.environ.get("UF_COOKIE_OUT")
+    if logged_in and uf_cookies_changed and cookie_out:
+        save_uf_cookies(cookie_out)
+        log("UF renewed the session cookie; saved it")
 
     # Write, reusing the published copy for failed or suspiciously small scrapes,
     # and for scrapes without times when the published copy has them
