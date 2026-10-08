@@ -2,9 +2,10 @@
 Description=Hourly UF Scheduler course data refresh
 
 [Timer]
-# Ahead of the site's hourly deploy at :15
-OnCalendar=*-*-* *:02:00
-RandomizedDelaySec=120
+# On the hour, ahead of the site's hourly deploy at :15. AccuracySec keeps
+# systemd from batching the start up to a minute late.
+OnCalendar=*-*-* *:00:00
+AccuracySec=1s
 Persistent=true
 
 [Install]
