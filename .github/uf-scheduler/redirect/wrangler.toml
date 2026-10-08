@@ -1,0 +1,10 @@
+# uf.jacobkulberg.com -> UF Scheduler (worker.js). Deploy: npx wrangler deploy
+name = "uf-scheduler-redirect"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+workers_dev = false
+# Custom domain: Cloudflare creates the DNS record and certificate itself
+routes = [
+  { pattern = "uf.jacobkulberg.com", custom_domain = true },
+]
