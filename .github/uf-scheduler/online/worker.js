@@ -15,9 +15,12 @@
 
 import { DurableObject } from "cloudflare:workers";
 
+// The site is also reachable over plain http, where the page connects with ws://
 const ALLOWED_ORIGINS = [
   "https://www.jacobkulberg.com",
   "https://jacobkulberg.com",
+  "http://www.jacobkulberg.com",
+  "http://jacobkulberg.com",
 ];
 
 // Tabs ping every 30s (every 60s at most once a browser throttles a background
