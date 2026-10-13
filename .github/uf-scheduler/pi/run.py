@@ -108,6 +108,10 @@ def publish():
     # Start the next run from a clean orphan branch
     git("checkout", "-q", "--detach", cwd=DATA)
     git("branch", "-q", "-D", "publish", cwd=DATA)
+    # Every run strands the previous commit's objects; without this they
+    # pile up as loose objects (~65 MB/day) and fill the Pi's SD card
+    git("reflog", "expire", "--expire=now", "--all", cwd=DATA, check=False)
+    git("gc", "-q", "--prune=now", cwd=DATA, check=False)
     return commit
 
 
