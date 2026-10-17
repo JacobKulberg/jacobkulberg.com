@@ -16,7 +16,9 @@ on GitHub. Each run:
      including when the current UF login started working (login_since) and
      how long the previous one lasted (last_login_hours).
 
-scrape.py saves any session cookie UF renews back to the cookie file.
+scrape.py saves any session cookie UF renews back to the cookie file. When
+the login has expired anyway, relogin.py signs in again (sending the Duo code
+to your phone) and the scrape is retried.
 
 Run by uf-scheduler-scrape.service (see install.sh). Standard library only.
 """
@@ -36,6 +38,8 @@ SITE = os.path.join(BASE, "site")  # sparse clone of main, for scrape.py
 DATA = os.path.join(BASE, "data")  # repo whose only commit is the uf-data branch
 COOKIE = os.path.join(HOME, ".config", "uf-scheduler", "cookie")
 STATE = os.path.join(HOME, ".local", "state", "uf-scheduler")
+GATORLINK = os.path.join(HOME, ".config", "uf-scheduler", "gatorlink")
+VENV_PYTHON = os.path.join(BASE, "venv", "bin", "python")  # has Playwright, for relogin.py
 RMP_CACHE = os.path.join(HOME, ".cache", "uf-scheduler", "rmp.json")
 DEPLOY_KEY = os.path.join(HOME, ".ssh", "uf_scheduler_deploy")
 
@@ -43,6 +47,7 @@ REMOTE = "git@github.com:JacobKulberg/jacobkulberg.com.git"
 BRANCH = "uf-data"
 LIVE_DATA = "https://www.jacobkulberg.com/projects/uf-scheduler/data"
 SCRAPER = ".github/uf-scheduler/scrape.py"
+RELOGIN = ".github/uf-scheduler/pi/relogin.py"
 
 GIT_ENV = {
     **os.environ,
@@ -91,6 +96,19 @@ def scrape():
     if proc.returncode != 0:
         raise RuntimeError(f"scrape.py exited with {proc.returncode}")
     return out_dir, lines
+
+
+def relogin():
+    """Sign in to UF again with relogin.py; returns its exit code (0 means a
+    new cookie was saved), or None when it isn't set up."""
+    if not (os.path.exists(VENV_PYTHON) and os.path.exists(GATORLINK)):
+        return None
+    proc = subprocess.run(
+        [VENV_PYTHON, os.path.join(SITE, RELOGIN)], capture_output=True, text=True, timeout=900,
+    )
+    for line in (proc.stdout + proc.stderr).splitlines():
+        print(line, flush=True)
+    return proc.returncode
 
 
 def publish():
@@ -163,6 +181,12 @@ def main():
         update_site()
         out_dir, lines = scrape()
         manifest = read_manifest(out_dir)
+        relogged = None
+        if not manifest.get("login_ok"):
+            relogged = relogin()
+            if relogged == 0:
+                out_dir, lines = scrape()
+                manifest = read_manifest(out_dir)
         status["commit"] = publish()
         status["terms"] = {
             t: {"courses": manifest["counts"].get(t), "timed": manifest.get("timed", {}).get(t)}
@@ -173,7 +197,10 @@ def main():
         status["fallbacks"] = [l for l in lines if re.search(r"keeping published|Scrape failed|dropped", l)]
         status["state"] = "ok" if status["login_ok"] and not status["fallbacks"] else "warn"
         if not status["login_ok"]:
-            status["message"] = "UF login expired: update the cookie"
+            status["message"] = {
+                None: "UF login expired: update the cookie",
+                2: "UF login expired: auto-login waits for morning",
+            }.get(relogged, "UF login expired: auto-login failed, update the cookie")
         elif status["fallbacks"]:
             status["message"] = "Some terms reused published data"
     except Exception as e:

@@ -4,8 +4,13 @@
 #   curl -fsSL https://raw.githubusercontent.com/JacobKulberg/jacobkulberg.com/main/.github/uf-scheduler/pi/install.sh | bash
 #
 # Afterwards: add ~/.ssh/uf_scheduler_deploy.pub to the repo as a deploy key
-# with write access, and save a one.uf.edu Cookie header to
-# ~/.config/uf-scheduler/cookie (chmod 600).
+# with write access, then run
+#
+#   ~/uf-scheduler/venv/bin/python ~/uf-scheduler/site/.github/uf-scheduler/pi/relogin.py --setup
+#
+# to save your GatorLink login, subscribe your phone to the Duo code
+# notifications and log in for the first time. (Or skip auto-login and save a
+# one.uf.edu Cookie header to ~/.config/uf-scheduler/cookie, chmod 600.)
 set -euo pipefail
 
 key=~/.ssh/uf_scheduler_deploy
@@ -27,6 +32,15 @@ if [[ ! -d ~/uf-scheduler/site/.git ]]; then
     -c core.sshCommand="$ssh_cmd" \
     git@github.com:JacobKulberg/jacobkulberg.com.git ~/uf-scheduler/site
   git -C ~/uf-scheduler/site sparse-checkout set .github/uf-scheduler
+fi
+
+# Playwright for relogin.py, driving the system Chromium when there is one
+if [[ ! -x ~/uf-scheduler/venv/bin/python ]]; then
+  python3 -m venv ~/uf-scheduler/venv
+fi
+~/uf-scheduler/venv/bin/pip install -q --upgrade playwright
+if [[ ! -x /usr/bin/chromium ]]; then
+  ~/uf-scheduler/venv/bin/playwright install chromium
 fi
 
 # Copies, not symlinks: `systemctl disable` deletes linked unit files, which
