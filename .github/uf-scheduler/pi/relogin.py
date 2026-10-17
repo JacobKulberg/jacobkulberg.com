@@ -54,6 +54,7 @@ SYSTEM_CHROMIUM = "/usr/bin/chromium"
 QUIET_HOURS = range(0, 8)  # local hours with no login attempts
 DUO_TRIES = 3
 TIMEOUT_S = 6 * 60
+TRACE = "--setup" in sys.argv
 
 
 class LoginFailed(Exception):
@@ -118,32 +119,51 @@ def visible(locator):
         return False
 
 
-def duo_code(page):
-    """The 3-digit Verified Duo Push code on the page, if one is showing."""
-    for selector in (".verification-code", "[class*=verification-code]", "[data-testid*=verification]"):
-        loc = page.locator(selector)
-        if visible(loc):
-            match = re.search(r"\b\d{3}\b", loc.first.inner_text())
-            if match:
-                return match.group()
+def page_text(page):
     try:
-        text = page.locator("body").inner_text()
+        return page.locator("body").inner_text()
     except PlaywrightError:
-        return None
-    match = re.search(r"[Ee]nter (?:this |the )?code[^\d]{0,80}?\b(\d{3})\b", text)
-    return match.group(1) if match else None
+        return ""
+
+
+def duo_code(text):
+    """The 3-digit Verified Duo Push code on a Duo page, if one is showing:
+    Duo puts it on a line of its own."""
+    for line in text.splitlines():
+        if re.fullmatch(r"\d{3}", line.strip()):
+            return line.strip()
+    return None
+
+
+def trace(page, text, step):
+    """In --setup, print each new page and save a screenshot of it, so an
+    unfamiliar Duo screen can be looked at afterwards."""
+    if not TRACE:
+        return
+    os.makedirs(STATE, exist_ok=True)
+    summary = " | ".join(l.strip() for l in text.splitlines() if l.strip())[:300]
+    print(f"[{step}] {page.url.split('?')[0]}: {summary}", flush=True)
+    try:
+        page.screenshot(path=os.path.join(STATE, f"relogin-step{step}.png"))
+    except PlaywrightError:
+        pass
 
 
 def log_in(page, username, password):
     """Drive the GatorLink and Duo pages until one.uf.edu has a session."""
     page.goto(LOGIN_URL, wait_until="domcontentloaded")
     submitted = False
-    last_code, codes_sent = None, 0
+    last_code, pushes = None, 0
+    last_screen, steps = None, 0
     deadline = time.monotonic() + TIMEOUT_S
     while time.monotonic() < deadline:
         host = re.sub(r"^https?://([^/]+).*", r"\1", page.url)
         if host == "one.uf.edu" and "Shibboleth.sso" not in page.url:
             return
+        text = page_text(page)
+        if (page.url, text) != last_screen:
+            last_screen, steps = (page.url, text), steps + 1
+            trace(page, text, steps)
 
         if host == "login.ufl.edu" and visible(page.locator("#username")):
             if submitted:
@@ -163,21 +183,21 @@ def log_in(page, username, password):
                 trust.first.click()
                 continue
 
-            code = duo_code(page)
+            code = duo_code(text)
             if code and code != last_code:
-                if codes_sent >= DUO_TRIES:
-                    raise LoginFailed("Duo push wasn't answered")
-                last_code, codes_sent = code, codes_sent + 1
-                print(f"Duo wants a code; sent it to the phone ({codes_sent}/{DUO_TRIES})", flush=True)
+                last_code, pushes = code, max(pushes, 1)
+                print(f"Duo wants a code; sent {code} to the phone ({pushes}/{DUO_TRIES})", flush=True)
                 notify("UF login: Duo code", f"Enter {code} in Duo Mobile", "urgent", "key")
-                deadline = max(deadline, time.monotonic() + 120)
 
+            # Each "try again" sends another push, so they're capped
             retry = page.get_by_role("button", name=re.compile(r"try again|send (?:me )?a(?:nother)? push", re.I))
             if visible(retry):
-                if codes_sent >= DUO_TRIES:
+                if pushes >= DUO_TRIES:
                     raise LoginFailed("Duo push wasn't answered")
                 retry.first.click()
+                pushes += 1
                 last_code = None
+                time.sleep(2)
                 continue
 
         time.sleep(1)
