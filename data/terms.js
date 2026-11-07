@@ -1,0 +1,1 @@
+window.__UF_TERMS__={"terms": ["fall 26", "spring 27"], "default": "spring 27", "updated": "2026-11-07T20:00:01+00:00", "counts": {"fall 26": 6362, "spring 27": 5830}, "timed": {"fall 26": 5994, "spring 27": 5881}, "login_ok": true};
